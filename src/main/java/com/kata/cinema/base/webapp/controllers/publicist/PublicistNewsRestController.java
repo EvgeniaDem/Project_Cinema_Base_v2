@@ -35,6 +35,7 @@ public class PublicistNewsRestController {
                                                          @RequestParam(name = "rubric", required = false) Rubric rubric) {
         return ResponseEntity.ok(newsService.findByDateBetweenAndRubric(startDate, endDate, rubric));
     }
+
     @PostMapping
     public ResponseEntity<NewsRequestDto> createNews(@RequestBody NewsRequestDto newsRequestDto) {
         News news = convertToNews(newsRequestDto);

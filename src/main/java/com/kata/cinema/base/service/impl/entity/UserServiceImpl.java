@@ -1,4 +1,5 @@
 package com.kata.cinema.base.service.impl.entity;
+
 import com.kata.cinema.base.models.entitys.User;
 import com.kata.cinema.base.dao.abstracts.dto.UserDao;
 import com.kata.cinema.base.service.abstracts.model.AbstractServiceImpl;

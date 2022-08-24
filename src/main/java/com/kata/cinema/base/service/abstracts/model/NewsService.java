@@ -8,7 +8,7 @@ import com.kata.cinema.base.models.enums.Rubric;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface NewsService {
+public interface NewsService extends AbstractService<Long, News> {
 
     void save(News news);
 

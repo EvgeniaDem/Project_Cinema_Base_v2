@@ -33,7 +33,7 @@ public class GetIT extends AbstractIT {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.entities.*", hasSize(2)))
-                .andExpect(jsonPath("$.count",equalTo(2)));
+                .andExpect(jsonPath("$.count", equalTo(2)));
     }
 
 
@@ -44,67 +44,72 @@ public class GetIT extends AbstractIT {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.entities.*", hasSize(1)))
-                .andExpect(jsonPath("$.count",equalTo(1)))
+                .andExpect(jsonPath("$.count", equalTo(1)))
                 .andExpect(jsonPath("$.entities.[0].name").value("3331"));
     }
+
     @Test
     public void getMoviesWithNameParam() throws Exception {
         this.mockMvc.perform(get(URL + "/movies/page/1?name=5"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.entities.*", hasSize(1)))
-                .andExpect(jsonPath("$.count",equalTo(1)))
+                .andExpect(jsonPath("$.count", equalTo(1)))
                 .andExpect(jsonPath("$.entities.[0].name").value("5555"));
     }
+
     @Test
     public void getMoviesWithDateParams() throws Exception {
         this.mockMvc.perform(get(URL + "/movies/page/1?name=1&startDate=2022-08-14&endDate=2022-08-15"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.entities.*", hasSize(2)))
-                .andExpect(jsonPath("$.count",equalTo(2)))
+                .andExpect(jsonPath("$.count", equalTo(2)))
                 .andExpect(jsonPath("$.entities.[0].name").value("1111"))
                 .andExpect(jsonPath("$.entities.[1].name").value("1222"));
         this.mockMvc.perform(get(URL + "/movies/page/1?name=1&endDate=2022-08-15"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.entities.*", hasSize(2)))
-                .andExpect(jsonPath("$.count",equalTo(2)))
+                .andExpect(jsonPath("$.count", equalTo(2)))
                 .andExpect(jsonPath("$.entities.[0].name").value("1111"))
                 .andExpect(jsonPath("$.entities.[1].name").value("1222"));
         this.mockMvc.perform(get(URL + "/movies/page/1?name=3&startDate=2022-08-16"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.entities.*", hasSize(1)))
-                .andExpect(jsonPath("$.count",equalTo(1)))
+                .andExpect(jsonPath("$.count", equalTo(1)))
                 .andExpect(jsonPath("$.entities.[0].name").value("3331"));
     }
+
     @Test
     public void getMoviesWithGenresParam() throws Exception {
         this.mockMvc.perform(get(URL + "/movies/page/1?name=1&genres=genre 1&genres=genre 2"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.entities.*", hasSize(2)))
-                .andExpect(jsonPath("$.count",equalTo(2)))
+                .andExpect(jsonPath("$.count", equalTo(2)))
                 .andExpect(jsonPath("$.entities.[0].name").value("1111"))
                 .andExpect(jsonPath("$.entities.[1].name").value("1222"));
     }
+
     @Test
     public void getMoviesWithScoreParam() throws Exception {
         this.mockMvc.perform(get(URL + "/movies/page/1?name=55&rars=3&mpaa=4"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.entities.*", hasSize(1)))
-                .andExpect(jsonPath("$.count",equalTo(1)))
+                .andExpect(jsonPath("$.count", equalTo(1)))
                 .andExpect(jsonPath("$.entities.[0].name").value("5555"));
     }
+
     @Test
     public void getMoviesWithSortTypeParam() throws Exception {
         this.mockMvc.perform(get(URL + "/movies/page/1?name=1&sortType=DATE_RELEASE_DESC"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.entities.*", hasSize(2)))
-                .andExpect(jsonPath("$.count",equalTo(2)))
+                .andExpect(jsonPath("$.count", equalTo(2)))
                 .andExpect(jsonPath("$.entities.[0].name").value("1222"))
                 .andExpect(jsonPath("$.entities.[1].name").value("1111"));
     }

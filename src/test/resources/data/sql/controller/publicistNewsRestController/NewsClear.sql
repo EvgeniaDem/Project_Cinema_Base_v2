@@ -1,1 +1,2 @@
 delete from public.news;
+

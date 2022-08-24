@@ -4065,4 +4065,3 @@ INSERT INTO public.score (id, score, movie_id, user_id)
 VALUES (1999, 2, 3, 1);
 INSERT INTO public.score (id, score, movie_id, user_id)
 VALUES (2000, 2, 3, 1);
-

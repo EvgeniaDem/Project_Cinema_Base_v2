@@ -5,6 +5,7 @@ import com.kata.cinema.base.models.dto.response.NewsResponseDto;
 import com.kata.cinema.base.models.dto.response.NewsTitleResponseDto;
 import com.kata.cinema.base.models.entitys.News;
 import com.kata.cinema.base.models.enums.Rubric;
+import com.kata.cinema.base.service.abstracts.model.AbstractServiceImpl;
 import com.kata.cinema.base.service.abstracts.model.NewsService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,11 +14,11 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
-public class NewsServiceImpl implements NewsService {
-
+public class NewsServiceImpl extends AbstractServiceImpl<Long, News> implements NewsService {
     private final NewsDao newsDao;
 
     public NewsServiceImpl(NewsDao newsRepository) {
+        super(newsRepository);
         this.newsDao = newsRepository;
     }
 
