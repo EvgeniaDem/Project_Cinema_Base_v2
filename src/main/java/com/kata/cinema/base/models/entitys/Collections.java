@@ -27,6 +27,9 @@ public class Collections {
     @Column(name = "enable")
     private String enable;
 
+    @Column(name = "previewUrl")
+    private String previewUrl;
+
     @ManyToMany(fetch = FetchType.LAZY)
     //TODO расписать @JoinTable
     @ToString.Exclude
