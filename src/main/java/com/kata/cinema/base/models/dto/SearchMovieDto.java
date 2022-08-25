@@ -16,4 +16,9 @@ public class SearchMovieDto {
     private LocalDate date;
     private Integer avgScore;
 
+    public SearchMovieDto(Long id, String name, String originalName) {
+        this.id = id;
+        this.name = name;
+        this.originalName = originalName;
+    }
 }
