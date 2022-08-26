@@ -1,8 +1,12 @@
 package com.kata.cinema.base.webapp.controllers;
 
+import com.kata.cinema.base.models.dto.SearchCollectionDto;
 import com.kata.cinema.base.models.dto.SearchMovieDto;
+import com.kata.cinema.base.models.dto.SearchPersonDto;
 import com.kata.cinema.base.models.dto.response.SearchResponseDto;
+import com.kata.cinema.base.service.abstracts.model.CollectionsService;
 import com.kata.cinema.base.service.abstracts.model.MovieService;
+import com.kata.cinema.base.service.abstracts.model.PersonsService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,15 +18,42 @@ import java.util.List;
 @RestController
 public class SearchForHeaderRestController {
     private MovieService movieService;
+    private CollectionsService collectionsService;
+    private PersonsService personsService;
 
-    public SearchForHeaderRestController(MovieService movieService) {
+    public SearchForHeaderRestController(MovieService movieService, CollectionsService collectionsService, PersonsService personsService) {
         this.movieService = movieService;
+        this.collectionsService = collectionsService;
+        this.personsService = personsService;
     }
 
-    @GetMapping("/api/search/forHeader")
-    public ResponseEntity searchHeader(@RequestParam String filterPattern){
+//    @GetMapping("/api/search/movie")
+//    public ResponseEntity<List<SearchMovieDto>> searchHeaderMovie(@RequestParam String filterPattern) {
+//
+//         return new ResponseEntity<>(movieService.getSearchMoviesWithFilter(filterPattern), HttpStatus.OK);
+//    }
+//
+//    @GetMapping("/api/search/collection")
+//    public ResponseEntity<List<SearchCollectionDto>> searchHeaderCollection(@RequestParam String filterPattern) {
+//
+//
+//        return new ResponseEntity<>(collectionsService.getSearchCollectionWithFilter(filterPattern), HttpStatus.OK);
+//    }
+//
+//    @GetMapping("/api/search/person")
+//    public ResponseEntity<List<SearchPersonDto>> searchHeaderPerson(@RequestParam String filterPattern) {
+//
+//
+//        return new ResponseEntity<>(personsService.getSearchPersonWithFilter(filterPattern), HttpStatus.OK);
+//    }
 
+    @GetMapping("/api/search/")
+    public ResponseEntity<SearchResponseDto> searchHeader(@RequestParam String filterPattern) {
 
-         return new ResponseEntity<>(movieService.getSearchMoviesWithFilter(filterPattern), HttpStatus.OK);
+        List<SearchMovieDto> searchMovieDtoList = movieService.getSearchMoviesWithFilter(filterPattern);
+        List<SearchCollectionDto> searchCollectionDtoList = collectionsService.getSearchCollectionWithFilter(filterPattern);
+        List<SearchPersonDto> searchPersonDtoList = personsService.getSearchPersonWithFilter(filterPattern);
+
+        return new ResponseEntity<>(new SearchResponseDto(searchMovieDtoList, searchCollectionDtoList,searchPersonDtoList), HttpStatus.OK);
     }
 }

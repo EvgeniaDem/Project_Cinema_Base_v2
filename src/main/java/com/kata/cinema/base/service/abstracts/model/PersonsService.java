@@ -1,10 +1,10 @@
 package com.kata.cinema.base.service.abstracts.model;
 
-import com.kata.cinema.base.models.entitys.Person;
+import com.kata.cinema.base.models.dto.SearchPersonDto;
 
 import java.util.List;
 
 public interface PersonsService {
 
-    List<Person> getSearchPersonWithFilter(String filterPattern);
+    List<SearchPersonDto> getSearchPersonWithFilter(String filterPattern);
 }

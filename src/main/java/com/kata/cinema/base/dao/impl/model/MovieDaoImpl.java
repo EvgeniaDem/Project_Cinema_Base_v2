@@ -28,9 +28,9 @@ public class MovieDaoImpl extends AbstractDaoImpl<Long, Movies> implements Movie
     @Override
     public List<SearchMovieDto> getSearchMoviesWithFilter(String filterPattern) {
         return entityManager.createQuery("select new com.kata.cinema.base.models.dto.SearchMovieDto(m.id, m.name, m.originName) from Movies m where lower(m.name) like lower(:filterName)", SearchMovieDto.class)
-                .setParameter("filterName", filterPattern +"%").getResultList();
-//                .setMaxResults(3)
-//                .getResultList();
+                .setParameter("filterName", filterPattern + "%")
+                .setMaxResults(3)
+                .getResultList();
 //TODO уточнить по поводу полей который нету в movies но есть в SearchMovieDto
 //        and m.originalName = c.movies.originName and m.previeUrl = c.movies.description and m.date = c.movies.dateRelease and m.avgScore = c.movies.mpaa
     }

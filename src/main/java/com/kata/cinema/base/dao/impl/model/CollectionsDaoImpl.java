@@ -13,6 +13,9 @@ public class CollectionsDaoImpl extends AbstractDaoImpl<Collections, Long> imple
 
     @Override
     public List<SearchCollectionDto> getSearchCollectionWithFilter(String filterPattern) {
-        return null;
+        return entityManager.createQuery("select new com.kata.cinema.base.models.dto.SearchCollectionDto(c.name, c.previewUrl, c.movies.size) from Collections c where lower(c.name) like lower(:filter)", SearchCollectionDto.class)
+                .setParameter("filter", filterPattern + "%")
+                .setMaxResults(3)
+                .getResultList();
     }
 }
