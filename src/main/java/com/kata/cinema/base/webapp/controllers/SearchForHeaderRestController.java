@@ -27,25 +27,6 @@ public class SearchForHeaderRestController {
         this.personsService = personsService;
     }
 
-//    @GetMapping("/api/search/movie")
-//    public ResponseEntity<List<SearchMovieDto>> searchHeaderMovie(@RequestParam String filterPattern) {
-//
-//         return new ResponseEntity<>(movieService.getSearchMoviesWithFilter(filterPattern), HttpStatus.OK);
-//    }
-//
-//    @GetMapping("/api/search/collection")
-//    public ResponseEntity<List<SearchCollectionDto>> searchHeaderCollection(@RequestParam String filterPattern) {
-//
-//
-//        return new ResponseEntity<>(collectionsService.getSearchCollectionWithFilter(filterPattern), HttpStatus.OK);
-//    }
-//
-//    @GetMapping("/api/search/person")
-//    public ResponseEntity<List<SearchPersonDto>> searchHeaderPerson(@RequestParam String filterPattern) {
-//
-//
-//        return new ResponseEntity<>(personsService.getSearchPersonWithFilter(filterPattern), HttpStatus.OK);
-//    }
 
     @GetMapping("/api/search/")
     public ResponseEntity<SearchResponseDto> searchHeader(@RequestParam String filterPattern) {

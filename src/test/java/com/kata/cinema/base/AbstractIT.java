@@ -24,6 +24,8 @@ public abstract class AbstractIT {
     public static final String MOVIE_REST_CONTROLLER_CLEAR_SQL = "classpath:data/sql/controller/movieRestController/MovieClear.sql";
     public static final String GENRES_REST_CONTROLLER_INIT_SQL = "classpath:data/sql/controller/adminGenresRestController/GenresInit.sql";
     public static final String GENRES_REST_CONTROLLER_CLEAR_SQL = "classpath:data/sql/controller/adminGenresRestController/GenresClear.sql";
+    public static final String SEARCH_HEADER_REST_CONTROLLER_INIT_SQL = "classpath:data/sql/controller/SearchForHeaderRestController/SearchHeaderInit.sql";
+    public static final String SEARCH_HEADER_REST_CONTROLLER_CLEAR_SQL = "classpath:data/sql/controller/SearchForHeaderRestController/SearchHeaderClean.sql";
 
 }
 
