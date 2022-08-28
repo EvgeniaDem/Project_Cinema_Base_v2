@@ -14,13 +14,7 @@ public class SearchMovieDto {
     private String originalName;
     private String previewUrl;
     private LocalDate date;
-    private Integer avgScore;
+    //сменил на Double
+    private Double avgScore;
 
-    public SearchMovieDto(Long id, String name, String originalName, String previewUrl, LocalDate date) {
-        this.id = id;
-        this.name = name;
-        this.originalName = originalName;
-        this.previewUrl = previewUrl;
-        this.date = date;
-    }
 }

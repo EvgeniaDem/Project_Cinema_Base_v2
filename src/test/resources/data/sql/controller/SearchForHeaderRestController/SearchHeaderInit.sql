@@ -1,4 +1,5 @@
 delete from public.content;
+delete from public.score;
 delete from public.movies;
 delete from public.collections;
 delete from public.persons;
@@ -52,4 +53,43 @@ INSERT INTO public.persons (id, birthday, first_name, height, last_name, place_b
 VALUES (4, '2022-06-26 12:14:01.000000' , 'test4Name', 444, 'test4LastName', 'test', 'test4OrigLastName', 'test4origName', 'test4PhotoUrl');
 INSERT INTO public.persons (id, birthday, first_name, height, last_name, place_birthday, original_last_name, original_name, photo_url)
 VALUES (5, '2022-06-26 12:14:01.000000' , 'test5Name', 555, 'test5LastName', 'test', 'test5OrigLastName', 'test5origName', 'test5PhotoUrl');
+
+--Score
+
+insert into public.score (id, score, movie_id, user_id)
+values (1, 5, 1, null);
+insert into public.score (id, score, movie_id, user_id)
+values (2, 3, 2, null);
+insert into public.score (id, score, movie_id, user_id)
+values (3, 1, 3, null);
+insert into public.score (id, score, movie_id, user_id)
+values (4, 5, 4, null);
+insert into public.score (id, score, movie_id, user_id)
+values (5, 6, 5, null);
+insert into public.score (id, score, movie_id, user_id)
+values (6, 2, 1, null);
+insert into public.score (id, score, movie_id, user_id)
+values (7, 4, 2, null);
+insert into public.score (id, score, movie_id, user_id)
+values (8, 7, 3, null);
+insert into public.score (id, score, movie_id, user_id)
+values (9, 1, 4, null);
+insert into public.score (id, score, movie_id, user_id)
+values (10, 4, 5, null);
+insert into public.score (id, score, movie_id, user_id)
+values (11, 2, 1, null);
+insert into public.score (id, score, movie_id, user_id)
+values (12, 4, 2, null);
+insert into public.score (id, score, movie_id, user_id)
+values (13, 1, 3, null);
+insert into public.score (id, score, movie_id, user_id)
+values (14, 6, 4, null);
+insert into public.score (id, score, movie_id, user_id)
+values (15, 8, 5, null);
+insert into public.score (id, score, movie_id, user_id)
+values (16, 4, 3, null);
+insert into public.score (id, score, movie_id, user_id)
+values (17, 7, 5, null);
+insert into public.score (id, score, movie_id, user_id)
+values (18, 9, 2, null);
 

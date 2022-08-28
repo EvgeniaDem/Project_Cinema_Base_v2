@@ -10,7 +10,9 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static com.kata.cinema.base.AbstractIT.*;
+import static javax.management.Query.value;
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.hasValue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -30,6 +32,7 @@ class GetIT extends AbstractIT {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.movies", hasSize(3) ))
+                .andExpect(jsonPath("$.movies.[0].avgScore").value(3.0))
                 .andExpect(jsonPath("$.collections", hasSize(3)))
                 .andExpect(jsonPath("$.persons", hasSize(3) ));
 
