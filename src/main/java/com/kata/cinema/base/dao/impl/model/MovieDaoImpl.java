@@ -28,8 +28,8 @@ public class MovieDaoImpl extends AbstractDaoImpl<Long, Movies> implements Movie
 
     @Override
     public List<SearchMovieDto> getSearchMoviesWithFilter(String filterPattern) {
-        return entityManager.createQuery("select new com.kata.cinema.base.models.dto.SearchMovieDto(m.id, m.name, m.originName, c.contentUrl, m.dateRelease, cast(sum(s.score) as double)/count(s) as avgScore)" +
-                        " from Movies m join Content c on m.id = c.movies.id join Score s on m.id = s.movie.id where lower(m.name) like lower(:filterName) group by m.id, c.id ", SearchMovieDto.class)
+        return entityManager.createQuery("select new com.kata.cinema.base.models.dto.SearchMovieDto(m.id, m.name, m.originName, c.contentUrl, m.dateRelease, (select cast(sum(s.score) as double)/count(s) as avgScore from Score s where m.id = s.movie.id))" +
+                        " from Movies m join Content c on m.id = c.movies.id join Score s on m.id = s.movie.id where lower(m.name) like lower(:filterName)", SearchMovieDto.class)
                 .setParameter("filterName", filterPattern + "%")
                 .setMaxResults(3)
                 .getResultList();
@@ -37,7 +37,7 @@ public class MovieDaoImpl extends AbstractDaoImpl<Long, Movies> implements Movie
     }
 
     @Override
-    public Optional<Movies> getById (Long id){
+    public Optional<Movies> getById (Long id) {
         return super.getById(id);
     }
 }

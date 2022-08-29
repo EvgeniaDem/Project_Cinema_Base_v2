@@ -14,7 +14,6 @@ public class SearchMovieDto {
     private String originalName;
     private String previewUrl;
     private LocalDate date;
-    //сменил на Double
-    private Double avgScore;
+    private double avgScore;
 
 }
