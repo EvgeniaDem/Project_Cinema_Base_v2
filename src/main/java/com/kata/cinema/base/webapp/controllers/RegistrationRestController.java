@@ -27,7 +27,7 @@ public class RegistrationRestController {
     @PostMapping("/api/registration")
     public ResponseEntity registration(UserRegistrationRequestDto userRegistrationRequestDto) {
 
-        if(userRegistrationRequestDto.getPassword().equals(userRegistrationRequestDto.getConfirmPassword())){
+        if (userRegistrationRequestDto.getPassword().equals(userRegistrationRequestDto.getConfirmPassword())) {
             Set<Role> role = new HashSet<>();
             role.add(roleService.findByName("USER_ROLE"));
             User user = new User(userRegistrationRequestDto.getEmail(), userRegistrationRequestDto.getFirstName(),
@@ -35,7 +35,7 @@ public class RegistrationRestController {
                     userRegistrationRequestDto.getBirthday(), null, role);
             userService.create(user);
             return new ResponseEntity<>(HttpStatus.OK);
-        }else{
+        } else {
             throw new PasswordNotFoundException("Password: " + userRegistrationRequestDto.getPassword() + " and confirm password: " + userRegistrationRequestDto.getConfirmPassword() + " not match");
         }
 
