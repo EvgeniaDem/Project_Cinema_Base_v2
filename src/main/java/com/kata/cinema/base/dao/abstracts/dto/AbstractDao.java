@@ -20,3 +20,4 @@ public interface AbstractDao<PK, E> {
     boolean isExistById(PK id);
 
 }
+

@@ -12,6 +12,7 @@ public abstract class AbstractIT {
     @Autowired
     protected ObjectMapper objectMapper;
 
+
     public static final String PUBLICIST_NEWS_REST_CONTROLLER_INIT_SQL = "classpath:data/sql/controller/publicistNewsRestController/NewsInit.sql";
     public static final String PUBLICIST_NEWS_REST_CONTROLLER_CLEAR_SQL = "classpath:data/sql/controller/publicistNewsRestController/NewsClear.sql";
     public static final String NEWS_REST_CONTROLLER_INIT_SQL = "classpath:data/sql/controller/newsRestController/NewsInit.sql";
@@ -26,6 +27,9 @@ public abstract class AbstractIT {
     public static final String GENRES_REST_CONTROLLER_CLEAR_SQL = "classpath:data/sql/controller/adminGenresRestController/GenresClear.sql";
     public static final String SEARCH_HEADER_REST_CONTROLLER_INIT_SQL = "classpath:data/sql/controller/SearchForHeaderRestController/SearchHeaderInit.sql";
     public static final String SEARCH_HEADER_REST_CONTROLLER_CLEAR_SQL = "classpath:data/sql/controller/SearchForHeaderRestController/SearchHeaderClean.sql";
+    public static final String COLLECTION_REST_CONTROLLER_INIT_SQL = "classpath:data/sql/controller/collectionRestController/CollectionInit.sql";
+    public static final String COLLECTION_REST_CONTROLLER_CLEAR_SQL = "classpath:data/sql/controller/collectionRestController/CollectionClean.sql";
+
 
 }
 

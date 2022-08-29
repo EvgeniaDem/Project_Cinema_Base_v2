@@ -3,6 +3,7 @@ package com.kata.cinema.base.service.impl.entity;
 import com.kata.cinema.base.dao.abstracts.model.MovieDao;
 import com.kata.cinema.base.models.dto.SearchMovieDto;
 import com.kata.cinema.base.models.dto.response.MovieReleaseResponseDto;
+import com.kata.cinema.base.models.entitys.Movies;
 import com.kata.cinema.base.service.abstracts.model.MovieService;
 import org.springframework.stereotype.Service;
 
@@ -26,4 +27,12 @@ public class MovieServiceImpl implements MovieService {
     public List<SearchMovieDto> getSearchMoviesWithFilter(String filterPattern) {
         return movieDao.getSearchMoviesWithFilter(filterPattern);
     }
+
+    @Override
+    public Movies getById(Long id) {
+        return movieDao.getById(id).orElse(null);
+
+    }
+
+
 }

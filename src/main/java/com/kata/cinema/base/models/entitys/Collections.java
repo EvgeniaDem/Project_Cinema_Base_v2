@@ -1,5 +1,6 @@
 package com.kata.cinema.base.models.entitys;
 
+import com.kata.cinema.base.models.enums.CollectionType;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -25,15 +26,35 @@ public class Collections {
     private String name;
 
     @Column(name = "enable")
-    private String enable;
+    private Boolean enable;
+
+    private String collectionUrl;
+
+    @Enumerated(EnumType.STRING)
+    private CollectionType collectionType;
 
     @Column(name = "previewUrl")
     private String previewUrl;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    //TODO расписать @JoinTable
+    @JoinTable(
+            name = "collections_movies",
+            joinColumns = @JoinColumn(name = "collections_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "movies_id", referencedColumnName = "id")
+    )
     @ToString.Exclude
     private Set<Movies> movies;
+
+    public Collections(String name, CollectionType collectionType) {
+        this.name = name;
+        this.collectionType = collectionType;
+        this.enable = true;
+    }
+
+    public Collections(String name, Boolean enable) {
+        this.name = name;
+        this.enable = enable;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -48,3 +69,5 @@ public class Collections {
         return getClass().hashCode();
     }
 }
+
+

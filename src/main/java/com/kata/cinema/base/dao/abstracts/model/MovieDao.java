@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface MovieDao extends AbstractDao<Long, Movies> {
     List<MovieReleaseResponseDto> getReleaseFilms();
-
     List<SearchMovieDto> getSearchMoviesWithFilter(String filterPattern);
+
 }
