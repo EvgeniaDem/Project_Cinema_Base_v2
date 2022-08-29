@@ -5,11 +5,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Set;
@@ -58,6 +60,16 @@ public class User implements UserDetails {
         this.password = password;
         this.birthday = birthday;
         this.avatarUrl = avatarUrl;
+    }
+
+
+    public User(String email, String firstName, String lastName, String password, LocalDate birthday, String avatarUrl, Set<Role> roles) {
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.birthday = birthday;
+        this.roles = roles;
     }
 
 
