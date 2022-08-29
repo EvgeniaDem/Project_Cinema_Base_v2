@@ -1,4 +1,4 @@
-package com.kata.cinema.base.webapp.controllers.movieRestController;
+package com.kata.cinema.base.webapp.controllers.unauthorized.movieRestController;
 
 import com.kata.cinema.base.AbstractIT;
 import org.junit.Test;

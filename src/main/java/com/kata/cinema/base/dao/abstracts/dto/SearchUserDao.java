@@ -1,6 +1,6 @@
 package com.kata.cinema.base.dao.abstracts.dto;
 
-import com.kata.cinema.base.models.dto.SearchUserResponseDto;
+import com.kata.cinema.base.models.dto.response.SearchUserResponseDto;
 import com.kata.cinema.base.models.entitys.User;
 
 import java.util.List;

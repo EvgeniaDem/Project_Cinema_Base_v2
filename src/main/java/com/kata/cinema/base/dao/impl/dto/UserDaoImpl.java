@@ -14,8 +14,7 @@ public class UserDaoImpl extends AbstractDaoImpl<Long, User> implements UserDao 
 
     @Override
     public User findUserByEmail(String email) {
-        String q = "select u from User u where u.email=:email";
-        TypedQuery<User> res = entityManager.createQuery(q , User.class);
+        TypedQuery<User> res = entityManager.createQuery("select u from User u JOIN fetch u.roles where u.email=:email", User.class);
         res.setParameter("email" , email);
         return res.getSingleResult();
     }

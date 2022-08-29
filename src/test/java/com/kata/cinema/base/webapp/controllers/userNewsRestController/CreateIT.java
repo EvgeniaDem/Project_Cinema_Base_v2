@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -24,6 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("IT")
 @Sql(value = USER_NEWS_REST_CONTROLLER_INIT_SQL, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(value = USER_NEWS_REST_CONTROLLER_CLEAR_SQL, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+@WithMockUser(roles = "USER")
 public class CreateIT extends AbstractIT {
     @Test
     public void createComment() throws Exception {
@@ -44,7 +46,7 @@ public class CreateIT extends AbstractIT {
                         .contentType("application/json")
                         .content(objectMapper.writeValueAsString(commentsRequestDto)))
                 .andDo(print())
-                .andExpect(status().isNotFound());
+                .andExpect(status().isInternalServerError());
     }
 
     @Test
@@ -55,6 +57,6 @@ public class CreateIT extends AbstractIT {
                         .contentType("application/json")
                         .content(objectMapper.writeValueAsString(commentsRequestDto)))
                 .andDo(print())
-                .andExpect(status().isNotFound());
+                .andExpect(status().isInternalServerError());
     }
 }

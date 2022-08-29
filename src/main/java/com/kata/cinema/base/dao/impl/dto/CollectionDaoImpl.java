@@ -6,6 +6,7 @@ import com.kata.cinema.base.models.enums.CollectionType;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 
 @Repository
 public class CollectionDaoImpl extends AbstractDaoImpl<Long, Collections> implements CollectionDao {
@@ -17,10 +18,10 @@ public class CollectionDaoImpl extends AbstractDaoImpl<Long, Collections> implem
     }
 
     @Override
-    public Collections findCollectionByType(CollectionType collectionType) {
+    public List<Collections> findCollectionByType(CollectionType collectionType) {
 
         return entityManager.createQuery("select c from Collections c where c.collectionType=:type", Collections.class).setParameter("type", collectionType)
-                .getResultList().stream().findAny().orElse(null);
+                .getResultList();
     }
 
 

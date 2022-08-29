@@ -1,4 +1,4 @@
-package com.kata.cinema.base.models.dto;
+package com.kata.cinema.base.models.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

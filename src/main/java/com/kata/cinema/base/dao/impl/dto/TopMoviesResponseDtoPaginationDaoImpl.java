@@ -1,7 +1,7 @@
 package com.kata.cinema.base.dao.impl.dto;
 
 import com.kata.cinema.base.dao.abstracts.dto.TopMoviesResponseDtoPaginationDao;
-import com.kata.cinema.base.models.dto.TopMoviesResponseDto;
+import com.kata.cinema.base.models.dto.response.TopMoviesResponseDto;
 import com.kata.cinema.base.models.entitys.Movies;
 import com.kata.cinema.base.models.enums.TopMoviesType;
 import com.kata.cinema.base.models.enums.Type;
@@ -14,6 +14,7 @@ import java.util.Map;
 public class TopMoviesResponseDtoPaginationDaoImpl extends AbstractDaoImpl<Long, Movies> implements TopMoviesResponseDtoPaginationDao {
     @Override
     public List<TopMoviesResponseDto> getItemsDto(Integer currentPage, Integer itemsOnPage, Map<String, Object> parameters) {
+        //TODO вынести в отдельный метод
         String order;
         switch ((TopMoviesType) parameters.get("topMoviesType")) {
             case NAME : {

@@ -37,7 +37,7 @@ public class GetIT extends AbstractIT {
     public void getCommentWithWrongId() throws Exception {
         this.mockMvc.perform(get("/api/news/10/comments"))
                 .andDo(print())
-                .andExpect(status().isNotFound());
+                .andExpect(status().isInternalServerError());
     }
 
     @Test

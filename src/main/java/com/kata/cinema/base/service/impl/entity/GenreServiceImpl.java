@@ -1,15 +1,13 @@
 package com.kata.cinema.base.service.impl.entity;
 
 import com.kata.cinema.base.dao.abstracts.model.GenresDao;
-import com.kata.cinema.base.models.dto.GenreResponseDto;
+import com.kata.cinema.base.models.dto.response.GenreResponseDto;
 import com.kata.cinema.base.models.entitys.Genres;
-import com.kata.cinema.base.service.abstracts.model.AbstractService;
 import com.kata.cinema.base.service.abstracts.model.AbstractServiceImpl;
 import com.kata.cinema.base.service.abstracts.model.GenreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service

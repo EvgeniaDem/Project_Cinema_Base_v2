@@ -1,14 +1,14 @@
-package com.kata.cinema.base.webapp.controllers.adminGenresRestController;
+package com.kata.cinema.base.webapp.controllers.admin.adminGenresRestController;
 
 import com.kata.cinema.base.AbstractIT;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.kata.cinema.base.AbstractIT.GENRES_REST_CONTROLLER_CLEAR_SQL;
 import static com.kata.cinema.base.AbstractIT.GENRES_REST_CONTROLLER_INIT_SQL;
@@ -23,6 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("IT")
 @Sql(value = GENRES_REST_CONTROLLER_INIT_SQL, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(value = GENRES_REST_CONTROLLER_CLEAR_SQL, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+@WithMockUser(roles = "ADMIN")
 public class GetIT extends AbstractIT {
 
     public GetIT() {
@@ -30,7 +31,7 @@ public class GetIT extends AbstractIT {
 
     @Test
     public void getGenres() throws Exception {
-        this.mockMvc.perform(get("/api/moderator/genres"))
+        this.mockMvc.perform(get("/api/admin/genres"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.*", hasSize(3)))
@@ -45,14 +46,14 @@ public class GetIT extends AbstractIT {
 
     @Test
     public void getGenresWithAllParameters() throws Exception {
-        this.mockMvc.perform(get("/api/moderator/genres/2?name=TEST1"))
+        this.mockMvc.perform(get("/api/admin/genres/2?name=TEST1"))
                 .andDo(print())
-                .andExpect(status().isMethodNotAllowed());
+                .andExpect(status().isInternalServerError());
     }
 
     @Test
     public void getGenreWithOnlyName() throws Exception {
-        this.mockMvc.perform(get("/api/moderator/genres?name=TEST2"))
+        this.mockMvc.perform(get("/api/admin/genres?name=TEST2"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.*", hasSize(3)))
@@ -63,9 +64,9 @@ public class GetIT extends AbstractIT {
 
     @Test
     public void getGenreWithOnlyId() throws Exception {
-        this.mockMvc.perform(get("/api/moderator/genres/3"))
+        this.mockMvc.perform(get("/api/admin/genres/3"))
                 .andDo(print())
-                .andExpect(status().isMethodNotAllowed());
+                .andExpect(status().isInternalServerError());
     }
 
 }

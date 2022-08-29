@@ -1,4 +1,4 @@
-package com.kata.cinema.base.webapp.controllers.searchRestController;
+package com.kata.cinema.base.webapp.controllers.unauthorized.searchRestController;
 
 import com.kata.cinema.base.AbstractIT;
 import org.junit.Test;

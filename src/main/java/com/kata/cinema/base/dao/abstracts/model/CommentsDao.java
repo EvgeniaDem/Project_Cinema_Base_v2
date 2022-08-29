@@ -1,7 +1,7 @@
 package com.kata.cinema.base.dao.abstracts.model;
 
 import com.kata.cinema.base.dao.abstracts.dto.AbstractDao;
-import com.kata.cinema.base.models.dto.GenreResponseDto;
+import com.kata.cinema.base.models.dto.response.GenreResponseDto;
 import com.kata.cinema.base.models.dto.response.CommentsResponseDto;
 import com.kata.cinema.base.models.entitys.Comments;
 import org.springframework.stereotype.Repository;

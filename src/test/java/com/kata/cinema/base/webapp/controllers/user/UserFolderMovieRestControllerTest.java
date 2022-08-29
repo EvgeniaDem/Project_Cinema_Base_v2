@@ -1,5 +1,6 @@
 package com.kata.cinema.base.webapp.controllers.user;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @AutoConfigureMockMvc
+@Ignore
 public class UserFolderMovieRestControllerTest {
 
     @Autowired

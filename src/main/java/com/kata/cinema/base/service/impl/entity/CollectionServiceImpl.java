@@ -23,7 +23,7 @@ public class CollectionServiceImpl extends AbstractServiceImpl<Long, Collections
     }
 
     @Override
-    public Collections findCollectionByType(CollectionType collectionType) {
+    public List<Collections> findCollectionByType(CollectionType collectionType) {
         return collectionDao.findCollectionByType(collectionType);
     }
 
