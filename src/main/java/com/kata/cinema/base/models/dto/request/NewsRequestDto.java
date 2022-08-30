@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class NewsRequestDto {
-    Rubric rubric;
-    String title;
-    String htmlBody;
+    private Rubric rubric;
+    private String title;
+    private String htmlBody;
 }

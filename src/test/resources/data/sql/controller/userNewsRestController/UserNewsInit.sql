@@ -1,41 +1,18 @@
-delete
-from public.users;
-
-alter table news
-    drop constraint fki09n75txtudw1kawj5o7i8xag cascade;
-
-ALTER TABLE public.news
-    ADD CONSTRAINT fki09n75txtudw1kawj5o7i8xag FOREIGN KEY (user_id)
-        REFERENCES public.users (id) ON DELETE CASCADE;
-
-delete
-from public.news;
-
-alter table public.comments
-    drop constraint fk8omq0tc18jd43bu5tjh6jvraq cascade;
-
-ALTER TABLE public.comments
-    ADD CONSTRAINT fk8omq0tc18jd43bu5tjh6jvraq FOREIGN KEY (user_id)
-        REFERENCES public.users (id) ON DELETE CASCADE;
-
-alter table public.comments
-    drop constraint fkqx89vg0vuof2ninmn5x5eqau2 cascade;
-
-ALTER TABLE public.comments
-    ADD CONSTRAINT fkqx89vg0vuof2ninmn5x5eqau2 FOREIGN KEY (news_id)
-        REFERENCES public.users (id) ON DELETE CASCADE;
-
-delete
-from public.comments;
 
 -- users init
-INSERT INTO public.users (id, avatar_url, birthday, email, first_name, last_name, password)
-VALUES (2, 'url', '2022-08-14', '1', '1', '1', '1');
+INSERT INTO users(id, avatar_url, birthday, email, first_name, last_name, password)
+VALUES (100, 'url', '2022-08-14', 'user@mail.ru', '1', '1', '$2a$12$d0JwWidrGyG6UyRVTJ8OOeCdy6vdvrMgjxhlLFjI.0dVFB85.Gw0y');
+
+INSERT INTO roles(id, name)
+VALUES (100, 'USER');
+
+INSERT INTO user_role(user_id, role_id)
+VALUES (100, 100);
 
 -- news init
-INSERT INTO public.news(id, rubric, date, title, html_body, user_id)
-VALUES (2, 'NEWS', '2022-08-03', 'db test title 01', 'nytipobody', 2);
+INSERT INTO news(id, rubric, date, title, html_body, user_id)
+VALUES (100, 'NEWS', '2022-08-03', 'db test title 01', 'nytipobody', 100);
 
 -- comment init
-INSERT INTO public.comments(id, date, text, news_id, user_id)
-VALUES (2, '2022-08-20 03:07:04.000000', 'test comment 01', 2, 2);
+INSERT INTO comments(id, date, text, news_id, user_id)
+VALUES (100, '2022-08-20 03:07:04.000000', 'test comment 01', 100, 100);

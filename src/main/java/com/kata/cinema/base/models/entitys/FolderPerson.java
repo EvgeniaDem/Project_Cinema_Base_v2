@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -24,13 +25,18 @@ public class FolderPerson {
     @ManyToOne
     private User user;
 
-    //TODO добавить связь ManyToMany с Person (см. схему)
-
     @Enumerated(EnumType.STRING)
     private Privacy privacy;
 
     private String name;
 
     private String description;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "folder_persons_to_person",
+            joinColumns = @JoinColumn(name = "folders_persons_id"),
+            inverseJoinColumns = @JoinColumn(name = "person_id")
+    )
+    private Set<Person> person;
 
 }

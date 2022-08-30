@@ -29,7 +29,7 @@ public class Role implements GrantedAuthority {
     public Role(Long id) {
         this.id = id;
     }
-
+    @Enumerated(EnumType.STRING)
     @NotNull
     @Column(unique = true)
     private String name;

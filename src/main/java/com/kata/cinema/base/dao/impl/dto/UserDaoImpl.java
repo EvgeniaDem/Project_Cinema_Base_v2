@@ -8,10 +8,6 @@ import javax.persistence.TypedQuery;
 @Repository
 public class UserDaoImpl extends AbstractDaoImpl<Long, User> implements UserDao {
 
-    public UserDaoImpl(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
-
     @Override
     public User findUserByEmail(String email) {
         TypedQuery<User> res = entityManager.createQuery("select u from User u JOIN fetch u.roles where u.email=:email", User.class);

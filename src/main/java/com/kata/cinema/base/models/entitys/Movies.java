@@ -32,10 +32,10 @@ public class Movies {
     public LocalDate dateRelease;
 
     @Column(name = "rars")
-    private int rars;
+    private String rars;
 
     @Column(name = "mpaa")
-    private int mpaa;
+    private String mpaa;
 
     @Column(name = "time")
     private int time;
