@@ -28,7 +28,7 @@ public class SearchForHeaderRestController {
     }
 
 
-    @GetMapping("/api/search/")
+    @GetMapping("/api/search")
     public ResponseEntity<SearchResponseDto> searchHeader(@RequestParam String filterPattern) {
 
         List<SearchMovieDto> searchMovieDtoList = movieService.getSearchMoviesWithFilter(filterPattern);

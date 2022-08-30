@@ -10,6 +10,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static com.kata.cinema.base.AbstractIT.*;
+import static com.kata.cinema.base.webapp.util.IntegrationTestingAccessTokenUtil.obtainNewAccessToken;
 import static javax.management.Query.value;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.hasValue;
@@ -26,9 +27,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Sql(value = SEARCH_HEADER_REST_CONTROLLER_CLEAR_SQL, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 class GetIT extends AbstractIT {
 
+    private static String accessToken;
+
     @Test
     public void searchHeader() throws Exception{
-        this.mockMvc.perform(get("/api/search/?filterPattern=t"))
+        accessToken = obtainNewAccessToken("admin@mail.ru", "admin", mockMvc);
+        this.mockMvc.perform(get("/api/search/?filterPattern=t")
+                        .header("Authorization", "Bearer " + accessToken))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.movies", hasSize(3) ))
