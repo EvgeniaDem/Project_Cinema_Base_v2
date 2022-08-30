@@ -1,5 +1,6 @@
 package com.kata.cinema.base.webapp.controllers.publicist;
 
+import com.kata.cinema.base.converter.NewsMapper;
 import com.kata.cinema.base.models.dto.request.NewsRequestDto;
 import com.kata.cinema.base.models.dto.response.NewsResponseDto;
 import com.kata.cinema.base.models.entitys.News;
@@ -9,7 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import org.springframework.core.convert.ConversionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,11 +25,12 @@ import java.util.List;
 public class PublicistNewsRestController {
 
     private final NewsService newsService;
-    private final ConversionService conversionService;
+    private final NewsMapper newsMapper;
 
-    public PublicistNewsRestController(NewsService newsService, ConversionService conversionService) {
+    @Autowired
+    public PublicistNewsRestController(NewsService newsService, NewsMapper newsMapper) {
         this.newsService = newsService;
-        this.conversionService = conversionService;
+        this.newsMapper = newsMapper;
     }
 
     @GetMapping
@@ -58,15 +60,10 @@ public class PublicistNewsRestController {
             @ApiResponse(code = 404, message = "Невозможно найти.")
     })
     public ResponseEntity<NewsRequestDto> createNews(@RequestBody NewsRequestDto newsRequestDto) {
-        News news = convertToNews(newsRequestDto);
+        News news = newsMapper.toNews(newsRequestDto);
         news.setDate(LocalDate.now());
         newsService.save(news);
         return new ResponseEntity<>(newsRequestDto, HttpStatus.CREATED);
-    }
-
-    //TODO использовать ResponseEntity и MapStruct
-    private News convertToNews(NewsRequestDto dto) {
-        return conversionService.convert(dto, News.class);
     }
 
 }

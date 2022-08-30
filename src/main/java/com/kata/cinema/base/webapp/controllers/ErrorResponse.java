@@ -1,6 +1,7 @@
 package com.kata.cinema.base.webapp.controllers;
 
 import lombok.*;
+import org.springframework.http.HttpStatus;
 
 @Getter
 @Setter

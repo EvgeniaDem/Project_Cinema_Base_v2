@@ -12,8 +12,8 @@ import java.util.List;
 @AllArgsConstructor
 public class SearchResponseDto {
 
-    List<SearchMovieDto> movies;
-    List<SearchCollectionDto> collections;
-    List<SearchPersonDto> persons;
+    private List<SearchMovieDto> movies;
+    private List<SearchCollectionDto> collections;
+    private List<SearchPersonDto> persons;
 
 }

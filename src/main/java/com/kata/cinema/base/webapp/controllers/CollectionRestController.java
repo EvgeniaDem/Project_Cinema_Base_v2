@@ -1,15 +1,15 @@
 package com.kata.cinema.base.webapp.controllers;
 
-import com.kata.cinema.base.exceptions.IdNotFoundException;
+import com.kata.cinema.base.exceptions.NotFoundByIdException;
 import com.kata.cinema.base.models.dto.CollectionRequestDto;
 import com.kata.cinema.base.models.dto.CollectionResponseDto;
 import com.kata.cinema.base.models.entitys.Collections;
-import com.kata.cinema.base.models.entitys.FolderMovies;
 import com.kata.cinema.base.models.entitys.Movies;
 import com.kata.cinema.base.models.enums.CollectionType;
 import com.kata.cinema.base.service.abstracts.model.CollectionService;
 import com.kata.cinema.base.service.abstracts.model.FolderMoviesService;
 import com.kata.cinema.base.service.abstracts.model.MovieService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,18 +21,12 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/api/collections")
+@AllArgsConstructor
 public class CollectionRestController {
 
-    private CollectionService collectionService;
-    private FolderMoviesService folderMoviesService;
-    private MovieService movieService;
-
-
-    public CollectionRestController(CollectionService collectionService, FolderMoviesService folderMoviesService, MovieService movieService) {
-        this.collectionService = collectionService;
-        this.folderMoviesService = folderMoviesService;
-        this.movieService = movieService;
-    }
+    private final CollectionService collectionService;
+    private final FolderMoviesService folderMoviesService;
+    private final MovieService movieService;
 
 
     @GetMapping
@@ -48,17 +42,13 @@ public class CollectionRestController {
             CollectionResponseDto collectionResponseDto = new CollectionResponseDto(c.getId(), c.getName(), c.getCollectionUrl(), 0, 0);
             collectionsDtos.add(collectionResponseDto);
         }
-
         return ResponseEntity.ok(collectionsDtos);
     }
-
-
 
     @PostMapping
     public ResponseEntity<Void> postCollectionResponseDto(CollectionRequestDto collectionRequestDto) {
         Collections collections = new Collections(collectionRequestDto.getName(), collectionRequestDto.getType());
         collectionService.create(collections);
-
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -67,7 +57,7 @@ public class CollectionRestController {
     public ResponseEntity<Void> updateCollectionResponseDto(@PathVariable Long id, CollectionRequestDto collectionRequestDto) {
         Collections updateCollections = collectionService.getById(id).orElse(null);
         if (updateCollections == null) {
-            throw new IdNotFoundException("There is no collection with ID: " + id + " , try again.");
+            throw new NotFoundByIdException("There is no collection with ID: " + id + " , try again.");
         }
         updateCollections.setName(collectionRequestDto.getName());
         updateCollections.setCollectionType(collectionRequestDto.getType());
@@ -80,7 +70,7 @@ public class CollectionRestController {
     public ResponseEntity<Void> deactivate(@PathVariable Long id) {
         Collections collectionsDeactivate = collectionService.getById(id).orElse(null);
         if (collectionsDeactivate == null) {
-            throw new IdNotFoundException("There is no collection with ID: " + id + " , try again.");
+            throw new NotFoundByIdException("There is no collection with ID: " + id + " , try again.");
         }
         collectionsDeactivate.setEnable(false);
         collectionService.update(collectionsDeactivate);
@@ -91,7 +81,7 @@ public class CollectionRestController {
     public ResponseEntity<Void> activate(@PathVariable Long id) {
         Collections collectionsActive = collectionService.getById(id).orElse(null);
         if (collectionsActive == null) {
-            throw new IdNotFoundException("There is no collection with ID: " + id + " , try again.");
+            throw new NotFoundByIdException("There is no collection with ID: " + id + " , try again.");
         }
         collectionsActive.setEnable(true);
         collectionService.update(collectionsActive);
@@ -104,7 +94,7 @@ public class CollectionRestController {
             collectionService.deleteById(id);
             return new ResponseEntity<>(HttpStatus.OK);
         }
-        throw new IdNotFoundException("There is no collection with ID: " + id + " , try again.");
+        throw new NotFoundByIdException("There is no collection with ID: " + id + " , try again.");
     }
 
     @PostMapping("/{id}/movies")
@@ -130,7 +120,7 @@ public class CollectionRestController {
             collectionService.update(collectionsAddMovie);
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
-            throw new IdNotFoundException("There is no collection with ID: " + id + " , try again.");
+            throw new NotFoundByIdException("There is no collection with ID: " + id + " , try again.");
         }
     }
 
@@ -145,20 +135,20 @@ public class CollectionRestController {
             if (!moviesSet.isEmpty()) {
                 for (Movies i : moviesSet) {
                     for (Long n : setMoviesDeleteId) {
-                        if (i.getId() == n) {
+                        if (i.getId().equals(n)) {
                             deleteSet.add(movieService.getById(n));
                         }
                     }
                 }
                 moviesSet.removeAll(deleteSet);
             } else {
-                throw new IdNotFoundException("There is no movie with ID: " + id + " , try again.");
+                throw new NotFoundByIdException("There is no movie with ID: " + id + " , try again.");
             }
 
             collectionService.update(collectionsDeleteMovie);
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
-            throw new IdNotFoundException("There is no collection with ID: " + id + " , try again.");
+            throw new NotFoundByIdException("There is no collection with ID: " + id + " , try again.");
         }
 
     }

@@ -1,6 +1,6 @@
 package com.kata.cinema.base.webapp.controllers.admin;
 
-import com.kata.cinema.base.exceptions.IdNotFoundException;
+import com.kata.cinema.base.exceptions.NotFoundByIdException;
 import com.kata.cinema.base.models.dto.response.GenreResponseDto;
 import com.kata.cinema.base.models.entitys.Genres;
 import com.kata.cinema.base.service.abstracts.model.GenreService;
@@ -32,7 +32,6 @@ public class AdminGenreRestController {
             @ApiResponse(code = 404, message = "Невозможно найти.")
 
     })
-
     public ResponseEntity<List<GenreResponseDto>> getGenres() {
         return ResponseEntity.ok(genreService.findGenres());
     }
@@ -46,13 +45,12 @@ public class AdminGenreRestController {
             @ApiResponse(code = 401, message = "Проблема с аутентификацией или авторизацией на сайте"),
             @ApiResponse(code = 403, message = "Недостаточно прав для просмотра контента")
     })
-    public ResponseEntity<GenreResponseDto> deleteGenres(@ApiParam(value = "id жанра")
-                                                         @PathVariable Long id) throws IdNotFoundException {
-        if (genreService.isExistById(id)) {
-            genreService.deleteById(id);
-            return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<GenreResponseDto> deleteGenres(@ApiParam(value = "id жанра") @PathVariable Long id) {
+        if (!genreService.isExistById(id)) {
+            throw new NotFoundByIdException("There is no genre with ID: " + id + " , try again.");
         }
-        throw new IdNotFoundException("There is no genre with ID: " + id + " , try again.");
+        genreService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
@@ -65,6 +63,10 @@ public class AdminGenreRestController {
     public ResponseEntity<GenreResponseDto> update(
             @ApiParam(value = "id жанра") @PathVariable Long id,
             @ApiParam(value = "name жанра") @RequestParam String name) {
+
+        if (!genreService.isExistById(id)) {
+            throw new NotFoundByIdException("There is no genre with ID: " + id + " , try again.");
+        }
         Genres genres = genreService.getById(id).orElseThrow();
         genres.setName(name);
         genreService.update(genres);

@@ -1,6 +1,7 @@
 package com.kata.cinema.base.models.entitys;
 
 
+import com.kata.cinema.base.models.enums.Roles;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,13 +30,13 @@ public class Role implements GrantedAuthority {
     public Role(Long id) {
         this.id = id;
     }
-
+    @Enumerated(EnumType.STRING)
     @NotNull
     @Column(unique = true)
-    private String name;
+    private Roles name;
 
     @Override
     public String getAuthority() {
-        return name;
+        return name.toString();
     }
 }
