@@ -44,10 +44,6 @@ public class UserServiceImpl extends AbstractServiceImpl<Long, User> implements 
         return new User(user.getId(), user.getEmail(), user.getFirstName(), user.getLastName(), user.getPassword(), user.getBirthday(), user.getAvatarUrl());
     }
 
-    @Override
-    public List<User> getAll() {
-        return userDao.getAll();
-    }
 
     @Override
     @Transactional
@@ -55,31 +51,5 @@ public class UserServiceImpl extends AbstractServiceImpl<Long, User> implements 
         userDao.create(entity);
     }
 
-    @Override
-    @Transactional
-    public void update(User entity) {
-        userDao.update(entity);
-    }
 
-    @Override
-    @Transactional
-    public void delete(User entity) {
-        userDao.delete(entity);
-    }
-
-    @Override
-    @Transactional
-    public void deleteById(Long id) {
-        userDao.deleteById(id);
-    }
-
-    @Override
-    public Optional<User> getById(Long id) {
-        return userDao.getById(id);
-    }
-
-    @Override
-    public boolean isExistById(Long id) {
-        return userDao.isExistById(id);
-    }
 }

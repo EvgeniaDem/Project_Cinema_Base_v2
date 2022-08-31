@@ -1,16 +1,21 @@
 package com.kata.cinema.base.webapp.controllers.registrationRestController;
 
 import com.kata.cinema.base.AbstractIT;
+import com.kata.cinema.base.converter.UserMapper;
 import com.kata.cinema.base.models.dto.request.UserRegistrationRequestDto;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
 
+import static com.kata.cinema.base.webapp.util.IntegrationTestingAccessTokenUtil.obtainNewAccessToken;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -20,12 +25,20 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("IT")
+@Sql(value = "/data/sql/controller/registrationRestController/registrationInit.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+@Sql(value = "/data/sql/controller/registrationRestController/registrationClean.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 class PostIT extends AbstractIT {
+
+    private static String accessToken;
+
 
     @Test
     void registration() throws Exception {
-        UserRegistrationRequestDto userRegistrationRequestDto = new UserRegistrationRequestDto("test@mail.ru", "test_first_Name", "test_last_name", "testPassword", "testPassword", LocalDate.now());
+        accessToken = obtainNewAccessToken("admin@mail.ru", "admin", mockMvc);
+
+        UserRegistrationRequestDto userRegistrationRequestDto = new UserRegistrationRequestDto("admin@mail.ru", "test_first_Name", "test_last_name", "admin", "admin", LocalDate.now());
         this.mockMvc.perform(post("/api/registration")
+                        .header("Authorization", "Bearer " + accessToken)
                 .contentType("application/json")
                 .content(objectMapper.writeValueAsString(userRegistrationRequestDto)))
                 .andDo(print())
