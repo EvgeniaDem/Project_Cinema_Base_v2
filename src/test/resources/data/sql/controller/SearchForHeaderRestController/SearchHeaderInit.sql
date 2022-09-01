@@ -56,15 +56,15 @@ VALUES (105, true, 'test5 collection', 'preview url test 5');
 --Person init
 
 INSERT INTO public.persons (id, birthday, first_name, height, last_name, place_birthday, original_last_name, original_name, photo_url)
-VALUES (101, '2022-06-26 12:14:01.000000' , 'test1Name', 111, 'test1LastName', 'test', 'test1OrigLastName', 'test1origName', 'test1PhotoUrl');
+VALUES (101, '2022-06-21' , 'test1Name', 111, 'test1LastName', 'test', 'test1OrigLastName', 'test1origName', 'test1PhotoUrl');
 INSERT INTO public.persons (id, birthday, first_name, height, last_name, place_birthday, original_last_name, original_name, photo_url)
-VALUES (102, '2022-06-26 12:14:01.000000' , 'test2Name', 222, 'test2LastName', 'test', 'test2OrigLastName', 'test2origName', 'test2PhotoUrl');
+VALUES (102, '2022-06-22' , 'test2Name', 222, 'test2LastName', 'test', 'test2OrigLastName', 'test2origName', 'test2PhotoUrl');
 INSERT INTO public.persons (id, birthday, first_name, height, last_name, place_birthday, original_last_name, original_name, photo_url)
-VALUES (103, '2022-06-26 12:14:01.000000' , 'test3Name', 333, 'test3LastName', 'test', 'test3OrigLastName', 'test3origName', 'test3PhotoUrl');
+VALUES (103, '2022-06-23' , 'test3Name', 333, 'test3LastName', 'test', 'test3OrigLastName', 'test3origName', 'test3PhotoUrl');
 INSERT INTO public.persons (id, birthday, first_name, height, last_name, place_birthday, original_last_name, original_name, photo_url)
-VALUES (104, '2022-06-26 12:14:01.000000' , 'test4Name', 444, 'test4LastName', 'test', 'test4OrigLastName', 'test4origName', 'test4PhotoUrl');
+VALUES (104, '2022-06-24' , 'test4Name', 444, 'test4LastName', 'test', 'test4OrigLastName', 'test4origName', 'test4PhotoUrl');
 INSERT INTO public.persons (id, birthday, first_name, height, last_name, place_birthday, original_last_name, original_name, photo_url)
-VALUES (105, '2022-06-26 12:14:01.000000' , 'test5Name', 555, 'test5LastName', 'test', 'test5OrigLastName', 'test5origName', 'test5PhotoUrl');
+VALUES (105, '2022-06-25' , 'test5Name', 555, 'test5LastName', 'test', 'test5OrigLastName', 'test5origName', 'test5PhotoUrl');
 
 --Score
 
