@@ -19,7 +19,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-@ActiveProfiles("IT")
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -29,7 +28,6 @@ import javax.persistence.PersistenceContext;
         DbUnitTestExecutionListener.class,
         SqlScriptsTestExecutionListener.class
 })
-@Disabled
 public class AbstractIT {
     @Autowired
     protected MockMvc mockMvc;
