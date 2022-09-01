@@ -1,12 +1,12 @@
 package com.kata.cinema.base.webapp.controllers;
 import com.kata.cinema.base.converter.UserMapper;
+import com.kata.cinema.base.dao.entity.RoleDao;
 import com.kata.cinema.base.exceptions.PasswordNotFoundException;
 import com.kata.cinema.base.models.dto.request.UserRegistrationRequestDto;
 import com.kata.cinema.base.models.entitys.Role;
 import com.kata.cinema.base.models.entitys.User;
 import com.kata.cinema.base.models.enums.Roles;
-import com.kata.cinema.base.service.abstracts.model.RoleService;
-import com.kata.cinema.base.service.abstracts.model.UserService;
+import com.kata.cinema.base.service.entity.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,22 +20,23 @@ import java.util.Set;
 public class RegistrationRestController {
 
     private UserService userService;
-    private RoleService roleService;
+    //TODO создать сервис
+    private RoleDao roleDao;
     private UserMapper userMapper;
 
-    public RegistrationRestController(UserService userService, RoleService roleService, UserMapper userMapper) {
+    public RegistrationRestController(UserService userService, RoleDao roleDao, UserMapper userMapper) {
         this.userService = userService;
-        this.roleService = roleService;
+        this.roleDao = roleDao;
         this.userMapper = userMapper;
     }
 
     @PostMapping("/api/registration")
-    public ResponseEntity registration(@RequestBody UserRegistrationRequestDto userRegistrationRequestDto) {
+    public ResponseEntity<Void> registration(@RequestBody UserRegistrationRequestDto userRegistrationRequestDto) {
 
 
         if (userRegistrationRequestDto.getPassword().equals(userRegistrationRequestDto.getConfirmPassword())) {
             Set<Role> role = new HashSet<>();
-            role.add(roleService.findByName(Roles.USER));
+            role.add(roleDao.findByName(Roles.USER));
             User user = userMapper.toUser(userRegistrationRequestDto);
             user.setRoles(role);
             userService.create(user);
