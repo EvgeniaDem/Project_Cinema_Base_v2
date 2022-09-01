@@ -30,6 +30,7 @@ public class Role implements GrantedAuthority {
     public Role(Long id) {
         this.id = id;
     }
+
     @Enumerated(EnumType.STRING)
     @NotNull
     @Column(unique = true)
@@ -37,6 +38,8 @@ public class Role implements GrantedAuthority {
 
     @Override
     public String getAuthority() {
-        return name.toString();
+
+        return name.name();
+
     }
 }
