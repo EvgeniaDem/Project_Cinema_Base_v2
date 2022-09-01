@@ -18,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import java.beans.ConstructorProperties;
 
 
 @Entity

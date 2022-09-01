@@ -6,6 +6,6 @@ import com.kata.cinema.base.models.entitys.Role;
 
 public interface RoleDao extends AbstractDao<Long, Role> {
 
-    Role findByName(String name);
+    Role findByName(Roles name);
 
 }
