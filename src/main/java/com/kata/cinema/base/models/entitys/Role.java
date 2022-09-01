@@ -8,10 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 
-import javax.management.ConstructorParameters;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.beans.ConstructorProperties;
 
 
 @Entity
