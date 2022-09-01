@@ -1,17 +1,9 @@
 package com.kata.cinema.base.webapp.controllers.registrationRestController;
 
 import com.kata.cinema.base.AbstractIT;
-import com.kata.cinema.base.converter.UserMapper;
 import com.kata.cinema.base.models.dto.request.UserRegistrationRequestDto;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
 
@@ -21,10 +13,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-@AutoConfigureMockMvc
-@ActiveProfiles("IT")
+
+
 @Sql(value = "/data/sql/controller/registrationRestController/registrationInit.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(value = "/data/sql/controller/registrationRestController/registrationClean.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 class PostIT extends AbstractIT {
