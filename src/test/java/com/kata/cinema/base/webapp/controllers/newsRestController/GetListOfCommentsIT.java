@@ -16,7 +16,7 @@ public class GetListOfCommentsIT extends AbstractIT {
 
     @Test
     public void getComments() throws Exception {
-        this.mockMvc.perform(get("/api/news/100/comments"))
+        mockMvc.perform(get("/api/news/100/comments"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()", Is.is(1)))
@@ -26,9 +26,8 @@ public class GetListOfCommentsIT extends AbstractIT {
 
     @Test
     public void getCommentWithWrongId() throws Exception {
-        this.mockMvc.perform(get("/api/news/10/comments"))
+        mockMvc.perform(get("/api/news/10/comments"))
                 .andDo(print())
-                .andExpect(status().isInternalServerError());
+                .andExpect(jsonPath("$.text").value("News with id: 10 does not exist, try looking for another"));
     }
-
 }

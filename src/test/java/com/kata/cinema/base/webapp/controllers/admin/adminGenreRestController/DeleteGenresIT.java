@@ -8,6 +8,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.kata.cinema.base.webapp.util.IntegrationTestingAccessTokenUtil.obtainNewAccessToken;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Sql(value = "/data/sql/controller/adminGenresRestController/GenresInit.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
@@ -32,6 +33,6 @@ public class DeleteGenresIT extends AbstractIT {
         accessToken = obtainNewAccessToken("admin@mail.ru", "admin", mockMvc);
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/admin/genres/{id}", 45L)
                         .header("Authorization", "Bearer " + accessToken))
-                .andDo(print()).andExpect(status().isInternalServerError());
+                .andExpect(jsonPath("$.text").value("There is no genre with ID: 45 , try again."));
     }
 }

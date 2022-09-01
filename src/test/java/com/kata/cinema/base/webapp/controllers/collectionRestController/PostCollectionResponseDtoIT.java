@@ -1,7 +1,7 @@
 package com.kata.cinema.base.webapp.controllers.collectionRestController;
 
 import com.kata.cinema.base.AbstractIT;
-import com.kata.cinema.base.models.dto.CollectionRequestDto;
+import com.kata.cinema.base.models.dto.request.CollectionRequestDto;
 import org.junit.Test;
 import org.springframework.test.context.jdbc.Sql;
 
@@ -18,7 +18,7 @@ public class PostCollectionResponseDtoIT extends AbstractIT {
     @Test
     public void postCollectionResponseDto() throws Exception {
         CollectionRequestDto collectionRequestDto = new CollectionRequestDto("new collection", MOVIES);
-        this.mockMvc.perform(post("/api/collections/")
+        this.mockMvc.perform(post("/api/collections")
                 .contentType("application/json")
                 .content(objectMapper.writeValueAsString(collectionRequestDto)))
                 .andDo(print())

@@ -2,6 +2,7 @@ package com.kata.cinema.base.webapp.controllers.userNewsRestController;
 
 import com.kata.cinema.base.AbstractIT;
 import com.kata.cinema.base.models.dto.request.CommentsRequestDto;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.jupiter.api.Disabled;
 import org.junit.runner.RunWith;
@@ -23,6 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @Sql(value = "/data/sql/controller/userNewsRestController/UserNewsInit.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(value = "/data/sql/controller/userNewsRestController/UserNewsClear.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+@Ignore
 public class AddCommentsIT extends AbstractIT {
 
     private static String accessToken;

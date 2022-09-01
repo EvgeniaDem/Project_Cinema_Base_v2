@@ -1,10 +1,17 @@
 package com.kata.cinema.base.webapp.controllers.admin;
 
-import com.kata.cinema.base.service.abstracts.model.PreviewService;
-import com.kata.cinema.base.service.impl.entity.PreviewServiceImpl;
-import io.swagger.annotations.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import com.kata.cinema.base.service.entity.PreviewService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -17,15 +24,10 @@ import java.nio.file.Paths;
 @RestController()
 @RequestMapping("/api/admin/movie")
 @Api(tags = "Загрузка превью")
+@AllArgsConstructor
 public class AdminMovieRestController {
 
     private final PreviewService previewService;
-
-    @Autowired
-    public AdminMovieRestController(PreviewServiceImpl previewService) {
-        this.previewService = previewService;
-    }
-
 
     @PostMapping("/{id}/uploadPreview")
     @ApiOperation(value = "Загрузка превью", response = File.class)

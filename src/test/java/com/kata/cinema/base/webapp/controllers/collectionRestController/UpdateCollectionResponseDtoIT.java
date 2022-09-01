@@ -1,7 +1,7 @@
 package com.kata.cinema.base.webapp.controllers.collectionRestController;
 
 import com.kata.cinema.base.AbstractIT;
-import com.kata.cinema.base.models.dto.CollectionRequestDto;
+import com.kata.cinema.base.models.dto.request.CollectionRequestDto;
 import org.junit.Test;
 import org.springframework.test.context.jdbc.Sql;
 

@@ -1,8 +1,8 @@
 package com.kata.cinema.base.security.config;
 
 import com.google.common.collect.ImmutableList;
-import com.kata.cinema.base.security.filter.TokenAuthenticationFilter;
 import com.kata.cinema.base.security.JwtUserDetailService;
+import com.kata.cinema.base.security.filter.TokenAuthenticationFilter;
 import com.kata.cinema.base.security.jwt.JwtUserProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

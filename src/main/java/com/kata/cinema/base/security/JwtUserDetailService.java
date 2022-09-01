@@ -1,7 +1,7 @@
 package com.kata.cinema.base.security;
 
 import com.kata.cinema.base.models.entitys.User;
-import com.kata.cinema.base.service.abstracts.model.UserService;
+import com.kata.cinema.base.service.entity.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
