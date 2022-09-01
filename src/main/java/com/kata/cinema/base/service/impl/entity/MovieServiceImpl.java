@@ -1,6 +1,7 @@
 package com.kata.cinema.base.service.impl.entity;
 
 import com.kata.cinema.base.dao.abstracts.model.MovieDao;
+import com.kata.cinema.base.models.dto.SearchMovieDto;
 import com.kata.cinema.base.models.dto.response.MovieReleaseResponseDto;
 import com.kata.cinema.base.models.entitys.Movies;
 import com.kata.cinema.base.service.abstracts.model.MovieService;
@@ -20,6 +21,11 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public List<MovieReleaseResponseDto> getReleaseFilms() {
         return movieDao.getReleaseFilms();
+    }
+
+    @Override
+    public List<SearchMovieDto> getSearchMoviesWithFilter(String filterPattern) {
+        return movieDao.getSearchMoviesWithFilter(filterPattern);
     }
 
     @Override

@@ -11,4 +11,3 @@ public interface UserMapper extends Converter<UserRegistrationRequestDto, User> 
 
     User toUser(UserRegistrationRequestDto userRegistrationRequestDto);
 }
-

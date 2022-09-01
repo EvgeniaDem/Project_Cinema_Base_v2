@@ -2,6 +2,7 @@ package com.kata.cinema.base.dao.impl.model;
 
 import com.kata.cinema.base.dao.abstracts.model.MovieDao;
 import com.kata.cinema.base.dao.impl.dto.AbstractDaoImpl;
+import com.kata.cinema.base.models.dto.SearchMovieDto;
 import com.kata.cinema.base.models.dto.response.MovieReleaseResponseDto;
 import com.kata.cinema.base.models.entitys.Movies;
 import com.kata.cinema.base.models.enums.Type;
@@ -26,7 +27,17 @@ public class MovieDaoImpl extends AbstractDaoImpl<Long, Movies> implements Movie
     }
 
     @Override
-    public Optional<Movies> getById(Long id) {
+    public List<SearchMovieDto> getSearchMoviesWithFilter(String filterPattern) {
+        return entityManager.createQuery("select distinct new com.kata.cinema.base.models.dto.SearchMovieDto(m.id, m.name, m.originName, c.contentUrl, m.dateRelease, (select cast(sum(s.score) as double)/count(s) as avgScore from Score s where m.id = s.movie.id))" +
+                        " from Movies m join Content c on m.id = c.movies.id join Score s on m.id = s.movie.id where lower(m.name) like lower(:filterName)", SearchMovieDto.class)
+                .setParameter("filterName", filterPattern + "%")
+                .setMaxResults(3)
+                .getResultList();
+
+    }
+
+    @Override
+    public Optional<Movies> getById (Long id) {
         return super.getById(id);
     }
 }

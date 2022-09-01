@@ -30,6 +30,16 @@ public class Person {
     @Column(name = "place_birthday")
     private String placeBirthday;
 
+    @Column(name = "photo_url")
+    private String photoUrl;
+
+    @Column(name = "original_name")
+    private String originalName;
+
+    @Column(name = "original_last_name")
+    private String originalLastName;
+
+
 }
 
 
