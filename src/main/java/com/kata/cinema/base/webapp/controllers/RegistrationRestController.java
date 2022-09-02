@@ -7,30 +7,29 @@ import com.kata.cinema.base.models.entitys.User;
 import com.kata.cinema.base.models.enums.Roles;
 import com.kata.cinema.base.service.abstracts.model.RoleService;
 import com.kata.cinema.base.service.abstracts.model.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.Set;
 
 @RestController
+@Validated
+@AllArgsConstructor
 public class RegistrationRestController {
 
-    private UserService userService;
-    private RoleService roleService;
-    private UserMapper userMapper;
-
-    public RegistrationRestController(UserService userService, RoleService roleService, UserMapper userMapper) {
-        this.userService = userService;
-        this.roleService = roleService;
-        this.userMapper = userMapper;
-    }
+    private final UserService userService;
+    private final RoleService roleService;
+    private final UserMapper userMapper;
 
     @PostMapping("/api/registration")
-    public ResponseEntity registration(@RequestBody UserRegistrationRequestDto userRegistrationRequestDto) {
+    public ResponseEntity<Void> registration(@Valid @RequestBody UserRegistrationRequestDto userRegistrationRequestDto) {
 
 
         if (userRegistrationRequestDto.getPassword().equals(userRegistrationRequestDto.getConfirmPassword())) {
