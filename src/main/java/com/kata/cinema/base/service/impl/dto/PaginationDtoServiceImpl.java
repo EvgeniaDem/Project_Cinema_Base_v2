@@ -4,7 +4,6 @@ import com.kata.cinema.base.dao.abstracts.dto.PaginationDtoDao;
 import com.kata.cinema.base.models.dto.PageDto;
 import com.kata.cinema.base.service.abstracts.dto.PaginationDtoService;
 
-
 import java.util.HashMap;
 import java.util.Map;
 

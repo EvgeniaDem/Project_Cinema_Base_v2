@@ -1,8 +1,10 @@
 package com.kata.cinema.base.webapp.controllers.collectionRestController;
+
 import com.kata.cinema.base.AbstractIT;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.test.context.jdbc.Sql;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

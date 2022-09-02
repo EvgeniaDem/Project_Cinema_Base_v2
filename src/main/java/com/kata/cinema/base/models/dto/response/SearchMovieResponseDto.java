@@ -1,14 +1,12 @@
 package com.kata.cinema.base.models.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.kata.cinema.base.models.entitys.Genres;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @AllArgsConstructor

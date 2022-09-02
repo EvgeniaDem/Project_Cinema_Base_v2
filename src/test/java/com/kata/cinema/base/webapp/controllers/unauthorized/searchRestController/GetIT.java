@@ -11,7 +11,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static com.kata.cinema.base.AbstractIT.*;
+import static com.kata.cinema.base.AbstractIT.SEARCH_REST_CONTROLLER_MOVIE_CLEAR_SQL;
+import static com.kata.cinema.base.AbstractIT.SEARCH_REST_CONTROLLER_MOVIE_INIT_SQL;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;

@@ -5,51 +5,40 @@ import com.kata.cinema.base.models.entitys.User;
 import com.kata.cinema.base.service.abstracts.model.AbstractServiceImpl;
 import com.kata.cinema.base.service.abstracts.model.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
-
-
 @Service
 //TODO реализовать UserDetailsService отдельным классом
-public class UserServiceImpl extends AbstractServiceImpl<Long, User> implements UserService, UserDetailsService {
+public class UserServiceImpl extends AbstractServiceImpl<Long, User> implements UserService {
 
     private final UserDao userDao;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserDao userDao) {
+    public UserServiceImpl(UserDao userDao, PasswordEncoder passwordEncoder) {
         super(userDao);
         this.userDao = userDao;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public User findByEmail(String email) {
-        return (User) userDao.findUserByEmail(email);
+        return userDao.findUserByEmail(email);
     }
-
-    @Override
-    @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = (User) userDao.findUserByEmail(email);
-        if (user == null) {
-            throw new UsernameNotFoundException("User: " + email + " not found");
-        }
-
-        //TODO а почему нельзя сразу возврощать user??
-        return new User(user.getId(), user.getEmail(), user.getFirstName(), user.getLastName(), user.getPassword(), user.getBirthday(), user.getAvatarUrl());
-    }
-
 
     @Override
     @Transactional
-    public void create(User entity) {
-        userDao.create(entity);
+    public void create(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userDao.create(user);
     }
 
-
+    @Override
+    @Transactional
+    public void update(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userDao.update(user);
+    }
 }

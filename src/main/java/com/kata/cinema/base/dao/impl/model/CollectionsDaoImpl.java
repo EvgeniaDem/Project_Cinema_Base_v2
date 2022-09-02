@@ -6,7 +6,6 @@ import com.kata.cinema.base.models.dto.SearchCollectionDto;
 import com.kata.cinema.base.models.entitys.Collections;
 import org.springframework.stereotype.Repository;
 
-
 import java.util.List;
 @Repository
 public class CollectionsDaoImpl extends AbstractDaoImpl<Collections, Long> implements CollectionsDao {
