@@ -3,7 +3,7 @@ package com.kata.cinema.base.dao.dto.impl;
 import com.kata.cinema.base.dao.dto.TopMoviesResponseDtoPaginationDao;
 import com.kata.cinema.base.dao.entity.impl.AbstractDaoImpl;
 import com.kata.cinema.base.models.dto.response.TopMoviesResponseDto;
-import com.kata.cinema.base.models.entitys.Movies;
+import com.kata.cinema.base.models.entitys.Movie;
 import com.kata.cinema.base.models.enums.TopMoviesType;
 import com.kata.cinema.base.models.enums.Type;
 import org.springframework.stereotype.Repository;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class TopMoviesResponseDtoPaginationDaoImpl extends AbstractDaoImpl<Long, Movies> implements TopMoviesResponseDtoPaginationDao {
+public class TopMoviesResponseDtoPaginationDaoImpl extends AbstractDaoImpl<Long, Movie> implements TopMoviesResponseDtoPaginationDao {
     @Override
     public List<TopMoviesResponseDto> getItemsDto(Integer currentPage, Integer itemsOnPage, Map<String, Object> parameters) {
         //TODO вынести в отдельный метод

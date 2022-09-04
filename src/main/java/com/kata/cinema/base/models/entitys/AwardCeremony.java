@@ -15,11 +15,11 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table(name = "awards_ceremony")
 @Setter
 @Getter
 @NoArgsConstructor
-public class AwardsCeremony {
+public class AwardCeremony {
 
     @Id
     @SequenceGenerator(name = "gen_awards_ceremony")
@@ -32,6 +32,6 @@ public class AwardsCeremony {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "awards_id")
-    private Awards awards;
+    private Award awards;
 
 }

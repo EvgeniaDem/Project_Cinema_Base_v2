@@ -3,7 +3,7 @@ package com.kata.cinema.base.dao.dto.impl;
 import com.kata.cinema.base.dao.dto.SearchMovieResponseDtoPaginationDao;
 import com.kata.cinema.base.dao.entity.impl.AbstractDaoImpl;
 import com.kata.cinema.base.models.dto.response.SearchMovieResponseDto;
-import com.kata.cinema.base.models.entitys.Movies;
+import com.kata.cinema.base.models.entitys.Movie;
 import com.kata.cinema.base.models.enums.MovieSortType;
 import com.kata.cinema.base.models.enums.Type;
 import org.springframework.stereotype.Repository;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class SearchMovieResponseDtoPaginationDaoImpl extends AbstractDaoImpl<Long, Movies> implements SearchMovieResponseDtoPaginationDao {
+public class SearchMovieResponseDtoPaginationDaoImpl extends AbstractDaoImpl<Long, Movie> implements SearchMovieResponseDtoPaginationDao {
     @Override
     public List<SearchMovieResponseDto> getItemsDto(Integer currentPage, Integer itemsOnPage, Map<String, Object> parameters) {
         String sortTypeText;
@@ -36,7 +36,7 @@ public class SearchMovieResponseDtoPaginationDaoImpl extends AbstractDaoImpl<Lon
         //Получаем дтошки без жанров
         return entityManager.createQuery("select distinct " +
                         "new com.kata.cinema.base.models.dto.response.SearchMovieResponseDto(m.id, m.name, m.dateRelease, c.contentUrl) " +
-                        "from Movies m join Content c on m.id = c.movies.id join m.genres g where (g.name in (:genres) or :genres is null) " +
+                        "from Movie m join Content c on m.id = c.movie.id join m.genres g where (g.name in (:genres) or :genres is null) " +
                         "and (c.type in (:type) or c.type is null) and m.name like :name and ((m.dateRelease between :startDate and :endDate)  " +
                         "or (cast(:startDate as date) is null and m.dateRelease <= :endDate) or (cast(:endDate as date) is null " +
                         "and m.dateRelease >= :startDate) or (cast(:startDate as date) is null and cast(:endDate as date) is null ))" +
@@ -58,7 +58,7 @@ public class SearchMovieResponseDtoPaginationDaoImpl extends AbstractDaoImpl<Lon
     @Override
     public Long getResultTotal(Map<String, Object> parameters) {
         return entityManager.createQuery("select count (distinct m)" +
-                        "from Movies m join Content c on m.id = c.movies.id join m.genres g where (g.name in (:genres) or :genres is null) " +
+                        "from Movie m join Content c on m.id = c.movie.id join m.genres g where (g.name in (:genres) or :genres is null) " +
                         "and (c.type in (:type) or c.type is null) and m.name like :name and ((m.dateRelease between :startDate " +
                         "and :endDate)  or (cast(:startDate as date) is null and m.dateRelease <= :endDate) or (cast(:endDate as date) is null " +
                         "and m.dateRelease >= :startDate) or (cast(:startDate as date) is null and cast(:endDate as date) is null )) " +

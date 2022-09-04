@@ -1,7 +1,6 @@
 package com.kata.cinema.base.dao.entity.impl;
 
 import com.kata.cinema.base.dao.entity.UserDao;
-import com.kata.cinema.base.dao.entity.impl.AbstractDaoImpl;
 import com.kata.cinema.base.models.entitys.User;
 import org.springframework.stereotype.Repository;
 

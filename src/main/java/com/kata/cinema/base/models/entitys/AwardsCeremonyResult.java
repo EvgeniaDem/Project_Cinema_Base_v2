@@ -15,7 +15,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table(name = "award_ceremony_result")
 @Setter
 @Getter
 @NoArgsConstructor
@@ -31,7 +31,7 @@ public class AwardsCeremonyResult {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "movie_id")
-    private Movies movies;
+    private Movie movie;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "nomination_id")
@@ -39,7 +39,7 @@ public class AwardsCeremonyResult {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "awards_ceremony_id")
-    private AwardsCeremony awardsCeremony;
+    private AwardCeremony awardCeremony;
 
     private String nominationStatus;
 }

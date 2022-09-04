@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
+
 import static com.kata.cinema.base.AbstractIT.MOVIE_REST_CONTROLLER_CLEAR_SQL;
 import static com.kata.cinema.base.AbstractIT.MOVIE_REST_CONTROLLER_INIT_SQL;
 import static org.hamcrest.Matchers.hasSize;

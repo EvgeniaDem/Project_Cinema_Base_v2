@@ -3,8 +3,8 @@ package com.kata.cinema.base.webapp.controllers.unauthorized;
 import com.kata.cinema.base.exceptions.NotFoundByIdException;
 import com.kata.cinema.base.models.dto.request.CollectionRequestDto;
 import com.kata.cinema.base.models.dto.response.CollectionResponseDto;
-import com.kata.cinema.base.models.entitys.Collections;
-import com.kata.cinema.base.models.entitys.Movies;
+import com.kata.cinema.base.models.entitys.Collection;
+import com.kata.cinema.base.models.entitys.Movie;
 import com.kata.cinema.base.models.enums.CollectionType;
 import com.kata.cinema.base.service.entity.CollectionService;
 import com.kata.cinema.base.service.entity.FolderMoviesService;
@@ -45,9 +45,9 @@ public class CollectionRestController {
        // FolderMovies folderMovies =  folderMoviesService.findByUserId(user_id);
         //   Integer countViewedMovies = folderMovies.getMovies().size();
 
-        List<Collections> collections = collectionService.findCollectionByType(type);
+        List<Collection> collections = collectionService.findCollectionByType(type);
         List<CollectionResponseDto> collectionsDtos = new ArrayList<>();
-        for (Collections c : collections) {
+        for (Collection c : collections) {
             CollectionResponseDto collectionResponseDto = new CollectionResponseDto(c.getId(), c.getName(), c.getCollectionUrl(), 0, 0);
             collectionsDtos.add(collectionResponseDto);
         }
@@ -56,7 +56,7 @@ public class CollectionRestController {
 
     @PostMapping
     public ResponseEntity<Void> postCollectionResponseDto(CollectionRequestDto collectionRequestDto) {
-        Collections collections = new Collections(collectionRequestDto.getName(), collectionRequestDto.getType());
+        Collection collections = new Collection(collectionRequestDto.getName(), collectionRequestDto.getType());
         collectionService.create(collections);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -64,7 +64,7 @@ public class CollectionRestController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateCollectionResponseDto(@PathVariable Long id, CollectionRequestDto collectionRequestDto) {
-        Collections updateCollections = collectionService.getById(id).orElse(null);
+        Collection updateCollections = collectionService.getById(id).orElse(null);
         if (updateCollections == null) {
             throw new NotFoundByIdException("There is no collection with ID: " + id + " , try again.");
         }
@@ -77,7 +77,7 @@ public class CollectionRestController {
 
     @PatchMapping("/{id}/deactivate")
     public ResponseEntity<Void> deactivate(@PathVariable Long id) {
-        Collections collectionsDeactivate = collectionService.getById(id).orElse(null);
+        Collection collectionsDeactivate = collectionService.getById(id).orElse(null);
         if (collectionsDeactivate == null) {
             throw new NotFoundByIdException("There is no collection with ID: " + id + " , try again.");
         }
@@ -88,7 +88,7 @@ public class CollectionRestController {
 
     @PatchMapping("/{id}/activate")
     public ResponseEntity<Void> activate(@PathVariable Long id) {
-        Collections collectionsActive = collectionService.getById(id).orElse(null);
+        Collection collectionsActive = collectionService.getById(id).orElse(null);
         if (collectionsActive == null) {
             throw new NotFoundByIdException("There is no collection with ID: " + id + " , try again.");
         }
@@ -108,17 +108,17 @@ public class CollectionRestController {
 
     @PostMapping("/{id}/movies")
     public ResponseEntity<Void> addMovie(@PathVariable Long id,@RequestBody List<Long> movieIds) {
-        Collections collectionsAddMovie = collectionService.getById(id).orElse(null);
+        Collection collectionsAddMovie = collectionService.getById(id).orElse(null);
         Set<Long> setMoviesId = new HashSet<>(movieIds);
         if (collectionsAddMovie != null) {
-            Set<Movies> moviesSet = collectionsAddMovie.getMovies();
+            Set<Movie> moviesSet = collectionsAddMovie.getMovies();
             if (moviesSet.isEmpty()) {
                 for (Long i : setMoviesId) {
                     moviesSet.add(movieService.getById(i));
                 }
             } else {
                 Set<Long> availableFilmsId = new HashSet<>();
-                for (Movies i : moviesSet) {
+                for (Movie i : moviesSet) {
                     availableFilmsId.add(i.getId());
                 }
                 availableFilmsId.addAll(setMoviesId);
@@ -136,13 +136,13 @@ public class CollectionRestController {
     @DeleteMapping("/{id}/movies")
     public ResponseEntity<Void> deleteMovie(@PathVariable Long id,@RequestBody List<Long> movieIds) {
 
-        Collections collectionsDeleteMovie = collectionService.getById(id).orElse(null);
+        Collection collectionsDeleteMovie = collectionService.getById(id).orElse(null);
         Set<Long> setMoviesDeleteId = new HashSet<>(movieIds);
         if (collectionsDeleteMovie != null) {
-            Set<Movies> moviesSet = collectionsDeleteMovie.getMovies();
-            Set<Movies> deleteSet = new HashSet<>();
+            Set<Movie> moviesSet = collectionsDeleteMovie.getMovies();
+            Set<Movie> deleteSet = new HashSet<>();
             if (!moviesSet.isEmpty()) {
-                for (Movies i : moviesSet) {
+                for (Movie i : moviesSet) {
                     for (Long n : setMoviesDeleteId) {
                         if (i.getId().equals(n)) {
                             deleteSet.add(movieService.getById(n));

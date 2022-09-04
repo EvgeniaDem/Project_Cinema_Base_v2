@@ -2,7 +2,7 @@ package com.kata.cinema.base.webapp.controllers.user;
 
 import com.kata.cinema.base.exceptions.NotFoundByIdException;
 import com.kata.cinema.base.models.dto.request.CommentsRequestDto;
-import com.kata.cinema.base.models.entitys.Comments;
+import com.kata.cinema.base.models.entitys.Comment;
 import com.kata.cinema.base.service.entity.CommentService;
 import com.kata.cinema.base.service.entity.NewsService;
 import com.kata.cinema.base.service.entity.UserService;
@@ -30,7 +30,7 @@ public class UserNewsRestController {
     public ResponseEntity<CommentsRequestDto> addComments(
             @PathVariable Long id, @RequestParam Long userId,
             @RequestBody CommentsRequestDto commentsRequestDto) {
-        Comments comments = new Comments();
+        Comment comments = new Comment();
         comments.setDate(LocalDateTime.now());
         if (newsService.isExistById(id) && userService.isExistById(userId)) {
             comments.setNews(newsService.getById(id).orElseThrow());

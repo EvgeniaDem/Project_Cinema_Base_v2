@@ -7,6 +7,7 @@ import com.kata.cinema.base.models.entitys.Role;
 import com.kata.cinema.base.models.entitys.User;
 import com.kata.cinema.base.models.enums.Roles;
 import com.kata.cinema.base.service.entity.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,18 +18,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 @RestController
+@AllArgsConstructor
 public class RegistrationRestController {
 
-    private UserService userService;
+    private final UserService userService;
     //TODO создать сервис
-    private RoleDao roleDao;
-    private UserMapper userMapper;
-
-    public RegistrationRestController(UserService userService, RoleDao roleDao, UserMapper userMapper) {
-        this.userService = userService;
-        this.roleDao = roleDao;
-        this.userMapper = userMapper;
-    }
+    private final RoleDao roleDao;
+    private final UserMapper userMapper;
 
     @PostMapping("/api/registration")
     public ResponseEntity<Void> registration(@RequestBody UserRegistrationRequestDto userRegistrationRequestDto) {

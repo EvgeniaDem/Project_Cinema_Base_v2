@@ -37,7 +37,6 @@ public class Person {
 
     @Column(name = "place_birthday")
     private String placeBirthday;
-
 }
 
 

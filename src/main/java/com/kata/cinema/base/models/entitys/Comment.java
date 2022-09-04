@@ -1,9 +1,9 @@
 package com.kata.cinema.base.models.entitys;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,10 +20,10 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-@ToString
-@RequiredArgsConstructor
-@Table(name = "Comments")
-public class Comments {
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "comments")
+public class Comment {
     @Id
     @SequenceGenerator(name = "gen_comment")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen_comment")
@@ -40,5 +40,4 @@ public class Comments {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private News news;
-
 }

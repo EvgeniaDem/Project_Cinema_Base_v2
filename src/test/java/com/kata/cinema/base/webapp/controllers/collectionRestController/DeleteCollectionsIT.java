@@ -1,8 +1,10 @@
 package com.kata.cinema.base.webapp.controllers.collectionRestController;
+
 import com.kata.cinema.base.AbstractIT;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.test.context.jdbc.Sql;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,7 +23,7 @@ public class DeleteCollectionsIT extends AbstractIT {
                 .andDo(print())
                 .andExpect(status().isOk());
 
-        Assert.assertTrue(entityManager.createQuery("SELECT count(c) < 1 FROM Collections c WHERE c.id = :id", Boolean.class)
+        Assert.assertTrue(entityManager.createQuery("SELECT count(c) < 1 FROM Collection c WHERE c.id = :id", Boolean.class)
                 .setParameter("id", 100L).getSingleResult());
     }
 

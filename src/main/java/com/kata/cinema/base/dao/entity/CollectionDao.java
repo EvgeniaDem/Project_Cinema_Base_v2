@@ -1,13 +1,13 @@
 package com.kata.cinema.base.dao.entity;
 
-import com.kata.cinema.base.models.entitys.Collections;
+import com.kata.cinema.base.models.entitys.Collection;
 import com.kata.cinema.base.models.enums.CollectionType;
 
 import java.util.List;
 
 
-public interface CollectionDao extends AbstractDao<Long, Collections> {
+public interface CollectionDao extends AbstractDao<Long, Collection> {
 
-    List<Collections> findCollectionByType(CollectionType collectionType);
+    List<Collection> findCollectionByType(CollectionType collectionType);
 
 }

@@ -26,7 +26,7 @@ public class PreviewServiceImpl implements PreviewService {
     public void upload(Long id, String URL) {
         Content con = new Content();
         con.setContentUrl(URL);
-        con.setMovies(movieDao.getById(id).orElseThrow());
+        con.setMovie(movieDao.getById(id).orElseThrow());
         con.setContentUrl(URL);
         contentDao.create(con);
     }

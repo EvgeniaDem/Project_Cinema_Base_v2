@@ -26,7 +26,7 @@ import java.util.Set;
 @Setter
 @Table(name = "folders_movies")
 @NoArgsConstructor
-public class FolderMovies {
+public class FolderMovie {
     @Id
     @SequenceGenerator(name = "gen_folder_movies")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen_folder_movies")
@@ -50,9 +50,9 @@ public class FolderMovies {
     @JoinTable(name = "folders_movies_to_movies",
             joinColumns = @JoinColumn(name = "folders_id"),
             inverseJoinColumns = @JoinColumn(name = "movie_id"))
-    private Set<Movies> movies;
+    private Set<Movie> movies;
 
-    public FolderMovies(Long id, Category category, Privacy privacy, String name, String description) {
+    public FolderMovie(Long id, Category category, Privacy privacy, String name, String description) {
         this.id = id;
         this.category = category;
         this.privacy = privacy;

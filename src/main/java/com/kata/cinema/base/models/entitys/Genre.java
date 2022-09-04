@@ -27,7 +27,7 @@ import java.util.Set;
 @ToString
 @RequiredArgsConstructor
 @Table(name = "genres")
-public class Genres {
+public class Genre {
 
     @Id
     @SequenceGenerator(name = "gen_genres")
@@ -44,9 +44,9 @@ public class Genres {
             inverseJoinColumns = @JoinColumn(name = "movie_id")
     )
     @ToString.Exclude
-    private Set<Movies> movies;
+    private Set<Movie> movie;
 
-    public Genres(String name) {
+    public Genre(String name) {
         this.name = name;
     }
 
@@ -55,7 +55,7 @@ public class Genres {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Genres genres = (Genres) o;
+        Genre genres = (Genre) o;
         return id != null && Objects.equals(id, genres.id);
     }
 

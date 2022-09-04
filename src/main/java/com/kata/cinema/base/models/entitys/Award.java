@@ -12,11 +12,11 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table(name = "awards")
 @Setter
 @Getter
 @NoArgsConstructor
-public class Awards {
+public class Award {
 
     @Id
     @SequenceGenerator(name = "gen_awards")
@@ -26,5 +26,4 @@ public class Awards {
     private String name;
 
     private String description;
-
 }

@@ -29,7 +29,7 @@ import java.util.Set;
 @ToString
 @RequiredArgsConstructor
 @Table(name = "collections")
-public class Collections {
+public class Collection {
 
     @Id
     @SequenceGenerator(name = "gen_collections")
@@ -55,15 +55,15 @@ public class Collections {
             inverseJoinColumns = @JoinColumn(name = "movies_id", referencedColumnName = "id")
     )
     @ToString.Exclude
-    private Set<Movies> movies;
+    private Set<Movie> movies;
 
-    public Collections(String name, CollectionType collectionType) {
+    public Collection(String name, CollectionType collectionType) {
         this.name = name;
         this.collectionType = collectionType;
         this.enable = true;
     }
 
-    public Collections(String name, Boolean enable) {
+    public Collection(String name, Boolean enable) {
         this.name = name;
         this.enable = enable;
     }
@@ -72,7 +72,7 @@ public class Collections {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Collections that = (Collections) o;
+        Collection that = (Collection) o;
         return id != null && Objects.equals(id, that.id);
     }
 
