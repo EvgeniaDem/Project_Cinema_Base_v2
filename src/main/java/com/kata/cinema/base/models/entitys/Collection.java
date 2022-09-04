@@ -48,6 +48,9 @@ public class Collection {
     @Enumerated(EnumType.STRING)
     private CollectionType collectionType;
 
+    @Column(name = "previewUrl")
+    private String previewUrl;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "collections_movies",

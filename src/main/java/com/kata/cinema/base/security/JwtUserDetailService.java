@@ -1,5 +1,6 @@
 package com.kata.cinema.base.security;
 
+import com.kata.cinema.base.dao.abstracts.dto.UserDao;
 import com.kata.cinema.base.models.entitys.User;
 import com.kata.cinema.base.service.entity.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -12,16 +13,16 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class JwtUserDetailService implements UserDetailsService {
-    private final UserService userService;
+    private final UserDao userDao;
 
     @Autowired
-    public JwtUserDetailService(UserService userService) {
-        this.userService = userService;
+    public JwtUserDetailService(UserDao userDao) {
+        this.userDao = userDao;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userService.findByEmail(username);
+        User user = userDao.findUserByEmail(username);
         if (user == null) {
             throw new UsernameNotFoundException("User with email: " + username + "not found");
         }

@@ -19,15 +19,20 @@ import java.util.Set;
 
 @RestController
 @AllArgsConstructor
+@Validated
+@AllArgsConstructor
 public class RegistrationRestController {
 
     private final UserService userService;
     //TODO создать сервис
     private final RoleDao roleDao;
     private final UserMapper userMapper;
+    private final UserService userService;
+    private final UserMapper userMapper;
 
     @PostMapping("/api/registration")
     public ResponseEntity<Void> registration(@RequestBody UserRegistrationRequestDto userRegistrationRequestDto) {
+    public ResponseEntity<Void> registration(@Valid @RequestBody UserRegistrationRequestDto userRegistrationRequestDto) {
 
 
         if (userRegistrationRequestDto.getPassword().equals(userRegistrationRequestDto.getConfirmPassword())) {
@@ -40,6 +45,5 @@ public class RegistrationRestController {
         } else {
             throw new PasswordNotFoundException("Password: " + userRegistrationRequestDto.getPassword() + " and confirm password: " + userRegistrationRequestDto.getConfirmPassword() + " not match");
         }
-
     }
 }

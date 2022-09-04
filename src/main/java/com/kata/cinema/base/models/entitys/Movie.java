@@ -56,6 +56,9 @@ public class Movie {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "origin_name")
+    private String originName;
+
     @ToString.Exclude
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "movie_genre",
@@ -63,8 +66,6 @@ public class Movie {
             inverseJoinColumns = @JoinColumn(name = "genre_id")
     )
     private Set<Genre> genres;
-
-    private String originName;
 
     @Override
     public boolean equals(Object o) {

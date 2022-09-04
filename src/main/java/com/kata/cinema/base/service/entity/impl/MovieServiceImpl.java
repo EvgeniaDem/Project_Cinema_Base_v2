@@ -23,9 +23,12 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public List<SearchMovieDto> getSearchMoviesWithFilter(String filterPattern) {
+        return movieDao.getSearchMoviesWithFilter(filterPattern);
+    }
+
+    @Override
     public Movie getById(Long id) {
         return movieDao.getById(id).orElse(null);
     }
-
-
 }
