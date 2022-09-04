@@ -1,5 +1,6 @@
 package com.kata.cinema.base.service.entity;
 
+import com.kata.cinema.base.models.dto.SearchMovieDto;
 import com.kata.cinema.base.models.dto.response.MovieReleaseResponseDto;
 import com.kata.cinema.base.models.entitys.Movie;
 
@@ -11,4 +12,6 @@ public interface MovieService {
     List<MovieReleaseResponseDto> getReleaseFilms();
 
     Movie getById(Long id);
+
+    List<SearchMovieDto> getSearchMoviesWithFilter(String filterPattern);
 }

@@ -1,6 +1,6 @@
-package com.kata.cinema.base.dao.abstracts.model;
+package com.kata.cinema.base.dao.entity;
 
-import com.kata.cinema.base.dao.abstracts.dto.AbstractDao;
+import com.kata.cinema.base.dao.entity.AbstractDao;
 import com.kata.cinema.base.models.dto.SearchPersonDto;
 import com.kata.cinema.base.models.entitys.Person;
 

@@ -1,17 +1,25 @@
 package com.kata.cinema.base.webapp.controllers.unauthorized;
 
 import com.kata.cinema.base.models.dto.PageDto;
+import com.kata.cinema.base.models.dto.SearchCollectionDto;
+import com.kata.cinema.base.models.dto.SearchMovieDto;
+import com.kata.cinema.base.models.dto.SearchPersonDto;
 import com.kata.cinema.base.models.dto.response.SearchMovieResponseDto;
+import com.kata.cinema.base.models.dto.response.SearchResponseDto;
 import com.kata.cinema.base.models.dto.response.SearchUserResponseDto;
 import com.kata.cinema.base.models.enums.MovieSortType;
 import com.kata.cinema.base.service.dto.SearchMovieResponseDtoPaginationService;
+import com.kata.cinema.base.service.abstracts.model.PersonsService;
 import com.kata.cinema.base.service.dto.SearchUserDtoService;
+import com.kata.cinema.base.service.entity.CollectionService;
+import com.kata.cinema.base.service.entity.MovieService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +40,9 @@ public class SearchRestController {
 
     private final SearchUserDtoService searchUserService;
     private final SearchMovieResponseDtoPaginationService searchMovieResponseDtoPaginationService;
+    private final MovieService movieService;
+    private final CollectionService collectionsService;
+    private final PersonsService personsService;
 
     @GetMapping("/users")
     @ApiOperation(value = "Получение списка пользователей с помощью почты", response = SearchUserResponseDto.class, responseContainer = "list")
@@ -72,5 +83,15 @@ public class SearchRestController {
         parameters.put("mpaa", mpaa);
         parameters.put("sortType", sortType);
         return ResponseEntity.ok(searchMovieResponseDtoPaginationService.getPageDtoWithParameters(pageNumber, itemsOnPage, parameters));
+    }
+
+    @GetMapping("/api/search")
+    public ResponseEntity<SearchResponseDto> searchHeader(@RequestParam String filterPattern) {
+
+        List<SearchMovieDto> searchMovieDtoList = movieService.getSearchMoviesWithFilter(filterPattern);
+        List<SearchCollectionDto> searchCollectionDtoList = collectionsService.getSearchCollectionWithFilter(filterPattern);
+        List<SearchPersonDto> searchPersonDtoList = personsService.getSearchPersonWithFilter(filterPattern);
+
+        return new ResponseEntity<>(new SearchResponseDto(searchMovieDtoList, searchCollectionDtoList,searchPersonDtoList), HttpStatus.OK);
     }
 }

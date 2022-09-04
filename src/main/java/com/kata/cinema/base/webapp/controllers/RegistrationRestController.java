@@ -10,15 +10,16 @@ import com.kata.cinema.base.service.entity.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.Set;
 
 @RestController
-@AllArgsConstructor
 @Validated
 @AllArgsConstructor
 public class RegistrationRestController {
@@ -27,13 +28,9 @@ public class RegistrationRestController {
     //TODO создать сервис
     private final RoleDao roleDao;
     private final UserMapper userMapper;
-    private final UserService userService;
-    private final UserMapper userMapper;
 
     @PostMapping("/api/registration")
-    public ResponseEntity<Void> registration(@RequestBody UserRegistrationRequestDto userRegistrationRequestDto) {
     public ResponseEntity<Void> registration(@Valid @RequestBody UserRegistrationRequestDto userRegistrationRequestDto) {
-
 
         if (userRegistrationRequestDto.getPassword().equals(userRegistrationRequestDto.getConfirmPassword())) {
             Set<Role> role = new HashSet<>();

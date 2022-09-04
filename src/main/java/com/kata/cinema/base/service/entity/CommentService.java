@@ -10,4 +10,5 @@ import java.util.List;
 public interface CommentService extends AbstractService<Long, Comment> {
     //TODO вынести в CommentDtoService (реализацию тоже)
     List<CommentsResponseDto> getComments(Long id);
+
 }

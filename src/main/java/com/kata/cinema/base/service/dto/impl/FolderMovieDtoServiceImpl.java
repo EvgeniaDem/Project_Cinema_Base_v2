@@ -1,6 +1,5 @@
 package com.kata.cinema.base.service.dto.impl;
 
-import com.kata.cinema.base.dao.dto.FolderMovieDtoDao;
 import com.kata.cinema.base.models.dto.FolderMovieDto;
 import com.kata.cinema.base.service.dto.FolderMovieDtoService;
 import org.springframework.stereotype.Service;
@@ -10,9 +9,9 @@ import java.util.List;
 @Service
 public class FolderMovieDtoServiceImpl implements FolderMovieDtoService {
 
-    private final FolderMovieDtoDao folderMovieDtoDao;
+    private final com.kata.cinema.base.dao.abstracts.dto.FolderMovieDtoDao folderMovieDtoDao;
 
-    public FolderMovieDtoServiceImpl(FolderMovieDtoDao folderMovieDtoDao) {
+    public FolderMovieDtoServiceImpl(com.kata.cinema.base.dao.abstracts.dto.FolderMovieDtoDao folderMovieDtoDao) {
         this.folderMovieDtoDao = folderMovieDtoDao;
     }
 

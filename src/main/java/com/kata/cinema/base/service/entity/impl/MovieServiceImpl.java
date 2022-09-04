@@ -1,6 +1,7 @@
 package com.kata.cinema.base.service.entity.impl;
 
 import com.kata.cinema.base.dao.entity.MovieDao;
+import com.kata.cinema.base.models.dto.SearchMovieDto;
 import com.kata.cinema.base.models.dto.response.MovieReleaseResponseDto;
 import com.kata.cinema.base.models.entitys.Movie;
 import com.kata.cinema.base.service.entity.MovieService;

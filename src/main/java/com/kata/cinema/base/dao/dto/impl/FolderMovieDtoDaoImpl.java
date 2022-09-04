@@ -1,6 +1,5 @@
 package com.kata.cinema.base.dao.dto.impl;
 
-import com.kata.cinema.base.dao.dto.FolderMovieDtoDao;
 import com.kata.cinema.base.models.dto.FolderMovieDto;
 import org.springframework.stereotype.Repository;
 
@@ -11,7 +10,7 @@ import java.util.List;
 
 
 @Repository
-public class FolderMovieDtoDaoImpl implements FolderMovieDtoDao {
+public class FolderMovieDtoDaoImpl implements com.kata.cinema.base.dao.abstracts.dto.FolderMovieDtoDao {
 
     @PersistenceContext
     private EntityManager entityManager;
