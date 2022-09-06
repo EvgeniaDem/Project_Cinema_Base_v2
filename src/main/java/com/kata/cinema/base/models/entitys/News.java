@@ -54,6 +54,6 @@ public class News {
             joinColumns = @JoinColumn(name = "news_id"),
             inverseJoinColumns = @JoinColumn(name = "movie_id")
     )
-    private Set<Movies> movies;
+    private Set<Movie> movies;
 
 }

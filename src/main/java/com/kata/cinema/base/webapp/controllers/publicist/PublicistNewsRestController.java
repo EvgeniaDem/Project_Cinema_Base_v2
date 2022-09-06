@@ -5,12 +5,12 @@ import com.kata.cinema.base.models.dto.request.NewsRequestDto;
 import com.kata.cinema.base.models.dto.response.NewsResponseDto;
 import com.kata.cinema.base.models.entitys.News;
 import com.kata.cinema.base.models.enums.Rubric;
-import com.kata.cinema.base.service.abstracts.model.NewsService;
+import com.kata.cinema.base.service.entity.NewsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,16 +28,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/publicist/news")
 @Api(tags = "Новости")
+@AllArgsConstructor
 public class PublicistNewsRestController {
 
     private final NewsService newsService;
     private final NewsMapper newsMapper;
 
-    @Autowired
-    public PublicistNewsRestController(NewsService newsService, NewsMapper newsMapper) {
-        this.newsService = newsService;
-        this.newsMapper = newsMapper;
-    }
 
     @GetMapping
     @ResponseBody
@@ -68,7 +64,7 @@ public class PublicistNewsRestController {
     public ResponseEntity<NewsRequestDto> createNews(@RequestBody NewsRequestDto newsRequestDto) {
         News news = newsMapper.toNews(newsRequestDto);
         news.setDate(LocalDate.now());
-        newsService.save(news);
+        newsService.create(news);
         return new ResponseEntity<>(newsRequestDto, HttpStatus.CREATED);
     }
 

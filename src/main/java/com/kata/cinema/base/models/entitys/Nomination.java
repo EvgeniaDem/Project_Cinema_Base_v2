@@ -24,5 +24,4 @@ public class Nomination {
     private Long id;
 
     private String name;
-
 }

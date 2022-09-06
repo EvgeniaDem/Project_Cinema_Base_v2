@@ -55,9 +55,9 @@ public class MoviePerson {
     @JoinColumn(name = "person_id", insertable = false, updatable = false)
     private Person person;
 
-    @ManyToOne(targetEntity = Movies.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Movie.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "movie_id", insertable = false, updatable = false)
-    private Movies movie;
+    private Movie movie;
 
     @ManyToOne(targetEntity = Profession.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "profession_id", insertable = false, updatable = false)

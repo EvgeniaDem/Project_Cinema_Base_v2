@@ -41,7 +41,7 @@ public class Content {
     @ManyToOne(fetch = FetchType.LAZY)
     @ToString.Exclude
     @JoinColumn(name = "movie_id")
-    private Movies movies;
+    private Movie movie;
 
     @Enumerated(EnumType.STRING)
     private Type type;

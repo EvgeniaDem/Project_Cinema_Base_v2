@@ -2,14 +2,14 @@ package com.kata.cinema.base.webapp.controllers.admin;
 
 import com.kata.cinema.base.exceptions.NotFoundByIdException;
 import com.kata.cinema.base.models.dto.response.GenreResponseDto;
-import com.kata.cinema.base.models.entitys.Genres;
-import com.kata.cinema.base.service.abstracts.model.GenreService;
+import com.kata.cinema.base.models.entitys.Genre;
+import com.kata.cinema.base.service.entity.GenreService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,17 +22,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/admin/genres")
 @Api(tags = "Жанры")
+@AllArgsConstructor
 public class AdminGenreRestController {
+
     private final GenreService genreService;
 
-    @Autowired
-    public AdminGenreRestController(GenreService genreService) {
-        this.genreService = genreService;
-    }
 
     @GetMapping
     @ApiOperation(value = "Получение жанров", response = GenreResponseDto.class, responseContainer = "list")
@@ -75,16 +74,17 @@ public class AdminGenreRestController {
             @ApiParam(value = "id жанра") @PathVariable Long id,
             @ApiParam(value = "name жанра") @RequestParam String name) {
 
-        if (!genreService.isExistById(id)) {
+        Optional<Genre> optionalGenres = genreService.getById(id);
+        if (optionalGenres.isEmpty()) {
             throw new NotFoundByIdException("There is no genre with ID: " + id + " , try again.");
         }
-        Genres genres = genreService.getById(id).orElseThrow();
+        Genre genres = optionalGenres.get();
         genres.setName(name);
         genreService.update(genres);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping()
+    @PostMapping
     @ApiOperation(value = "Добавление жанра", response = GenreResponseDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Успешное добавление жанра"),
@@ -95,8 +95,7 @@ public class AdminGenreRestController {
     })
     public ResponseEntity<GenreResponseDto> addGenre(
             @ApiParam(value = "name жанра") @RequestParam String name) {
-        genreService.create(new Genres(name));
+        genreService.create(new Genre(name));
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }

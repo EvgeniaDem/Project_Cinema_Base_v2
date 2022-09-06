@@ -1,12 +1,13 @@
 package com.kata.cinema.base.webapp.controllers;
 
 import com.kata.cinema.base.exceptions.NotFoundByIdException;
+import com.kata.cinema.base.models.dto.response.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class ExceptionRestController {
 
     @ExceptionHandler(Exception.class)

@@ -37,7 +37,7 @@ public class Score {
     @ManyToOne(fetch = FetchType.LAZY)
     @ToString.Exclude
     @JoinColumn(name = "movie_id")
-    private Movies movie;
+    private Movie movie;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @ToString.Exclude
