@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.Objects;
 
 @RestController
@@ -22,8 +21,8 @@ public class ResourcesController {
 
     @GetMapping("/**")
     public ResponseEntity<byte[]> getImage(HttpServletRequest request) {
-        String image = request.getServletPath();
-        try (InputStream inputStream = getClass().getResourceAsStream(image)) {
+        String image = request.getServletPath().substring(1);
+        try (InputStream inputStream = new FileInputStream(image)) {
             HttpHeaders headers = new HttpHeaders();
             if (image.endsWith(".png")) {
                 headers.setContentType(MediaType.IMAGE_PNG);
