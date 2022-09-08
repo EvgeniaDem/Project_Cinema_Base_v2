@@ -3,7 +3,9 @@ package com.kata.cinema.base.service.entity.impl;
 import com.kata.cinema.base.dao.entity.AbstractDao;
 import com.kata.cinema.base.dao.entity.CollectionDao;
 import com.kata.cinema.base.models.dto.SearchCollectionDto;
+import com.kata.cinema.base.models.dto.response.CollectionResponseDto;
 import com.kata.cinema.base.models.entitys.Collection;
+import com.kata.cinema.base.models.entitys.User;
 import com.kata.cinema.base.models.enums.CollectionType;
 import com.kata.cinema.base.service.entity.AbstractServiceImpl;
 import com.kata.cinema.base.service.entity.CollectionService;
@@ -22,8 +24,8 @@ public class CollectionServiceImpl extends AbstractServiceImpl<Long, Collection>
     }
 
     @Override
-    public List<Collection> findCollectionByType(CollectionType collectionType) {
-        return collectionDao.findCollectionByType(collectionType);
+    public List<CollectionResponseDto> findCollectionByType(CollectionType collectionType, User user) {
+        return collectionDao.findCollectionByType(collectionType, user);
     }
 
     @Override

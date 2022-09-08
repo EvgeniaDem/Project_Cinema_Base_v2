@@ -5,13 +5,18 @@ import com.kata.cinema.base.models.dto.request.CollectionRequestDto;
 import com.kata.cinema.base.models.dto.response.CollectionResponseDto;
 import com.kata.cinema.base.models.entitys.Collection;
 import com.kata.cinema.base.models.entitys.Movie;
+import com.kata.cinema.base.models.entitys.User;
 import com.kata.cinema.base.models.enums.CollectionType;
 import com.kata.cinema.base.service.entity.CollectionService;
 import com.kata.cinema.base.service.entity.FolderMoviesService;
 import com.kata.cinema.base.service.entity.MovieService;
+import com.kata.cinema.base.service.entity.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -37,21 +42,29 @@ public class CollectionRestController {
     private final FolderMoviesService folderMoviesService;
     private final MovieService movieService;
 
+    private final UserService userService;
 
     @GetMapping
     public ResponseEntity<List<CollectionResponseDto>> getCollectionResponseDto(@RequestParam(defaultValue = "MOVIES") CollectionType type) {
 
         //TODO доработать логику, доставать сразу dto
-       // FolderMovies folderMovies =  folderMoviesService.findByUserId(user_id);
-        //   Integer countViewedMovies = folderMovies.getMovies().size();
-
-        List<Collection> collections = collectionService.findCollectionByType(type);
-        List<CollectionResponseDto> collectionsDtos = new ArrayList<>();
-        for (Collection c : collections) {
-            CollectionResponseDto collectionResponseDto = new CollectionResponseDto(c.getId(), c.getName(), c.getCollectionUrl(), 0, 0);
-            collectionsDtos.add(collectionResponseDto);
+//        FolderMovies folderMovies =  folderMoviesService.findByUserId(user_id);
+//           Integer countViewedMovies = folderMovies.getMovies().size();
+//        List<Collection> collections = collectionService.findCollectionByType(type);
+//        List<CollectionResponseDto> collectionsDtos = new ArrayList<>();
+//        for (Collection c : collections) {
+//            CollectionResponseDto collectionResponseDto = new CollectionResponseDto(c.getId(), c.getName(), c.getCollectionUrl(), 0, 0);
+//            collectionsDtos.add(collectionResponseDto);
+//        }
+//        return ResponseEntity.ok(collectionsDtos);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = null;
+        if (auth != null) {
+            if (auth.getDetails() instanceof UserDetails) {
+                user =  userService.findByEmail(((UserDetails) auth.getDetails()).getUsername());
+            }
         }
-        return ResponseEntity.ok(collectionsDtos);
+        return ResponseEntity.ok(collectionService.findCollectionByType(type, user));
     }
 
     @PostMapping
