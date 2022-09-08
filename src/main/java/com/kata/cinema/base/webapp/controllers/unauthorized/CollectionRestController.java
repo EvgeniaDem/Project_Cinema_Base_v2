@@ -47,21 +47,10 @@ public class CollectionRestController {
     @GetMapping
     public ResponseEntity<List<CollectionResponseDto>> getCollectionResponseDto(@RequestParam(defaultValue = "MOVIES") CollectionType type) {
 
-        //TODO доработать логику, доставать сразу dto
-//        FolderMovies folderMovies =  folderMoviesService.findByUserId(user_id);
-//           Integer countViewedMovies = folderMovies.getMovies().size();
-//        List<Collection> collections = collectionService.findCollectionByType(type);
-//        List<CollectionResponseDto> collectionsDtos = new ArrayList<>();
-//        for (Collection c : collections) {
-//            CollectionResponseDto collectionResponseDto = new CollectionResponseDto(c.getId(), c.getName(), c.getCollectionUrl(), 0, 0);
-//            collectionsDtos.add(collectionResponseDto);
-//        }
-//        return ResponseEntity.ok(collectionsDtos);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = null;
+        User user = new User();
         if (auth != null) {
             if (auth.getPrincipal() instanceof UserDetails) {
-                // user =  userService.findByEmail(((UserDetails) auth.getPrincipal()).getUsername());
                 user = (User) auth.getPrincipal();
             }
         }
