@@ -60,8 +60,9 @@ public class CollectionRestController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = null;
         if (auth != null) {
-            if (auth.getDetails() instanceof UserDetails) {
-                user =  userService.findByEmail(((UserDetails) auth.getDetails()).getUsername());
+            if (auth.getPrincipal() instanceof UserDetails) {
+                // user =  userService.findByEmail(((UserDetails) auth.getPrincipal()).getUsername());
+                user = (User) auth.getPrincipal();
             }
         }
         return ResponseEntity.ok(collectionService.findCollectionByType(type, user));
