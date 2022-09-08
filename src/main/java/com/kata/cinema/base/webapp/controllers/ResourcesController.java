@@ -23,8 +23,7 @@ public class ResourcesController {
     @GetMapping("/**")
     public ResponseEntity<byte[]> getImage(HttpServletRequest request) {
         String image = request.getServletPath();
-        try(InputStream inputStream = getClass().getResourceAsStream(image)){
-
+        try (InputStream inputStream = getClass().getResourceAsStream(image)) {
             HttpHeaders headers = new HttpHeaders();
             if (image.endsWith(".png")) {
                 headers.setContentType(MediaType.IMAGE_PNG);
@@ -33,10 +32,8 @@ public class ResourcesController {
             } else if (image.endsWith(".gif")) {
                 headers.setContentType(MediaType.IMAGE_GIF);
             }
-
             byte[] imageCode = Objects.requireNonNull(inputStream).readAllBytes();
             headers.setContentLength(imageCode.length);
-
             return new ResponseEntity<>(imageCode, headers, HttpStatus.OK);
         } catch (IOException | NullPointerException e) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
