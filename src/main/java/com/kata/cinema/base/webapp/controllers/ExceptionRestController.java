@@ -7,16 +7,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.Date;
+
 @RestControllerAdvice
 public class ExceptionRestController {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> globalException(Exception exception) {
-        return new ResponseEntity<>(new ErrorResponse(exception.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+        ErrorResponse errorResponse = new ErrorResponse(exception.getMessage(), new Date(), HttpStatus.INTERNAL_SERVER_ERROR, HttpStatus.INTERNAL_SERVER_ERROR.value());
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(NotFoundByIdException.class)
     public ResponseEntity<ErrorResponse> notFoundByIdException(NotFoundByIdException idException) {
-        return new ResponseEntity<>(new ErrorResponse(idException.getMessage()), HttpStatus.NOT_FOUND);
+        ErrorResponse errorResponse = new ErrorResponse(idException.getMessage(), new Date(), HttpStatus.NOT_FOUND, HttpStatus.NOT_FOUND.value());
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 }
