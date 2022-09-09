@@ -2,7 +2,10 @@ package com.kata.cinema.base.dao.entity.impl;
 
 import com.kata.cinema.base.dao.entity.CollectionDao;
 import com.kata.cinema.base.models.dto.SearchCollectionDto;
+import com.kata.cinema.base.models.dto.response.CollectionResponseDto;
 import com.kata.cinema.base.models.entitys.Collection;
+import com.kata.cinema.base.models.entitys.User;
+import com.kata.cinema.base.models.enums.Category;
 import com.kata.cinema.base.models.enums.CollectionType;
 import org.springframework.stereotype.Repository;
 
@@ -16,10 +19,14 @@ public class CollectionDaoImpl extends AbstractDaoImpl<Long, Collection> impleme
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Override
-    public List<Collection> findCollectionByType(CollectionType collectionType) {
+    public List<CollectionResponseDto> findCollectionByType(CollectionType collectionType, User user) {
 
-        return entityManager.createQuery("select c from Collection c where c.collectionType=:type", Collection.class).setParameter("type", collectionType)
+         return entityManager.createQuery("select new com.kata.cinema.base.models.dto.response.CollectionResponseDto(c.name, c.collectionUrl, c.movies.size, f.movies.size) " +
+                        " from Collection c  left join FolderMovie f " +
+                        " on c.collectionType=:type and f.category = :category and f.user.id = :userId", CollectionResponseDto.class)
+                .setParameter("userId", user.getId())
+                .setParameter("category", Category.VIEWED_MOVIES)
+                .setParameter("type", collectionType)
                 .getResultList();
     }
 
