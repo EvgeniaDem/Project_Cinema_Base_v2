@@ -30,7 +30,11 @@ public class Comment {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    private String text;
+    private String message;
+
+    private Long parentId;
+
+    private Integer level;
 
     @NotNull
     private LocalDateTime date;
@@ -38,6 +42,6 @@ public class Comment {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
     private News news;
 }
