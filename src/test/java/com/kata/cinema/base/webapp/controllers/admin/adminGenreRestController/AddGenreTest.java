@@ -2,35 +2,39 @@ package com.kata.cinema.base.webapp.controllers.admin.adminGenreRestController;
 
 import com.kata.cinema.base.AbstractTest;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.test.context.jdbc.Sql;
 
 import static com.kata.cinema.base.webapp.util.IntegrationTestingAccessTokenUtil.obtainNewAccessToken;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Sql(value = "/data/sql/controller/adminGenresRestController/GenresInit.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(value = "/data/sql/controller/adminGenresRestController/GenresClear.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-public class UpdateIT extends AbstractTest {
+public class AddGenreTest extends AbstractTest {
 
     private static String accessToken;
 
     @Test
-    public void updateGenres() throws Exception {
+    public void createGenres() throws Exception {
         accessToken = obtainNewAccessToken("admin@mail.ru", "admin", mockMvc);
-        mockMvc.perform(put("/api/admin/genres/{id}", 100)
-                        .param("name", "Test2")
-                        .header("Authorization", "Bearer " + accessToken))
+
+        String name = "TEST4";
+        mockMvc.perform(post("/api/admin/genres")
+                        .header("Authorization", "Bearer " + accessToken)
+                        .param("name", name))
                 .andDo(print())
                 .andExpect(status().isOk());
 
-        Assert.assertEquals("Test2", entityManager.createQuery("SELECT g.name FROM Genre g WHERE g.id = :id", String.class)
-                .setParameter("id", 100L).getSingleResult());
+        Assert.assertTrue(entityManager.createQuery("SELECT count(g) > 0 FROM Genre g WHERE g.name = :name", Boolean.class)
+                .setParameter("name", name).getSingleResult());
     }
 
     @Test
-    public void updateGenres_badId() throws Exception {
-        //TODO Тут должен быть случай с несуществующим id
+    @Ignore
+    public void createGenres_uniqueName() throws Exception {
+        //TODO тут должен быть случай с созданием жанров, когда такое имя уже есть
     }
 }
