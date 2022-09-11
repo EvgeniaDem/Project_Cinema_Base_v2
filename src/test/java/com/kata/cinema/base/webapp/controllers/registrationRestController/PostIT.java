@@ -1,6 +1,6 @@
 package com.kata.cinema.base.webapp.controllers.registrationRestController;
 
-import com.kata.cinema.base.AbstractIT;
+import com.kata.cinema.base.AbstractTest;
 import com.kata.cinema.base.models.dto.request.UserRegistrationRequestDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.context.jdbc.Sql;
@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @Sql(value = "/data/sql/controller/registrationRestController/registrationInit.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(value = "/data/sql/controller/registrationRestController/registrationClean.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-class PostIT extends AbstractIT {
+class PostIT extends AbstractTest {
 
     private static String accessToken;
 

@@ -28,7 +28,7 @@ import javax.persistence.PersistenceContext;
         DbUnitTestExecutionListener.class,
         SqlScriptsTestExecutionListener.class
 })
-public class AbstractIT {
+public class AbstractTest {
     @Autowired
     protected MockMvc mockMvc;
 

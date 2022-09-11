@@ -21,17 +21,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @Ignore
 //TODO переделать, как остальные тесты
-public class UserFolderMovieRestControllerIT {
+public class UserFolderMovieRestControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
     UserFolderMovieRestController userFolderMovieRestController;
-
-    public UserFolderMovieRestControllerIT() {
-    }
-
 
     @Test
     @Disabled

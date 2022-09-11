@@ -1,6 +1,6 @@
 package com.kata.cinema.base.webapp.controllers.publicist.publicistNewsRestController;
 
-import com.kata.cinema.base.AbstractIT;
+import com.kata.cinema.base.AbstractTest;
 import com.kata.cinema.base.models.dto.request.NewsRequestDto;
 import com.kata.cinema.base.models.enums.Rubric;
 import org.junit.Test;
@@ -13,7 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @Sql(value = "/data/sql/controller/publicistNewsRestController/NewsInit.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(value = "/data/sql/controller/publicistNewsRestController/NewsClear.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-public class CreateNewsIT extends AbstractIT {
+public class CreateNewsIT extends AbstractTest {
 
     private static String accessToken;
 

@@ -1,6 +1,6 @@
 package com.kata.cinema.base.webapp.controllers.admin.adminGenreRestController;
 
-import com.kata.cinema.base.AbstractIT;
+import com.kata.cinema.base.AbstractTest;
 import org.hamcrest.core.Is;
 import org.junit.Test;
 import org.springframework.test.context.jdbc.Sql;
@@ -11,11 +11,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-;
 
 @Sql(value = "/data/sql/controller/adminGenresRestController/GenresInit.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(value = "/data/sql/controller/adminGenresRestController/GenresClear.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-public class GetGenresIT extends AbstractIT {
+public class GetGenresIT extends AbstractTest {
 
     private static String accessToken;
 

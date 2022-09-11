@@ -1,6 +1,6 @@
 package com.kata.cinema.base.webapp.controllers.collectionRestController;
 
-import com.kata.cinema.base.AbstractIT;
+import com.kata.cinema.base.AbstractTest;
 import org.junit.Test;
 import org.springframework.test.context.jdbc.Sql;
 
@@ -10,7 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @Sql(value = "/data/sql/controller/collectionRestController/CollectionInit.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(value = "/data/sql/controller/collectionRestController/CollectionClean.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-public class DeactivateIT extends AbstractIT {
+public class DeactivateIT extends AbstractTest {
 
     @Test
     public void deactivate() throws Exception {

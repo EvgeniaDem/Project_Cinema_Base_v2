@@ -1,6 +1,6 @@
 package com.kata.cinema.base.webapp.controllers.collectionRestController;
 
-import com.kata.cinema.base.AbstractIT;
+import com.kata.cinema.base.AbstractTest;
 import com.kata.cinema.base.models.dto.request.CollectionRequestDto;
 import org.junit.Test;
 import org.springframework.test.context.jdbc.Sql;
@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @Sql(value = "/data/sql/controller/collectionRestController/CollectionInit.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(value = "/data/sql/controller/collectionRestController/CollectionClean.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-public class UpdateCollectionResponseDtoIT extends AbstractIT {
+public class UpdateCollectionResponseDtoIT extends AbstractTest {
 
     @Test
     public void updateCollectionResponseDto() throws Exception {
