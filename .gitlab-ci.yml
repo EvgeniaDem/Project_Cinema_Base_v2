@@ -1,9 +1,16 @@
 image: maven:3-openjdk-18-slim
 
 stages:
+    - checkstyle
     - build
     - test
     - deploy
+
+checkstyle:
+    stage: checkstyle
+    rules:
+        - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+    script: "mvn validate"
 
 build:
     stage: build
