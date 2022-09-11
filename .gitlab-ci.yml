@@ -29,6 +29,16 @@ test:
             junit:
                 - target/surefire-reports/IT-*.xml
                 - target/failsafe-reports/IT-*.xml
+
+services:
+    - postgres:12.2-alpine
+
+variables:
+    POSTGRES_DB: cinema_db
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: postgres
+    POSTGRES_HOST_AUTH_METHOD: trust
+
 deploy:
     stage: deploy
     only:
