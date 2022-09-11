@@ -28,7 +28,6 @@ import javax.persistence.PersistenceContext;
         DbUnitTestExecutionListener.class,
         SqlScriptsTestExecutionListener.class
 })
-@Disabled
 public class AbstractIT {
     @Autowired
     protected MockMvc mockMvc;
