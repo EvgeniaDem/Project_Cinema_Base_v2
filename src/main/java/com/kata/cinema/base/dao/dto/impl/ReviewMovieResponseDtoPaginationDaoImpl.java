@@ -31,7 +31,7 @@ public class ReviewMovieResponseDtoPaginationDaoImpl extends AbstractDaoImpl<Lon
         }
 
         return entityManager.createQuery("select distinct " +
-                        "new com.kata.cinema.base.models.dto.response.ReviewResponseDto(r.id, r.typeReview, r.title, r.description, r.user.firstName, r.date) " +
+                        "new com.kata.cinema.base.models.dto.response.ReviewResponseDto(r.id, r.typeReview, r.title, r.description, concat(r.user.firstName, ' ', r.user.lastName), r.date) " +
                         "from Review r where (r.typeReview = :typeReview or :typeReview is null) and r.movie.id = :id"
                         + sortTypeText, ReviewResponseDto.class)
                 .setParameter("typeReview", parameters.get("typeReview"))
