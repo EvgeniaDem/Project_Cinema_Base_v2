@@ -29,10 +29,6 @@ public class UserFolderMovieRestControllerTest {
     @MockBean
     UserFolderMovieRestController userFolderMovieRestController;
 
-    public UserFolderMovieRestControllerTest() {
-    }
-
-
     @Test
     @Disabled
     public void getOneFolderMovies() throws Exception {

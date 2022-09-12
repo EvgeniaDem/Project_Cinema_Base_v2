@@ -85,7 +85,7 @@ public class SearchRestController {
         return ResponseEntity.ok(searchMovieResponseDtoPaginationService.getPageDtoWithParameters(pageNumber, itemsOnPage, parameters));
     }
 
-    @GetMapping("/api/search")
+    @GetMapping
     public ResponseEntity<SearchResponseDto> searchHeader(@RequestParam String filterPattern) {
 
         List<SearchMovieDto> searchMovieDtoList = movieService.getSearchMoviesWithFilter(filterPattern);

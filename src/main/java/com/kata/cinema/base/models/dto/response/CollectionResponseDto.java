@@ -13,4 +13,11 @@ public class CollectionResponseDto {
     private Integer countMovies;
     private Integer countViewedMovies;
 
+    public CollectionResponseDto(String name, String collectionUrl, Integer countMovies, Integer countViewedMovies) {
+        this.name = name;
+        this.collectionUrl = collectionUrl;
+        this.countMovies = countMovies;
+        this.countViewedMovies = countViewedMovies;
+    }
+
 }

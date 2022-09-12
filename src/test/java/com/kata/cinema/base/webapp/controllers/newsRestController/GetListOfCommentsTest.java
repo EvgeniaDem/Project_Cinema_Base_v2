@@ -1,6 +1,6 @@
 package com.kata.cinema.base.webapp.controllers.newsRestController;
 
-import com.kata.cinema.base.AbstractIT;
+import com.kata.cinema.base.AbstractTest;
 import org.hamcrest.core.Is;
 import org.junit.Test;
 import org.springframework.test.context.jdbc.Sql;
@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @Sql(value = "/data/sql/controller/newsRestController/NewsInit.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(value = "/data/sql/controller/newsRestController/NewsClear.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-public class GetListOfCommentsIT extends AbstractIT {
+public class GetListOfCommentsTest extends AbstractTest {
 
     @Test
     public void getComments() throws Exception {
