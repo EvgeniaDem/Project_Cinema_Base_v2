@@ -2,20 +2,22 @@ package com.kata.cinema.base.webapp.controllers.unauthorized;
 
 import com.kata.cinema.base.models.dto.PageDto;
 import com.kata.cinema.base.models.dto.response.MovieReleaseResponseDto;
+import com.kata.cinema.base.models.dto.response.ReviewResponseDto;
 import com.kata.cinema.base.models.dto.response.TopMoviesResponseDto;
+import com.kata.cinema.base.models.enums.ReviewSortType;
 import com.kata.cinema.base.models.enums.TopMoviesType;
+import com.kata.cinema.base.models.enums.TypeReview;
+import com.kata.cinema.base.service.dto.ReviewMovieResponseDtoPaginationService;
 import com.kata.cinema.base.service.dto.TopMoviesResponseDtoPaginationService;
 import com.kata.cinema.base.service.entity.MovieService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -25,15 +27,12 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/movies")
 @Api(tags = "Фильмы")
+@AllArgsConstructor
 public class MovieRestController {
 
     private final MovieService movieService;
     private final TopMoviesResponseDtoPaginationService topMoviesResponseDtoPaginationService;
-
-    public MovieRestController(MovieService movieService, TopMoviesResponseDtoPaginationService topMoviesResponseDtoPaginationService) {
-        this.movieService = movieService;
-        this.topMoviesResponseDtoPaginationService = topMoviesResponseDtoPaginationService;
-    }
+    private final ReviewMovieResponseDtoPaginationService reviewsResponseDtoPaginationService;
 
     @GetMapping("/release")
     @ApiOperation(value = "Получение списка вышедших фильмов", response = MovieRestController.class, responseContainer = "list")
@@ -55,7 +54,7 @@ public class MovieRestController {
             @ApiResponse(code = 403, message = "Недостаточно прав для просмотра контента"),
             @ApiResponse(code = 404, message = "Невозможно найти.")
     })
-    ResponseEntity<PageDto<TopMoviesResponseDto>> getTopMovies(@RequestParam(required = false) Integer pageNumber,
+    ResponseEntity<PageDto<TopMoviesResponseDto>> getTopMovies(@PathVariable Integer pageNumber,
                                                                @RequestParam(required = false, defaultValue = "50") Integer itemsOnPage,
                                                                @RequestParam(required = false, defaultValue = "250") Integer count,
                                                                @RequestParam(required = false, defaultValue = "ORDER") TopMoviesType topMoviesType,
@@ -71,5 +70,26 @@ public class MovieRestController {
         parameters.put("startDate", startDate);
         parameters.put("endDate", endDate);
         return ResponseEntity.ok(topMoviesResponseDtoPaginationService.getPageDtoWithParameters(pageNumber, itemsOnPage, parameters));
+    }
+
+    @GetMapping("/{id}/reviews/page/{pageNumber}")
+    @ApiOperation(value = "Получение рецензий", response = ReviewResponseDto.class, responseContainer = "pageDto")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Успешное получение рецензий"),
+            @ApiResponse(code = 401, message = "Проблема с аутентификацией или авторизацией на сайте"),
+            @ApiResponse(code = 403, message = "Недостаточно прав для просмотра контента"),
+            @ApiResponse(code = 404, message = "Невозможно найти.")
+
+    })
+    ResponseEntity<PageDto<ReviewResponseDto>> getMovies(@PathVariable Long id,
+                                                         @PathVariable  Integer pageNumber,
+                                                         @RequestParam(required = false, defaultValue = "10") Integer itemsOnPage,
+                                                         @RequestParam(required = false) TypeReview typeReview,
+                                                         @RequestParam(required = false, defaultValue = "DATE_ASC") ReviewSortType reviewSortType) {
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("id", id);
+        parameters.put("typeReview", typeReview);
+        parameters.put("sortType", reviewSortType);
+        return ResponseEntity.ok(reviewsResponseDtoPaginationService.getPageDtoWithParameters(pageNumber, itemsOnPage, parameters));
     }
 }
