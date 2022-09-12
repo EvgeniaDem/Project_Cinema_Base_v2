@@ -2,7 +2,7 @@ package com.kata.cinema.base.webapp.controllers.registrationRestController;
 
 import com.kata.cinema.base.AbstractTest;
 import com.kata.cinema.base.models.dto.request.UserRegistrationRequestDto;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.test.context.jdbc.Sql;
 
 import java.time.LocalDate;

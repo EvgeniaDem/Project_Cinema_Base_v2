@@ -4,7 +4,7 @@ import com.kata.cinema.base.AbstractTest;
 import org.hamcrest.core.Is;
 import org.junit.Ignore;
 import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.test.context.jdbc.Sql;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
