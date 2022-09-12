@@ -12,6 +12,7 @@ import java.util.Map;
 
 @Repository
 public class MoviePersonDaoImpl extends AbstractDaoImpl<Long, MoviePerson> implements MoviePersonDao {
+    //TODO переписать на трансформер
     public Map<Long, List<String>> getTwoMoviePersonMap() {
         List<Object[]> rows = entityManager.createQuery("select m.id, mp.nameCharacter from MoviePerson mp left join mp.movie m" +
                 " where mp.type = :type")

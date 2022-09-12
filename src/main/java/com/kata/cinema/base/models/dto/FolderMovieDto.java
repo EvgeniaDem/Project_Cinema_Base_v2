@@ -9,11 +9,11 @@ import lombok.Setter;
 @Setter
 public class FolderMovieDto {
 
-    public Long id;
-    public Category category;
-    public Privacy privacy;
-    public String name;
-    public String description;
+    private Long id;
+    private Category category;
+    private Privacy privacy;
+    private String name;
+    private String description;
 
     public FolderMovieDto(Long id, Category category, Privacy privacy, String name, String description) {
         this.id = id;

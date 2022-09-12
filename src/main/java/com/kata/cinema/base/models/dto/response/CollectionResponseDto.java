@@ -9,13 +9,13 @@ public class CollectionResponseDto {
 
     private Long id;
     private String name;
-    private String collectionUrl;
+    private String previewUrl;
     private Integer countMovies;
     private Integer countViewedMovies;
 
-    public CollectionResponseDto(String name, String collectionUrl, Integer countMovies, Integer countViewedMovies) {
+    public CollectionResponseDto(String name, String previewUrl, Integer countMovies, Integer countViewedMovies) {
         this.name = name;
-        this.collectionUrl = collectionUrl;
+        this.previewUrl = previewUrl;
         this.countMovies = countMovies;
         this.countViewedMovies = countViewedMovies;
     }
