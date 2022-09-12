@@ -31,7 +31,7 @@ test:
                 - target/failsafe-reports/IT-*.xml
 
 services:
-    - postgres:12.2-alpine
+    - postgres:14
 
 variables:
     POSTGRES_DB: cinema_db
