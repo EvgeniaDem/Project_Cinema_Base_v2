@@ -1,5 +1,7 @@
 package com.kata.cinema.base.models.entitys;
 
+import com.kata.cinema.base.models.enums.MPAA;
+import com.kata.cinema.base.models.enums.RARS;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -8,6 +10,8 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -45,10 +49,12 @@ public class Movie {
     public LocalDate dateRelease;
 
     @Column(name = "rars")
-    private String rars;
+    @Enumerated(EnumType.STRING)
+    private RARS rars;
 
     @Column(name = "mpaa")
-    private String mpaa;
+    @Enumerated(EnumType.STRING)
+    private MPAA mpaa;
 
     @Column(name = "time")
     private int time;

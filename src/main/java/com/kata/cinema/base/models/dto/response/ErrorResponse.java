@@ -17,7 +17,7 @@ public class ErrorResponse {
 
     private String text;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date date;
 
     private HttpStatus httpStatus;

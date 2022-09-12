@@ -1,6 +1,6 @@
 package com.kata.cinema.base.webapp.controllers.admin.adminGenreRestController;
 
-import com.kata.cinema.base.AbstractIT;
+import com.kata.cinema.base.AbstractTest;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.test.context.jdbc.Sql;
@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @Sql(value = "/data/sql/controller/adminGenresRestController/GenresInit.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(value = "/data/sql/controller/adminGenresRestController/GenresClear.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-public class UpdateIT extends AbstractIT {
+public class UpdateTest extends AbstractTest {
 
     private static String accessToken;
 
@@ -25,7 +25,7 @@ public class UpdateIT extends AbstractIT {
                 .andDo(print())
                 .andExpect(status().isOk());
 
-        Assert.assertEquals("Test2", entityManager.createQuery("SELECT g.name FROM Genres g WHERE g.id = :id", String.class)
+        Assert.assertEquals("Test2", entityManager.createQuery("SELECT g.name FROM Genre g WHERE g.id = :id", String.class)
                 .setParameter("id", 100L).getSingleResult());
     }
 

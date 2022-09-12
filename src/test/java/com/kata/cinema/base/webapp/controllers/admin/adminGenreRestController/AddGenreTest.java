@@ -1,6 +1,6 @@
 package com.kata.cinema.base.webapp.controllers.admin.adminGenreRestController;
 
-import com.kata.cinema.base.AbstractIT;
+import com.kata.cinema.base.AbstractTest;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -13,7 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @Sql(value = "/data/sql/controller/adminGenresRestController/GenresInit.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(value = "/data/sql/controller/adminGenresRestController/GenresClear.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-public class AddGenreIT extends AbstractIT {
+public class AddGenreTest extends AbstractTest {
 
     private static String accessToken;
 
@@ -28,7 +28,7 @@ public class AddGenreIT extends AbstractIT {
                 .andDo(print())
                 .andExpect(status().isOk());
 
-        Assert.assertTrue(entityManager.createQuery("SELECT count(g) > 0 FROM Genres g WHERE g.name = :name", Boolean.class)
+        Assert.assertTrue(entityManager.createQuery("SELECT count(g) > 0 FROM Genre g WHERE g.name = :name", Boolean.class)
                 .setParameter("name", name).getSingleResult());
     }
 

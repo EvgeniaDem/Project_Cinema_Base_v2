@@ -1,7 +1,8 @@
 package com.kata.cinema.base.webapp.controllers.SeachForHeaderRestController;
 
-import com.kata.cinema.base.AbstractIT;
-import org.junit.jupiter.api.Test;
+import com.kata.cinema.base.AbstractTest;
+
+import org.junit.Test;
 import org.springframework.test.context.jdbc.Sql;
 
 import static com.kata.cinema.base.webapp.util.IntegrationTestingAccessTokenUtil.obtainNewAccessToken;
@@ -14,7 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @Sql(value = "/data/sql/controller/SearchForHeaderRestController/SearchHeaderInit.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(value = "/data/sql/controller/SearchForHeaderRestController/SearchHeaderClean.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-class GetIT extends AbstractIT {
+public class GetTest extends AbstractTest {
 
     private static String accessToken;
 
