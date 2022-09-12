@@ -48,22 +48,22 @@
                 tableName="movies">
         </loadUpdateData>
     </changeSet>
-    <changeSet id="add_movies-genres" author="zaborskiy">
+    <changeSet id="add_movie-genre" author="zaborskiy">
         <loadUpdateData
-                file="db/changelog/testdata/movies_genres"
+                file="db/changelog/testdata/movie_genre"
                 primaryKey="movie_id,genre_id"
                 quotchar="'"
                 separator=","
-                tableName="movies_genres">
+                tableName="movie_genre">
         </loadUpdateData>
     </changeSet>
     <changeSet id="add_score" author="zaborskiy">
         <loadUpdateData
-                file="db/changelog/testdata/scores"
+                file="db/changelog/testdata/score"
                 primaryKey="id"
                 quotchar="'"
                 separator=","
-                tableName="scores">
+                tableName="score">
         </loadUpdateData>
     </changeSet>
 </databaseChangeLog>
