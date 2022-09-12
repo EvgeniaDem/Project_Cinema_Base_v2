@@ -14,12 +14,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @Sql(value = "/data/sql/controller/registrationRestController/registrationInit.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(value = "/data/sql/controller/registrationRestController/registrationClean.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-class RegistrationTest extends AbstractTest {
+public class RegistrationTest extends AbstractTest {
 
     private static String accessToken;
 
     @Test
-    void registration() throws Exception {
+    public void registration() throws Exception {
         accessToken = obtainNewAccessToken("admin@mail.ru", "admin", mockMvc);
 
         UserRegistrationRequestDto userRegistrationRequestDto = new UserRegistrationRequestDto("admin@mail.ru", "test_first_Name", "test_last_name", "admin11", "admin11", LocalDate.now());
