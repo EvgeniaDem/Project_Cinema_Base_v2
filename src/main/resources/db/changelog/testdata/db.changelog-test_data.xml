@@ -66,4 +66,13 @@
                 tableName="score">
         </loadUpdateData>
     </changeSet>
+    <changeSet id="add_content" author="zaborskiy">
+        <loadUpdateData
+                file="db/changelog/testdata/content"
+                primaryKey="id"
+                quotchar="'"
+                separator=","
+                tableName="content">
+        </loadUpdateData>
+    </changeSet>
 </databaseChangeLog>
