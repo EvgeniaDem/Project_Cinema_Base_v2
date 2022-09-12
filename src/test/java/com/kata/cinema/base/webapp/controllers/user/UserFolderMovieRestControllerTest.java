@@ -1,5 +1,7 @@
 package com.kata.cinema.base.webapp.controllers.user;
 
+import com.kata.cinema.base.models.entitys.FolderMovie;
+import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.jupiter.api.Disabled;
@@ -12,6 +14,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import static com.kata.cinema.base.models.enums.Category.CUSTOM;
+import static com.kata.cinema.base.models.enums.Privacy.PUBLIC;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -19,7 +23,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @AutoConfigureMockMvc
-@Ignore
 //TODO переделать, как остальные тесты
 public class UserFolderMovieRestControllerTest {
 
@@ -29,23 +32,25 @@ public class UserFolderMovieRestControllerTest {
     @MockBean
     UserFolderMovieRestController userFolderMovieRestController;
 
-    @Test
-    @Disabled
-    public void getOneFolderMovies() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/api/user/foldermovies/1"))
-                .andDo(print())
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    @Disabled
-    public void getByUserId() throws Exception {
-
-        this.mockMvc.perform(MockMvcRequestBuilders
-                        .get("/api/user/foldermovies/userId"))
-                .andDo(print())
-                .andExpect(status().isOk());
+    public UserFolderMovieRestControllerTest() {
     }
 
 
+    @Test
+    public void getFolderMovieResponseDto() throws Exception {
+        try {
+            userFolderMovieRestController.getFolderMovieResponseDto();
+        }catch (Exception e){
+            Assert.fail("При тестировании получения List<FolderResponseDto> произошла ошибка\n" + e);
+        }
+    }
+    @Test
+    public void addNewFolderMovie() {
+        FolderMovie folderMovie = new FolderMovie(2L, CUSTOM, PUBLIC,"marriage","comedy");
+        try {
+            userFolderMovieRestController.addNewFolderMovie(folderMovie);
+        }catch (Exception e){
+            Assert.fail("При тестировании создания FolderResponseDto произошло исключение\n" + e);
+        }
+    }
 }
