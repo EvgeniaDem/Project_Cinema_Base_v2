@@ -27,12 +27,12 @@ public class UserFolderMovieRestController {
     private FolderMovieDtoService folderMovieDtoService;
 
     @GetMapping()
-    public ResponseEntity< List<FolderResponseDto>> getFolderMovieResponseDto(){
+    public ResponseEntity<List<FolderResponseDto>> getFolderMovieResponseDto() {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<FolderMovieDto> folderMovie = folderMovieDtoService.getAllByUserId(user.getId());
         List<FolderResponseDto> folderResponseDtos = new ArrayList<>();
-        for(FolderMovieDto fi: folderMovie){
-            FolderResponseDto folderResponseDto = new FolderResponseDto(fi.getId(), fi.getName(),fi.getCategory(),folderMovie.size());
+        for (FolderMovieDto fi : folderMovie) {
+            FolderResponseDto folderResponseDto = new FolderResponseDto(fi.getId(), fi.getName(), fi.getCategory(), folderMovie.size());
             folderResponseDtos.add(folderResponseDto);
         }
         return ResponseEntity.ok(folderResponseDtos);
@@ -40,10 +40,10 @@ public class UserFolderMovieRestController {
 
 
     @PostMapping()
-    public ResponseEntity<FolderMovie> addNewFolderMovie(@RequestBody FolderMovie folderMovie){
+    public ResponseEntity<FolderMovie> addNewFolderMovie(@RequestBody FolderMovie folderMovie) {
         folderMovie.setCategory(CUSTOM);
         folderMovie.setPrivacy(PUBLIC);
-        if (folderMovie.getName()==null){
+        if (folderMovie.getName() == null) {
             folderMovie.setName("Новый список");
         }
         folderMoviesService.create(folderMovie);

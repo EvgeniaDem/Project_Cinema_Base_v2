@@ -40,16 +40,17 @@ public class UserFolderMovieRestControllerTest {
     public void getFolderMovieResponseDto() throws Exception {
         try {
             userFolderMovieRestController.getFolderMovieResponseDto();
-        }catch (Exception e){
+        } catch (Exception e) {
             Assert.fail("При тестировании получения List<FolderResponseDto> произошла ошибка\n" + e);
         }
     }
+
     @Test
     public void addNewFolderMovie() {
-        FolderMovie folderMovie = new FolderMovie(2L, CUSTOM, PUBLIC,"marriage","comedy");
+        FolderMovie folderMovie = new FolderMovie(2L, CUSTOM, PUBLIC, "marriage", "comedy");
         try {
             userFolderMovieRestController.addNewFolderMovie(folderMovie);
-        }catch (Exception e){
+        } catch (Exception e) {
             Assert.fail("При тестировании создания FolderResponseDto произошло исключение\n" + e);
         }
     }
