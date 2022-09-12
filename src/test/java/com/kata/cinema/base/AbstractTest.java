@@ -40,12 +40,6 @@ public class AbstractTest {
     @PersistenceContext
     protected EntityManager entityManager;
 
-    @Test
-    @Disabled
-    public void mock() throws Exception {
-
-    }
-
     public static final String SEARCH_REST_CONTROLLER_MOVIE_INIT_SQL = "classpath:data/sql/controller/searchRestController/SearchMovieInit.sql";
     public static final String SEARCH_REST_CONTROLLER_MOVIE_CLEAR_SQL = "classpath:data/sql/controller/searchRestController/SearchMovieClear.sql";
     public static final String MOVIE_REST_CONTROLLER_INIT_SQL = "classpath:data/sql/controller/movieRestController/MovieInit.sql";

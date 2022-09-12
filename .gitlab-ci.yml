@@ -16,12 +16,12 @@ build:
     stage: build
     rules:
         - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
-    script: "mvn install -B -Dmaven.test.skip"
+    script: "mvn install -B -Dmaven.test.skip -Dspring.profiles.active=dev"
 test:
     stage: test
     rules:
         - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
-    script: "mvn test"
+    script: "mvn test -Dspring.profiles.active=dev"
     coverage: '/Code coverage: \d+\.\d+/'
     artifacts:
         when: always

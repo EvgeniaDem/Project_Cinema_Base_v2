@@ -12,15 +12,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
-
-
 @Sql(value = "/data/sql/controller/registrationRestController/registrationInit.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(value = "/data/sql/controller/registrationRestController/registrationClean.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 class RegistrationTest extends AbstractTest {
 
     private static String accessToken;
-
 
     @Test
     void registration() throws Exception {
