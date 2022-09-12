@@ -54,6 +54,8 @@ CREATE TABLE collections
     id     BIGINT NOT NULL,
     name   VARCHAR(255),
     enable VARCHAR(255),
+    collection_type varchar(255),
+    preview_url varchar(255),
     CONSTRAINT pk_collections PRIMARY KEY (id)
 );
 
@@ -186,6 +188,9 @@ CREATE TABLE persons
     height         DOUBLE PRECISION,
     birthday       TIMESTAMP WITHOUT TIME ZONE,
     place_birthday VARCHAR(255),
+    original_last_name varchar(255),
+    original_name varchar(255),
+    photo_url varchar(255),
     CONSTRAINT pk_persons PRIMARY KEY (id)
 );
 
