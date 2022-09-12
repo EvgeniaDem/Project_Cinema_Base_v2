@@ -45,7 +45,7 @@ public class Movie {
     @Column(name = "countries")
     public String countries;
 
-    @Column(name = "dateRelease")
+    @Column(name = "date_release")
     public LocalDate dateRelease;
 
     @Column(name = "rars")
