@@ -1,7 +1,8 @@
 package com.kata.cinema.base.webapp.controllers.SeachForHeaderRestController;
 
 import com.kata.cinema.base.AbstractTest;
-import org.junit.jupiter.api.Test;
+
+import org.junit.Test;
 import org.springframework.test.context.jdbc.Sql;
 
 import static com.kata.cinema.base.webapp.util.IntegrationTestingAccessTokenUtil.obtainNewAccessToken;
