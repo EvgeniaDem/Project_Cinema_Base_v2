@@ -36,7 +36,7 @@ public class MovieResponseDtoPaginationServiceImpl extends PaginationDtoServiceI
         return pageDto;
     }
 
-    private String getMovieDirector (List<Object[]> rows){
+    private String getMovieDirector(List<Object[]> rows) {
         StringBuilder sb = new StringBuilder();
         for (Object[] row : rows) {
             sb.append(row[0]).append(" ").append(row[1]);

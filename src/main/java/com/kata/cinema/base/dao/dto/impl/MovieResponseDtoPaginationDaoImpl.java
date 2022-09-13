@@ -41,25 +41,25 @@ public class MovieResponseDtoPaginationDaoImpl extends AbstractDaoImpl<Long, Fol
 
     private String sortingBySortMovieFolderType(SortMovieFolderType sortMovieFolderType) {
         switch (sortMovieFolderType) {
-            case NAME -> {
+            case NAME: {
                 return " order by m.name";
             }
-            case ORIGINAL_NAME -> {
+            case ORIGINAL_NAME: {
                 return " order by m.originalName";
             }
-            case RATING -> {
+            case RATING: {
                 return " group by m.id order by sum(s.score)/count(s) desc";
             }
-            case MY_SCORE -> {
+            case MY_SCORE: {
                 return " order by s.score DESC NULLS LAST";
             }
-            case COUNT_SCORE -> {
+            case COUNT_SCORE: {
                 return " group by m.id order by count(distinct s) desc";
             }
-            case YEAR -> {
+            case YEAR: {
                 return " order by m.dateRelease desc";
             }
-            default -> {
+            default: {
                 return " order by m.id";
             }
         }
@@ -67,13 +67,13 @@ public class MovieResponseDtoPaginationDaoImpl extends AbstractDaoImpl<Long, Fol
 
     private String sortingByScore(SortMovieFolderType sortMovieFolderType) {
         switch (sortMovieFolderType) {
-            case RATING, COUNT_SCORE -> {
+            case RATING, COUNT_SCORE: {
                 return "left join Score s on m.id=s.movie.id ";
             }
-            case MY_SCORE -> {
+            case MY_SCORE: {
                 return "left join Score s on m.id=s.movie.id and s.user.id = fm.user.id ";
             }
-            default -> {
+            default: {
                 return "";
             }
         }
@@ -81,13 +81,13 @@ public class MovieResponseDtoPaginationDaoImpl extends AbstractDaoImpl<Long, Fol
 
     private String sortingByShowType(ShowType showType) {
         switch (showType) {
-            case VIEWED -> {
+            case VIEWED: {
                 return " and m.id in (select sm.id from FolderMovie sfm join sfm.movies sm where sfm.category = 'VIEWED_MOVIES')";
             }
-            case NOT_VIEWED -> {
+            case NOT_VIEWED: {
                 return " and m.id not in (select sm.id from FolderMovie sfm join sfm.movies sm where sfm.category = 'VIEWED_MOVIES')";
             }
-            default -> {
+            default: {
                 return "";
             }
         }
