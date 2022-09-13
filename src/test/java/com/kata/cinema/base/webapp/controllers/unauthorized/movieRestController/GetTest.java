@@ -1,6 +1,6 @@
 package com.kata.cinema.base.webapp.controllers.unauthorized.movieRestController;
 
-import com.kata.cinema.base.AbstractIT;
+import com.kata.cinema.base.AbstractTest;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.jupiter.api.Disabled;
@@ -11,8 +11,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static com.kata.cinema.base.AbstractIT.MOVIE_REST_CONTROLLER_CLEAR_SQL;
-import static com.kata.cinema.base.AbstractIT.MOVIE_REST_CONTROLLER_INIT_SQL;
+import static com.kata.cinema.base.AbstractTest.MOVIE_REST_CONTROLLER_CLEAR_SQL;
+import static com.kata.cinema.base.AbstractTest.MOVIE_REST_CONTROLLER_INIT_SQL;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -27,11 +27,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Sql(value = MOVIE_REST_CONTROLLER_CLEAR_SQL, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 //TODO переделать, как остальные тесты
 @Ignore
-public class GetIT extends AbstractIT {
+public class GetTest extends AbstractTest {
     private final String URL = "/api/movies";
-
-    public GetIT() {
-    }
 
     @Test
     @Disabled

@@ -1,27 +1,44 @@
 image: maven:3-openjdk-18-slim
 
 stages:
+    - checkstyle
     - build
     - test
     - deploy
+
+checkstyle:
+    stage: checkstyle
+    rules:
+        - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+    script: "mvn validate"
 
 build:
     stage: build
     rules:
         - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
-    script: "mvn install -B -Dmaven.test.skip"
+    script: "mvn install -B -Dmaven.test.skip -Dspring.profiles.active=dev"
 test:
     stage: test
     rules:
         - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
-    script: "mvn test"
+    script: "mvn test -Dspring.profiles.active=dev"
     coverage: '/Code coverage: \d+\.\d+/'
     artifacts:
         when: always
         reports:
             junit:
-                - target/surefire-reports/TEST-*.xml
-                - target/failsafe-reports/TEST-*.xml
+                - target/surefire-reports/IT-*.xml
+                - target/failsafe-reports/IT-*.xml
+
+services:
+    - postgres:14
+
+variables:
+    POSTGRES_DB: cinema_db
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: postgres
+    POSTGRES_HOST_AUTH_METHOD: trust
+
 deploy:
     stage: deploy
     only:

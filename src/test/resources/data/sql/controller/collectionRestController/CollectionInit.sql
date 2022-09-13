@@ -23,7 +23,7 @@ insert into movies(id, countries, date_release, description, mpaa, name, rars, t
 values (104, 'test_countries', '2022-08-09', 'ACTION', 'PARENTAL_GUIDANCE_SUGGESTED', 'TEST2', 'SIXTEEN_PLUS', 8600, 'boom');
 insert into movies(id, countries, date_release, description, mpaa, name, rars, time, origin_name)
 values (105, 'test_countries', '2022-08-09', 'ACTION', 'PARENTAL_GUIDANCE_SUGGESTED', 'TEST3', 'TWELVE_PLUS', 8600, 'boom');
-INSERT INTO collections(id, enable, name, collection_type, collection_url)
+INSERT INTO collections(id, enable, name, collection_type, preview_url)
 values (100, true, 'myCollectionTest', 'MOVIES' , 'test_URL');
 insert into folders_movies_to_movies(folders_id , movie_id)
 values (100, 100);

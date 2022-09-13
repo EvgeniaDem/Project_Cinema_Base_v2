@@ -1,6 +1,6 @@
 package com.kata.cinema.base.webapp.controllers.unauthorized.searchRestController;
 
-import com.kata.cinema.base.AbstractIT;
+import com.kata.cinema.base.AbstractTest;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.jupiter.api.Disabled;
@@ -11,8 +11,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static com.kata.cinema.base.AbstractIT.SEARCH_REST_CONTROLLER_MOVIE_CLEAR_SQL;
-import static com.kata.cinema.base.AbstractIT.SEARCH_REST_CONTROLLER_MOVIE_INIT_SQL;
+import static com.kata.cinema.base.AbstractTest.SEARCH_REST_CONTROLLER_MOVIE_CLEAR_SQL;
+import static com.kata.cinema.base.AbstractTest.SEARCH_REST_CONTROLLER_MOVIE_INIT_SQL;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Sql(value = SEARCH_REST_CONTROLLER_MOVIE_CLEAR_SQL, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 //TODO переделать, как остальные тесты
 @Ignore
-public class GetIT extends AbstractIT {
+public class GetTest extends AbstractTest {
 
     private final String URL = "/api/search";
 

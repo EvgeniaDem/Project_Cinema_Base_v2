@@ -21,7 +21,7 @@ public class CollectionDaoImpl extends AbstractDaoImpl<Long, Collection> impleme
 
     public List<CollectionResponseDto> findCollectionByType(CollectionType collectionType, User user) {
 
-         return entityManager.createQuery("select new com.kata.cinema.base.models.dto.response.CollectionResponseDto(c.name, c.collectionUrl, c.movies.size, f.movies.size) " +
+        return entityManager.createQuery("select new com.kata.cinema.base.models.dto.response.CollectionResponseDto(c.name, c.previewUrl, c.movies.size, f.movies.size) " +
                         " from Collection c  left join FolderMovie f " +
                         " on c.collectionType=:type and f.category = :category and f.user.id = :userId", CollectionResponseDto.class)
                 .setParameter("userId", user.getId())

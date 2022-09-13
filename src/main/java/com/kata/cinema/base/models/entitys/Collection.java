@@ -43,8 +43,6 @@ public class Collection {
     @Column(name = "enable")
     private Boolean enable;
 
-    private String collectionUrl;
-
     @Enumerated(EnumType.STRING)
     private CollectionType collectionType;
 

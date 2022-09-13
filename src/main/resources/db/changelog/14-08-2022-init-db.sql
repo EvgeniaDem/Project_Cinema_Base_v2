@@ -1,55 +1,21 @@
--- liquibase formatted sql
-
--- changeset Daniil_Kulikov:1660458159432-1
-CREATE SEQUENCE IF NOT EXISTS gen_awards START WITH 1 INCREMENT BY 50;
-
--- changeset Daniil_Kulikov:1660458159432-2
-CREATE SEQUENCE IF NOT EXISTS gen_awards_ceremony START WITH 1 INCREMENT BY 50;
-
--- changeset Daniil_Kulikov:1660458159432-3
-CREATE SEQUENCE IF NOT EXISTS gen_awards_ceremony_result START WITH 1 INCREMENT BY 50;
-
--- changeset Daniil_Kulikov:1660458159432-4
-CREATE SEQUENCE IF NOT EXISTS gen_collections START WITH 1 INCREMENT BY 50;
-
--- changeset Daniil_Kulikov:1660458159432-5
-CREATE SEQUENCE IF NOT EXISTS gen_content START WITH 1 INCREMENT BY 50;
-
--- changeset Daniil_Kulikov:1660458159432-6
-CREATE SEQUENCE IF NOT EXISTS gen_folder_movies START WITH 1 INCREMENT BY 50;
-
--- changeset Daniil_Kulikov:1660458159432-7
-CREATE SEQUENCE IF NOT EXISTS gen_folder_person START WITH 1 INCREMENT BY 50;
-
--- changeset Daniil_Kulikov:1660458159432-8
-CREATE SEQUENCE IF NOT EXISTS gen_genres START WITH 1 INCREMENT BY 50;
-
--- changeset Daniil_Kulikov:1660458159432-9
-CREATE SEQUENCE IF NOT EXISTS gen_movies START WITH 1 INCREMENT BY 50;
-
--- changeset Daniil_Kulikov:1660458159432-10
-CREATE SEQUENCE IF NOT EXISTS gen_news START WITH 1 INCREMENT BY 50;
-
--- changeset Daniil_Kulikov:1660458159432-11
-CREATE SEQUENCE IF NOT EXISTS gen_nomination START WITH 1 INCREMENT BY 50;
-
--- changeset Daniil_Kulikov:1660458159432-12
-CREATE SEQUENCE IF NOT EXISTS gen_person_marriage START WITH 1 INCREMENT BY 50;
-
--- changeset Daniil_Kulikov:1660458159432-13
-CREATE SEQUENCE IF NOT EXISTS gen_profession START WITH 1 INCREMENT BY 50;
-
--- changeset Daniil_Kulikov:1660458159432-14
-CREATE SEQUENCE IF NOT EXISTS gen_role START WITH 1 INCREMENT BY 50;
-
--- changeset Daniil_Kulikov:1660458159432-15
-CREATE SEQUENCE IF NOT EXISTS gen_score START WITH 1 INCREMENT BY 50;
-
--- changeset Daniil_Kulikov:1660458159432-16
-CREATE SEQUENCE IF NOT EXISTS gen_user START WITH 1 INCREMENT BY 50;
-
--- changeset Daniil_Kulikov:1660458159432-17
-CREATE SEQUENCE IF NOT EXISTS person START WITH 1 INCREMENT BY 50;
+create sequence gen_awards start 1 increment 50;
+create sequence gen_awards_ceremony start 1 increment 50;
+create sequence gen_awards_ceremony_result start 1 increment 50;
+create sequence gen_collections start 1 increment 50;
+create sequence gen_comment start 1 increment 50;
+create sequence gen_content start 1 increment 50;
+create sequence gen_folder_movies start 1 increment 50;
+create sequence gen_folder_person start 1 increment 50;
+create sequence gen_genres start 1 increment 50;
+create sequence gen_movies start 1 increment 50;
+create sequence gen_news start 1 increment 50;
+create sequence gen_nomination start 1 increment 50;
+create sequence gen_person_marriage start 1 increment 50;
+create sequence gen_profession start 1 increment 50;
+create sequence gen_role start 1 increment 50;
+create sequence gen_score start 1 increment 50;
+create sequence gen_user start 1 increment 50;
+create sequence person start 1 increment 50;
 
 -- changeset Daniil_Kulikov:1660458159432-18
 CREATE TABLE awards
@@ -88,6 +54,8 @@ CREATE TABLE collections
     id     BIGINT NOT NULL,
     name   VARCHAR(255),
     enable VARCHAR(255),
+    collection_type varchar(255),
+    preview_url varchar(255),
     CONSTRAINT pk_collections PRIMARY KEY (id)
 );
 
@@ -175,9 +143,9 @@ CREATE TABLE movies
     name         VARCHAR(255),
     countries    VARCHAR(255),
     date_release date,
-    rars         INTEGER NOT NULL,
-    mpaa         INTEGER NOT NULL,
-    time         INTEGER NOT NULL,
+    rars         varchar(255),
+    mpaa         varchar(255),
+    time         INTEGER,
     description  VARCHAR(255),
     origin_name  VARCHAR(255),
     CONSTRAINT pk_movies PRIMARY KEY (id)
@@ -203,17 +171,6 @@ CREATE TABLE news_movie
     CONSTRAINT pk_news_movie PRIMARY KEY (movie_id, news_id)
 );
 
--- changeset Daniil_Kulikov:1660458159432-33
-CREATE TABLE news_response_dto
-(
-    id          BIGINT NOT NULL,
-    rubric      INTEGER,
-    date        date,
-    title       VARCHAR(255),
-    description VARCHAR(255),
-    CONSTRAINT pk_newsresponsedto PRIMARY KEY (id)
-);
-
 -- changeset Daniil_Kulikov:1660458159432-34
 CREATE TABLE nomination
 (
@@ -231,6 +188,9 @@ CREATE TABLE persons
     height         DOUBLE PRECISION,
     birthday       TIMESTAMP WITHOUT TIME ZONE,
     place_birthday VARCHAR(255),
+    original_last_name varchar(255),
+    original_name varchar(255),
+    photo_url varchar(255),
     CONSTRAINT pk_persons PRIMARY KEY (id)
 );
 
@@ -290,6 +250,17 @@ CREATE TABLE users
     avatar_url VARCHAR(255),
     CONSTRAINT pk_users PRIMARY KEY (id)
 );
+
+CREATE TABLE comments
+(
+    id BIGINT not null,
+    date timestamp not null,
+    text varchar(255),
+    news_id int8 not null,
+    user_id int8 not null,
+    primary key (id)
+);
+
 
 -- changeset Daniil_Kulikov:1660458159432-42
 ALTER TABLE persons_marriage
@@ -406,4 +377,14 @@ ALTER TABLE user_role
 -- changeset Daniil_Kulikov:1660458159432-70
 ALTER TABLE user_role
     ADD CONSTRAINT fk_user_role_on_user FOREIGN KEY (user_id) REFERENCES users (id);
+
+alter table if exists comments
+    add constraint FKqx89vg0vuof2ninmn5x5eqau2
+    foreign key (news_id)
+    references news;
+
+alter table if exists comments
+    add constraint FK8omq0tc18jd43bu5tjh6jvraq
+    foreign key (user_id)
+    references users;
 
