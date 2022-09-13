@@ -46,7 +46,7 @@ public class NewsRestController {
     @GetMapping("/{id}/comments")
     public ResponseEntity<List<CommentsResponseDto>> getListOfComments(@PathVariable Long id) {
         if (newsService.isExistById(id)) {
-            newsService.getById(id);
+//            newsService.getById(id);
             return ResponseEntity.ok(commentService.getComments(id));
         }
         throw new NotFoundByIdException("News with id: " + id + " does not exist, try looking for another");

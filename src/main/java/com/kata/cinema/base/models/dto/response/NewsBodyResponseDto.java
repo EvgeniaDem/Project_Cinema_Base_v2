@@ -28,18 +28,4 @@ public class NewsBodyResponseDto {
 
     @NotBlank
     String authorName;
-
-    public NewsBodyResponseDto(Long id, LocalDate date, String title, String htmlBody, Rubric rubric, String authorName) {
-        this.id = id;
-        this.date = date;
-        this.title = title;
-        this.htmlBody = htmlBody;
-        this.rubric = rubric;
-        this.authorName = authorName;
-    }
-
-    //test constructor
-    public NewsBodyResponseDto(Integer countComment) {
-        this.countComment = countComment;
-    }
 }
