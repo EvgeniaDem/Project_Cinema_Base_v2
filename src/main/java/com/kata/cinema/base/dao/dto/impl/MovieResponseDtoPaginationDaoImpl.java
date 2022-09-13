@@ -67,7 +67,10 @@ public class MovieResponseDtoPaginationDaoImpl extends AbstractDaoImpl<Long, Fol
 
     private String sortingByScore(SortMovieFolderType sortMovieFolderType) {
         switch (sortMovieFolderType) {
-            case RATING, COUNT_SCORE: {
+            case COUNT_SCORE: {
+                return "left join Score s on m.id=s.movie.id ";
+            }
+            case RATING: {
                 return "left join Score s on m.id=s.movie.id ";
             }
             case MY_SCORE: {
