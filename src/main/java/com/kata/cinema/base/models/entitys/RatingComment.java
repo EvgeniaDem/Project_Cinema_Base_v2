@@ -4,6 +4,7 @@ import lombok.*;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @AllArgsConstructor
@@ -15,7 +16,7 @@ public class RatingComment {
     @Id
     @SequenceGenerator(name = "gen_rating_comment")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen_rating_comment")
-    private Long Id;
+    private Long id;
 
     @Range(min = -1, max = 1)
     private Integer rating;

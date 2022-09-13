@@ -6,26 +6,25 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
 public class NewsBodyResponseDto {
 
-    Long id;
+    private Long id;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
-    LocalDate date;
+    private LocalDate date;
 
-    Integer countComment;
+    private Integer countComment;
 
-    String title;
+    private String title;
 
-    String htmlBody;
+    private String htmlBody;
 
-    Rubric rubric;
+    private Rubric rubric;
 
     @NotBlank
-    String authorName;
+    private String authorName;
 }
