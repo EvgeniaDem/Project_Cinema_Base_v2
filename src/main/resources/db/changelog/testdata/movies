@@ -1,6 +1,6 @@
-id,countries,date_release,rars,mpaa,name,origin_name
-100,Slovakia,1938-05-08,SIXTEEN_PLUS,,Иезавель,Jezebel
-101,Albania,1935-09-26,TWELVE_PLUS,GENERAL_AUDIENCES,47 ронинов,47 Ronin
+id,country,date_release,rars,mpaa,name,original_name
+100,Slovakia,1938-05-08,SIXTEEN_PLUS,PARENTAL_GUIDANCE_SUGGESTED,Иезавель,Jezebel
+101,Albania,1935-09-26,TWELVE_PLUS,PARENTS_STRONGLY_CAUTIONED,47 ронинов,47 Ronin
 
 
 102,Burkina Faso,2002-06-10,TWELVE_PLUS,GENERAL_AUDIENCES,Гарри Поттер и философский камень,Harry Potter and the Sorcerer Stone

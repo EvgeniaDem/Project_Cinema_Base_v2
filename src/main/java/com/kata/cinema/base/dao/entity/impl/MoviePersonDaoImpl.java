@@ -29,4 +29,20 @@ public class MoviePersonDaoImpl extends AbstractDaoImpl<Long, MoviePerson> imple
         }
         return moviePersonMap;
     }
+
+    @Override
+    public List<String> getAllMainCharacterOfMovie(Long movieId) {
+        return entityManager.createQuery("select mp.nameCharacter from MoviePerson mp join mp.movie m" +
+                        " where m.id =:id and mp.type =:type", String.class)
+                .setParameter("id", movieId)
+                .setParameter("type", TypeCharacter.MAIN_CHARACTER)
+                .getResultList();
+    }
+
+    @Override
+    public List<Object[]> getMovieDirector(Long movieId) {
+        return entityManager.createQuery("select p.firstName, p.lastName from MoviePerson mp join mp.movie m join mp.professions pr join mp.person p where m.id =:id and pr.name = 'режиссер'")
+                .setParameter("id", movieId)
+                .getResultList();
+    }
 }

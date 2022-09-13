@@ -7,4 +7,8 @@ import java.util.Map;
 
 public interface MoviePersonDao extends AbstractDao<Long, MoviePerson> {
     Map<Long, List<String>> getTwoMoviePersonMap();
+
+    List<String> getAllMainCharacterOfMovie(Long movieId);
+
+    List<Object[]> getMovieDirector(Long movieId);
 }

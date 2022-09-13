@@ -62,8 +62,8 @@ public class Movie {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "origin_name")
-    private String originName;
+    @Column(name = "original_name")
+    private String originalName;
 
     @ToString.Exclude
     @ManyToMany(fetch = FetchType.LAZY)

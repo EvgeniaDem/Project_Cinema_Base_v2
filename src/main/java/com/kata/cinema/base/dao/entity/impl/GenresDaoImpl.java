@@ -33,5 +33,10 @@ public class GenresDaoImpl extends AbstractDaoImpl<Long, Genre> implements Genre
 
     }
 
-
+    @Override
+    public List<String> getAllMovieGenres(Long movieId) {
+        return entityManager.createQuery("select g.name from Genre g join g.movie m where m.id =:id", String.class)
+                .setParameter("id", movieId)
+                .getResultList();
+    }
 }

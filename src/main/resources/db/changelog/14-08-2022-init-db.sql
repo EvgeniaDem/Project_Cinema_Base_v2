@@ -147,7 +147,7 @@ CREATE TABLE movies
     mpaa         varchar(255),
     time         INTEGER,
     description  VARCHAR(255),
-    origin_name  VARCHAR(255),
+    original_name  VARCHAR(255),
     CONSTRAINT pk_movies PRIMARY KEY (id)
 );
 
