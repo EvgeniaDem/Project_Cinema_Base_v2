@@ -15,7 +15,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.kata.cinema.base.models.enums.Category.CUSTOM;
 import static com.kata.cinema.base.models.enums.Privacy.PUBLIC;
@@ -30,24 +29,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Sql(value = "/data/sql/controller/userNewsRestController/UserNewsInit.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 //@Sql(value = "/data/sql/controller/userNewsRestController/UserNewsClear.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 
-@SpringBootTest
-@RunWith(SpringRunner.class)
-@AutoConfigureMockMvc
 
 //TODO переделать, как остальные тесты
 public class UserFolderMovieRestControllerTest extends AbstractTest {
-
-    @Autowired
-    private MockMvc mockMvc;
-
-    @MockBean
-    UserFolderMovieRestController userFolderMovieRestController;
-
     private static String accessToken;
-
-    public UserFolderMovieRestControllerTest() {
-    }
-
 
     @Test
     public void getFolderMovieResponseDto() throws Exception {
@@ -59,7 +44,7 @@ public class UserFolderMovieRestControllerTest extends AbstractTest {
                 .andExpect(jsonPath("$.length()", Is.is(1)))
                 .andExpect(jsonPath("$.[0].id").value(100L))
                 .andExpect(jsonPath("$.[0].name").value("some test name"))
-                .andExpect(jsonPath("$.[0].category").value(CUSTOM))
+                .andExpect(jsonPath("$.[0].category").value("CUSTOM"))
                 .andExpect(jsonPath("$.[0].countMovies").value(1));
     }
 
