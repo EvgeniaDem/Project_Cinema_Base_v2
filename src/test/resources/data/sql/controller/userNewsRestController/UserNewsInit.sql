@@ -1,7 +1,7 @@
 
 -- users init
 INSERT INTO users(id, avatar_url, birthday, email, first_name, last_name, password)
-VALUES (100, 'url', '2022-08-14', 'user@mail.ru', '1', '1', '$2a$12$d0JwWidrGyG6UyRVTJ8OOeCdy6vdvrMgjxhlLFjI.0dVFB85.Gw0y');
+VALUES (100, 'url', '2022-08-14', 'user@mail.ru', '1', '1', '$2a$12$P9SthnXDDRjoBRxvJ90Pa.YikT9.iUp4jphemPEScNGPyLJMJ4jHC');
 
 INSERT INTO roles(id, name)
 VALUES (100, 'USER');
