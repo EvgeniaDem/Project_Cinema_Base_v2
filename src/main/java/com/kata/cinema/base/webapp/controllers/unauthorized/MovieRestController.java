@@ -81,7 +81,7 @@ public class MovieRestController {
             @ApiResponse(code = 404, message = "Невозможно найти.")
 
     })
-    ResponseEntity<PageDto<ReviewResponseDto>> getMovies(@PathVariable Long id,
+    ResponseEntity<PageDto<ReviewResponseDto>> getReviews(@PathVariable Long id,
                                                          @PathVariable  Integer pageNumber,
                                                          @RequestParam(required = false, defaultValue = "10") Integer itemsOnPage,
                                                          @RequestParam(required = false) TypeReview typeReview,

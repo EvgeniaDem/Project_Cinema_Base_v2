@@ -7,22 +7,21 @@ import lombok.Data;
 import java.time.LocalDate;
 
 @Data
-@AllArgsConstructor
 public class ReviewResponseDto {
 
-    Long id;
-    TypeReview typeReview;
-    String title;
-    String description;
-    String fullName;
-    LocalDate date;
+    private Long id;
+    private TypeReview typeReview;
+    private String title;
+    private String description;
+    private String fullName;
+    private LocalDate date;
 
-    public ReviewResponseDto(Long id, TypeReview typeReview, String title, String description, LocalDate date) {
+    public ReviewResponseDto(Long id, TypeReview typeReview, String title, String description, String fullName, LocalDate date) {
         this.id = id;
         this.typeReview = typeReview;
         this.title = title;
         this.description = description;
-        this.fullName = "";
+        this.fullName = fullName;
         this.date = date;
     }
 

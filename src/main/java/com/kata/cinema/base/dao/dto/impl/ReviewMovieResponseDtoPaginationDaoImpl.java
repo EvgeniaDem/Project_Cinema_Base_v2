@@ -12,24 +12,12 @@ import java.util.Map;
 
 @Repository
 public class ReviewMovieResponseDtoPaginationDaoImpl extends AbstractDaoImpl<Long, Review> implements ReviewMovieResponseDtoPaginationDao {
+
+    private final String STRING_SORT_ASC = " order by r.date asc";
+    private final String STRING_SORT_DESC = " order by r.date desc";
     @Override
     public List<ReviewResponseDto> getItemsDto(Integer currentPage, Integer itemsOnPage, Map<String, Object> parameters) {
-        String sortTypeText;
-        switch ((ReviewSortType)parameters.get("sortType")) {
-            case DATE_ASC: {
-                sortTypeText = " order by r.date asc";
-                break;
-            }
-            case DATE_DESC : {
-                sortTypeText = " order by r.date desc";
-                break;
-            }
-
-            default : {
-                sortTypeText = " order by r.date asc";
-            }
-        }
-
+        String sortTypeText = getSortType((ReviewSortType)parameters.get("sortType"));
         return entityManager.createQuery("select distinct " +
                         "new com.kata.cinema.base.models.dto.response.ReviewResponseDto(r.id, r.typeReview, r.title, r.description, concat(r.user.firstName, ' ', r.user.lastName), r.date) " +
                         "from Review r where (r.typeReview = :typeReview or :typeReview is null) and r.movie.id = :id"
@@ -39,6 +27,10 @@ public class ReviewMovieResponseDtoPaginationDaoImpl extends AbstractDaoImpl<Lon
                 .setFirstResult((currentPage - 1) * itemsOnPage)
                 .setMaxResults(itemsOnPage)
                 .getResultList();
+    }
+
+    private String getSortType(ReviewSortType sortType) {
+        return sortType == ReviewSortType.DATE_DESC? STRING_SORT_DESC: STRING_SORT_ASC;
     }
 
     @Override
