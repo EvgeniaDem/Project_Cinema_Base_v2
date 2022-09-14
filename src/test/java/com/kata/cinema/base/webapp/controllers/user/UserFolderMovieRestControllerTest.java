@@ -1,8 +1,6 @@
 package com.kata.cinema.base.webapp.controllers.user;
 
-import com.kata.cinema.base.AbstractTest;
 import com.kata.cinema.base.models.entitys.FolderMovie;
-import org.hamcrest.core.Is;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
