@@ -1,23 +1,15 @@
 package com.kata.cinema.base.webapp.controllers.user;
 
+import com.kata.cinema.base.AbstractTest;
 import com.kata.cinema.base.models.entitys.FolderMovie;
-import org.junit.Assert;
-import org.junit.Ignore;
+import org.hamcrest.core.Is;
 import org.junit.Test;
-import org.junit.jupiter.api.Disabled;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
+
 
 import static com.kata.cinema.base.models.enums.Category.CUSTOM;
 import static com.kata.cinema.base.models.enums.Privacy.PUBLIC;
 import static com.kata.cinema.base.webapp.util.IntegrationTestingAccessTokenUtil.obtainNewAccessToken;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.header;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
