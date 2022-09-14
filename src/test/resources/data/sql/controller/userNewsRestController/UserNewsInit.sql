@@ -16,3 +16,7 @@ VALUES (100, 'NEWS', '2022-08-03', 'db test title 01', 'nytipobody', 100);
 -- comment init
 INSERT INTO comments(id, date, text, news_id, user_id)
 VALUES (100, '2022-08-20 03:07:04.000000', 'test comment 01', 100, 100);
+
+-- folders_movies init
+INSERT INTO folders_movies(id, category, description, name, privacy, user_id)
+VALUES (100, 'CUSTOM', 'test description', 'some test name', 'PUBLIC', 100);
