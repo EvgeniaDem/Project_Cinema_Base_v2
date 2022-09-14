@@ -26,7 +26,7 @@ public class UserFolderMovieRestController {
     private FolderMoviesService folderMoviesService;
     private FolderMovieDtoService folderMovieDtoService;
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<List<FolderResponseDto>> getFolderMovieResponseDto() {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<FolderMovieDto> folderMovie = folderMovieDtoService.getAllByUserId(user.getId());
@@ -39,7 +39,7 @@ public class UserFolderMovieRestController {
     }
 
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<FolderMovie> addNewFolderMovie(@RequestBody FolderMovie folderMovie) {
         folderMovie.setCategory(CUSTOM);
         folderMovie.setPrivacy(PUBLIC);
