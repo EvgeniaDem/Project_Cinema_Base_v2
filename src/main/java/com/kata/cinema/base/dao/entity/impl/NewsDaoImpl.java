@@ -43,7 +43,7 @@ public class NewsDaoImpl extends AbstractDaoImpl<Long, News> implements NewsDao 
                         "select new com.kata.cinema.base.models.dto.response.NewsBodyResponseDto(" +
                                 "n.id, n.date, " +
                                 "(select cast(count(coms) as java.lang.Integer) from Comment coms where coms.news.id = :id)," +
-                                " n.title, n.htmlBody, n.rubric, concat(u.lastName, ' ', u.firstName, ' ', u.middleName))" +
+                                " n.title, n.htmlBody, n.rubric, concat(u.lastName, ' ', u.firstName))" +
                                 "from News n join n.user u where n.id = :id", NewsBodyResponseDto.class)
                 .setParameter("id", id)
                 .getSingleResult();

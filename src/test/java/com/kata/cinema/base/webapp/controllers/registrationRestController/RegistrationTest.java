@@ -22,7 +22,7 @@ public class RegistrationTest extends AbstractTest {
     public void registration() throws Exception {
         accessToken = obtainNewAccessToken("admin@mail.ru", "admin", mockMvc);
 
-        UserRegistrationRequestDto userRegistrationRequestDto = new UserRegistrationRequestDto("admin@mail.ru", "test_first_Name", "test_last_name", "admin11", "admin11", LocalDate.now());
+        UserRegistrationRequestDto userRegistrationRequestDto = new UserRegistrationRequestDto("admin@mail.ru", "test_first_Name", "test_last_name", "login_user", "admin11", "admin11", LocalDate.now());
         this.mockMvc.perform(post("/api/registration")
                         .header("Authorization", "Bearer " + accessToken)
                 .contentType("application/json")

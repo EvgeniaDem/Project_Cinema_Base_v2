@@ -35,8 +35,6 @@ public class User implements UserDetails {
 
     private String lastName;
 
-    private String middleName;
-
     @Column(unique = true)
     private String login;
 

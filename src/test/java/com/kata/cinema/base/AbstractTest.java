@@ -11,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
@@ -29,13 +30,14 @@ import javax.persistence.PersistenceContext;
         DbUnitTestExecutionListener.class,
         SqlScriptsTestExecutionListener.class
 })
+@TestPropertySource("/application-local.properties")
 @Ignore
 public class AbstractTest {
     @Autowired
     protected MockMvc mockMvc;
 
     @Autowired
-    protected ObjectMapper objectMapper;
+    protected ObjectMapper objectMapper;// IDE will have been completed injection from AppConfig.class - ok
 
     @PersistenceContext
     protected EntityManager entityManager;
