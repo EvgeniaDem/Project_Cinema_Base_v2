@@ -3,6 +3,7 @@ package com.kata.cinema.base.webapp.controllers.publicist.publicistNewsRestContr
 import com.kata.cinema.base.AbstractTest;
 import com.kata.cinema.base.models.dto.request.NewsRequestDto;
 import com.kata.cinema.base.models.enums.Rubric;
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.test.context.jdbc.Sql;
 
@@ -27,6 +28,10 @@ public class CreateNewsTest extends AbstractTest {
                         .content(objectMapper.writeValueAsString(newsRequestDto)))
                 .andDo(print())
                 .andExpect(status().isCreated());
-        //TODO селект запрос на проверку
+        Assert.assertTrue(entityManager.createQuery("SELECT count(n) > 0 FROM News n WHERE n.rubric =:rubric and n.title = :title and n.htmlBody = :htmlBody", Boolean.class)
+                        .setParameter("rubric", Rubric.NEWS)
+                        .setParameter("title", "TipoTitleTest")
+                        .setParameter("htmlBody", "TipoHtmlTest")
+                        .getSingleResult());
     }
 }
