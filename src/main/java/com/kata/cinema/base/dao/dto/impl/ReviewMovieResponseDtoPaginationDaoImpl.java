@@ -28,7 +28,7 @@ public class ReviewMovieResponseDtoPaginationDaoImpl extends AbstractDaoImpl<Lon
     }
 
     private String getSortType(ReviewSortType sortType) {
-        return sortType == ReviewSortType.DATE_DESC? " order by r.date desc" : " order by r.date asc";
+        return sortType == ReviewSortType.DATE_DESC ? " order by r.date desc" : " order by r.date asc";
     }
 
     @Override
