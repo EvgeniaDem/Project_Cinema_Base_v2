@@ -24,7 +24,7 @@ class ReviewRestControllerTest extends AbstractTest {
 
     @Test
     void getReviews() throws Exception {
-        mockMvc.perform(get("/api/movies/100/reviews/page/1"))
+        mockMvc.perform(get("/api/movies/{id}/reviews/page/{pageNumber}", 100, 1))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.count", Is.is(1)))
@@ -40,7 +40,7 @@ class ReviewRestControllerTest extends AbstractTest {
 
     @Test
     void getEmptyValuesWithWrongId() throws Exception {
-        mockMvc.perform(get("/api/movies/200/reviews/page/1"))
+        mockMvc.perform(get("/api/movies/{id}/reviews/page/{pageNumber}", 200, 1))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.count", Is.is(0)));
@@ -48,7 +48,7 @@ class ReviewRestControllerTest extends AbstractTest {
 
     @Test
     void getEmptyValuesWithWrongPage() throws Exception {
-        mockMvc.perform(get("/api/movies/100/reviews/page/2"))
+        mockMvc.perform(get("/api/movies/{id}/reviews/page/{pageNumber}", 100, 2))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.entities.length()", Is.is(0)));
