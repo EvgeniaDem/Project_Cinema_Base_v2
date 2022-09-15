@@ -13,8 +13,6 @@ import java.util.Map;
 @Repository
 public class ReviewMovieResponseDtoPaginationDaoImpl extends AbstractDaoImpl<Long, Review> implements ReviewMovieResponseDtoPaginationDao {
 
-    private final String STRING_SORT_ASC = " order by r.date asc";
-    private final String STRING_SORT_DESC = " order by r.date desc";
     @Override
     public List<ReviewResponseDto> getItemsDto(Integer currentPage, Integer itemsOnPage, Map<String, Object> parameters) {
         String sortTypeText = getSortType((ReviewSortType)parameters.get("sortType"));
@@ -30,7 +28,7 @@ public class ReviewMovieResponseDtoPaginationDaoImpl extends AbstractDaoImpl<Lon
     }
 
     private String getSortType(ReviewSortType sortType) {
-        return sortType == ReviewSortType.DATE_DESC? STRING_SORT_DESC: STRING_SORT_ASC;
+        return sortType == ReviewSortType.DATE_DESC? " order by r.date desc" : " order by r.date asc";
     }
 
     @Override
