@@ -15,12 +15,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class GetListOfCommentsTest extends AbstractTest {
     @Test
     public void getComments() throws Exception {
-        mockMvc.perform(get("/api/news/1/comments"))
+        mockMvc.perform(get("/api/news/100/comments"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()", Is.is(1)))
-                .andExpect(jsonPath("$.[0].level").value(10))
-                .andExpect(jsonPath("$[0].user.id").value(200));
+                .andExpect(jsonPath("$.[0].id").value(100));
         //TODO Добавить больше данных и проверять их
     }
 

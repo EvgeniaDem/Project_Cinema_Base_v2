@@ -1,6 +1,7 @@
 package com.kata.cinema.base.webapp.controllers.newsRestController;
 
 import com.kata.cinema.base.AbstractTest;
+import org.hamcrest.core.Is;
 import org.junit.Test;
 import org.springframework.test.context.jdbc.Sql;
 
@@ -13,10 +14,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class GetNewsBodyTest extends AbstractTest {
     @Test
     public void getBody() throws Exception {
-        mockMvc.perform(get("/api/news/1"))
+        mockMvc.perform(get("/api/news/100"))
                 .andDo(print())
-                .andExpect(jsonPath("$.length()").value(7))
-                .andExpect(jsonPath("$.countComment").value(1));
+                .andExpect(jsonPath("$.length()", Is.is(7)))
+                .andExpect(jsonPath("$.id").value(100))
+                .andExpect(jsonPath("$.countComment").value(2))
+                .andExpect(jsonPath("$.rubric").value("NEWS"))
+                .andExpect(jsonPath("$.authorName").value("1 1"))
+                .andExpect(jsonPath("$.title").value("db test title 01"))
+                .andExpect(jsonPath("$.htmlBody").value("nytipobody"))
+                .andExpect(jsonPath("$.date").value("03.08.2022"));
     }
 
     @Test

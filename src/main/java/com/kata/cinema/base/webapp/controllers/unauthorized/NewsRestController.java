@@ -45,17 +45,17 @@ public class NewsRestController {
 
     @GetMapping("/{id}/comments")
     public ResponseEntity<List<CommentsResponseDto>> getListOfComments(@PathVariable Long id) {
-        if (newsService.isExistById(id)) {
-            return ResponseEntity.ok(commentService.getComments(id));
+        if (!newsService.isExistById(id)) {
+            throw new NotFoundByIdException("News with id: " + id + " does not exist, try looking for another");
         }
-        throw new NotFoundByIdException("News with id: " + id + " does not exist, try looking for another");
+        return ResponseEntity.ok(commentService.getComments(id));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<NewsBodyResponseDto> getNewsBody(@PathVariable Long id) {
-        if (newsService.isExistById(id)) {
-            return new ResponseEntity<>(newsService.getByIdNewsBodyPageInfo(id), HttpStatus.OK);
+        if (!newsService.isExistById(id)) {
+            throw new NotFoundByIdException("News with id: " + id + " does not exist, try looking for another");
         }
-        throw new NotFoundByIdException("News with id: " + id + " does not exist, try looking for another");
+        return new ResponseEntity<>(newsService.getByIdNewsBodyPageInfo(id), HttpStatus.OK);
     }
 }
