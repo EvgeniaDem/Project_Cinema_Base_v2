@@ -14,3 +14,4 @@ VALUES (200, 'NEWS', '2022-08-04', 'db test title 02', 'nytipobody', null);
 INSERT INTO public.news(id, rubric, date, title, html_body, user_id)
 VALUES (300, 'TESTS', '2022-08-05', 'db test title 03', 'nytipobody', null);
 
+
