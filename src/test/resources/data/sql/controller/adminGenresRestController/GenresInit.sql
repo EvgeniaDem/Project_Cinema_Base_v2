@@ -1,5 +1,5 @@
 INSERT INTO users(id, avatar_url, birthday, email, first_name, last_name, login, password)
-VALUES (100, 'url', '2022-08-14', 'admin@mail.ru', 'Имя1', 'Фамилия1', 'login_1', '$2a$11$Ig/7qJn7s0gllAzuvFU9vuF.FBUJKiJtzJc4xJmlnUcXklbo1QVO.');
+VALUES (100, 'url', '2022-08-14', 'admin@mail.ru', 'РРјСЏ1', 'Р¤Р°РјРёР»РёСЏ1', 'login_1', '$2a$11$Ig/7qJn7s0gllAzuvFU9vuF.FBUJKiJtzJc4xJmlnUcXklbo1QVO.');
 
 INSERT INTO roles(id, name)
 VALUES (100, 'ADMIN');
