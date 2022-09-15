@@ -30,7 +30,6 @@ import javax.persistence.PersistenceContext;
         DbUnitTestExecutionListener.class,
         SqlScriptsTestExecutionListener.class
 })
-@TestPropertySource("/application-local.properties")
 @Ignore
 public class AbstractTest {
     @Autowired
