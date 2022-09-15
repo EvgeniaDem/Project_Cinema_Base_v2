@@ -1,9 +1,10 @@
 package com.kata.cinema.base.dao.dto;
 
-import com.kata.cinema.base.models.dto.response.MovieResponseDto;
-
 import java.util.List;
+import java.util.Map;
 
 public interface CollectionMoviesResponseDtoDao {
-    List<MovieResponseDto> getAllByMovieId(Long movieId);
+
+    Map<Long, List<String>> getAllCollections();
+
 }

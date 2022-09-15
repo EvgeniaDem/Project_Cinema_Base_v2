@@ -8,5 +8,5 @@ import java.util.List;
 import java.util.Map;
 
 public interface MovieResponseDtoDao {
-    List<MovieResponseDto> getMovieDto(String country, Genre genre, LocalDate date,Boolean online, Map<String, Object> parameters);
+    List<MovieResponseDto> getMovieDto();
 }

@@ -43,6 +43,9 @@ public class Collection {
     @Column(name = "enable")
     private Boolean enable;
 
+    @Column(name = "description")
+    private String description;
+
     @Enumerated(EnumType.STRING)
     private CollectionType collectionType;
 
@@ -67,6 +70,13 @@ public class Collection {
     public Collection(String name, Boolean enable) {
         this.name = name;
         this.enable = enable;
+    }
+
+    public Collection(Long id, String name, String description, String previewUrl) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.previewUrl = previewUrl;
     }
 
     @Override

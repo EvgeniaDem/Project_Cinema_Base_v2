@@ -9,4 +9,5 @@
 
     <include file="db/changelog/14-08-2022-init-db.sql"/>
     <include file="testdata/db.changelog-test_data.xml" relativeToChangelogFile="true"/>
+    <include file="db/changelog/2022/09/15-01-changelog.sql"/>
 </databaseChangeLog>

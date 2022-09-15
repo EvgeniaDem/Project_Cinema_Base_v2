@@ -1,5 +1,8 @@
 package com.kata.cinema.base.service.dto;
 
+import com.kata.cinema.base.dao.dto.CollectionMoviesResponseDtoDao;
+import com.kata.cinema.base.models.dto.PageDto;
+import com.kata.cinema.base.models.dto.response.CollectionMoviesResponseDto;
 import com.kata.cinema.base.models.dto.response.MovieResponseDto;
 import com.kata.cinema.base.models.entitys.Genre;
 
@@ -8,5 +11,5 @@ import java.util.List;
 import java.util.Map;
 
 public interface MovieResponseDtoService {
-    List<MovieResponseDto> getMovieDto(String country, Genre genre, LocalDate date, Boolean online, Map<String, Object> parameters);
+   PageDto<CollectionMoviesResponseDto> getPageDto(Map<String, Object> parameters);
 }

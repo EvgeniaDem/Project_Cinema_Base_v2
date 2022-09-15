@@ -17,29 +17,29 @@ public class MovieResponseDtoDaoImpl implements MovieResponseDtoDao {
     EntityManager entityManager;
 
     @Override
-    public List<MovieResponseDto> getMovieDto(String country, Genre genre, LocalDate date, Boolean online, Map<String, Object> parameters) {
+    public List<MovieResponseDto> getMovieDto() {
 
-        String order;
-        switch ((СollectionSortType)parameters.get("collectionSortType")) {
-            case COUNT_SCORE: {
-                order = " order by countScore desc";
-                break;
-            }
-            case RELEASE_DATE: {
-                order = " order by m.dateRelease";
-                break;
-            }
-            case NAME: {
-                order = " order by m.name";
-                break;
-            }
-            case RATING: {
-
-            }
-            default: {
-                order = " order by avgScore desc";
-            }
-        }
+//        String order;
+//        switch ((СollectionSortType)parameters.get("collectionSortType")) {
+//            case COUNT_SCORE: {
+//                order = " order by countScore desc";
+//                break;
+//            }
+//            case RELEASE_DATE: {
+//                order = " order by m.dateRelease";
+//                break;
+//            }
+//            case NAME: {
+//                order = " order by m.name";
+//                break;
+//            }
+//            case RATING: {
+//
+//            }
+//            default: {
+//                order = " order by avgScore desc";
+//            }
+//        }
 
 
         return entityManager.createQuery("SELECT  new MovieResponseDto(m.id, m.name, m.origin_name as originalName, m.time, m.date_release as dateRelease, " +
@@ -49,7 +49,7 @@ public class MovieResponseDtoDaoImpl implements MovieResponseDtoDao {
                         "JOIN movie_person mp ON m.id = mp.movie_id\n" +
                         "JOIN professions p ON p.id = mp.profession_id\n" +
                         "JOIN score s ON m.id = s.movie_id\n" +
-                        "group by mp.type_person, p.name, g.name, m.countries, m.date_release, m.time, m.origin_name, m.name, m.id" + order, MovieResponseDto.class)
+                        "group by mp.type_person, p.name, g.name, m.countries, m.date_release, m.time, m.origin_name, m.name, m.id" , MovieResponseDto.class)
                 .getResultList();
     }
 }

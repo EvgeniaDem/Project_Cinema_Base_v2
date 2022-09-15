@@ -1,7 +1,10 @@
 package com.kata.cinema.base.webapp.controllers.unauthorized;
 
+import com.kata.cinema.base.dao.dto.CollectionMoviesResponseDtoDao;
 import com.kata.cinema.base.exceptions.NotFoundByIdException;
+import com.kata.cinema.base.models.dto.PageDto;
 import com.kata.cinema.base.models.dto.request.CollectionRequestDto;
+import com.kata.cinema.base.models.dto.response.CollectionMoviesResponseDto;
 import com.kata.cinema.base.models.dto.response.CollectionResponseDto;
 import com.kata.cinema.base.models.entitys.Collection;
 import com.kata.cinema.base.models.entitys.Movie;
@@ -12,6 +15,7 @@ import com.kata.cinema.base.service.entity.FolderMoviesService;
 import com.kata.cinema.base.service.entity.MovieService;
 import com.kata.cinema.base.service.entity.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -28,10 +32,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.time.LocalDate;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/collections")
@@ -110,7 +112,7 @@ public class CollectionRestController {
     }
 
     @PostMapping("/{id}/movies")
-    public ResponseEntity<Void> addMovie(@PathVariable Long id,@RequestBody List<Long> movieIds) {
+    public ResponseEntity<Void> addMovie(@PathVariable Long id, @RequestBody List<Long> movieIds) {
         Collection collectionsAddMovie = collectionService.getById(id).orElse(null);
         Set<Long> setMoviesId = new HashSet<>(movieIds);
         if (collectionsAddMovie != null) {
@@ -137,7 +139,7 @@ public class CollectionRestController {
     }
 
     @DeleteMapping("/{id}/movies")
-    public ResponseEntity<Void> deleteMovie(@PathVariable Long id,@RequestBody List<Long> movieIds) {
+    public ResponseEntity<Void> deleteMovie(@PathVariable Long id, @RequestBody List<Long> movieIds) {
 
         Collection collectionsDeleteMovie = collectionService.getById(id).orElse(null);
         Set<Long> setMoviesDeleteId = new HashSet<>(movieIds);
@@ -162,5 +164,21 @@ public class CollectionRestController {
         } else {
             throw new NotFoundByIdException("There is no collection with ID: " + id + " , try again.");
         }
+    }
+
+    @GetMapping("/{id}/movies")
+    public ResponseEntity<PageDto<CollectionMoviesResponseDto>> getCollectionMovies(
+            @RequestParam(required = false) String country,
+            @RequestParam(required = false) String genre,
+            @RequestParam(required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
+            @RequestParam(required = false, defaultValue = "false") Boolean b,
+            @RequestParam(required = false, defaultValue = "По порядку") String collectionSortType) {
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("country", country);
+        parameters.put("genre", genre);
+        parameters.put("date", date);
+        parameters.put("collectionSortType", collectionSortType);
+        return null;
     }
 }
