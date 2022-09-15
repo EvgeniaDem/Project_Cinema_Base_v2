@@ -11,4 +11,6 @@ public class CollectionRequestDto {
     private String name;
     private CollectionType type;
 
+    public CollectionRequestDto() {
+    }
 }

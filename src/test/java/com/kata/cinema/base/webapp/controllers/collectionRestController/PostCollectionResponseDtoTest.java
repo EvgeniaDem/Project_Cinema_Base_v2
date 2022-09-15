@@ -2,6 +2,7 @@ package com.kata.cinema.base.webapp.controllers.collectionRestController;
 
 import com.kata.cinema.base.AbstractTest;
 import com.kata.cinema.base.models.dto.request.CollectionRequestDto;
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.test.context.jdbc.Sql;
 
@@ -24,6 +25,9 @@ public class PostCollectionResponseDtoTest extends AbstractTest {
                 .andDo(print())
                 .andExpect(status().isOk());
 
-        //TODO селект запрос на проверку созданной коллекции по имени
+        Assert.assertTrue(entityManager.createQuery("SELECT count(c) > 0 FROM Collection c where c.name = :name and c.collectionType = :type", Boolean.class)
+                .setParameter("name", "new collection")
+                .setParameter("type", MOVIES)
+                .getSingleResult());
     }
 }

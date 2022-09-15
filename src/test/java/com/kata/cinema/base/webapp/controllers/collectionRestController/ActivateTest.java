@@ -1,6 +1,7 @@
 package com.kata.cinema.base.webapp.controllers.collectionRestController;
 
 import com.kata.cinema.base.AbstractTest;
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.test.context.jdbc.Sql;
 
@@ -16,6 +17,8 @@ public class ActivateTest extends AbstractTest {
         this.mockMvc.perform(patch("/api/collections/{id}/activate" , 100))
                 .andDo(print())
                 .andExpect(status().isOk());
-        //TODO select запрос для проверки на смену статуса
+        Assert.assertTrue(entityManager.createQuery("SELECT count(c) > 0 FROM Collection c where c.id = :id and c.enable = true", Boolean.class)
+                .setParameter("id", 100L)
+                .getSingleResult());
     }
 }
