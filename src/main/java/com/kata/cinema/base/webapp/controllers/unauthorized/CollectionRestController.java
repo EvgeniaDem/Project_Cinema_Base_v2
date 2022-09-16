@@ -1,6 +1,5 @@
 package com.kata.cinema.base.webapp.controllers.unauthorized;
 
-import com.kata.cinema.base.dao.dto.CollectionMoviesResponseDtoDao;
 import com.kata.cinema.base.exceptions.NotFoundByIdException;
 import com.kata.cinema.base.models.dto.PageDto;
 import com.kata.cinema.base.models.dto.request.CollectionRequestDto;
@@ -10,6 +9,7 @@ import com.kata.cinema.base.models.entitys.Collection;
 import com.kata.cinema.base.models.entitys.Movie;
 import com.kata.cinema.base.models.entitys.User;
 import com.kata.cinema.base.models.enums.CollectionType;
+import com.kata.cinema.base.service.dto.CollectionMoviesResponseDtoService;
 import com.kata.cinema.base.service.entity.CollectionService;
 import com.kata.cinema.base.service.entity.FolderMoviesService;
 import com.kata.cinema.base.service.entity.MovieService;
@@ -41,10 +41,10 @@ import java.util.*;
 public class CollectionRestController {
 
     private final CollectionService collectionService;
-    private final FolderMoviesService folderMoviesService;
     private final MovieService movieService;
 
-    private final UserService userService;
+    private final CollectionMoviesResponseDtoService collectionMoviesResponseDtoService;
+
 
     @GetMapping
     public ResponseEntity<List<CollectionResponseDto>> getCollectionResponseDto(@RequestParam(defaultValue = "MOVIES") CollectionType type) {
@@ -173,12 +173,12 @@ public class CollectionRestController {
             @RequestParam(required = false)
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
             @RequestParam(required = false, defaultValue = "false") Boolean b,
-            @RequestParam(required = false, defaultValue = "По порядку") String collectionSortType) {
+            @RequestParam(required = false, defaultValue = "По порядку") String collectionSortType, @PathVariable String id) {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("country", country);
         parameters.put("genre", genre);
         parameters.put("date", date);
         parameters.put("collectionSortType", collectionSortType);
-        return null;
+        return ResponseEntity.ok(collectionMoviesResponseDtoService.getPageDtoWithParameters(parameters));
     }
 }

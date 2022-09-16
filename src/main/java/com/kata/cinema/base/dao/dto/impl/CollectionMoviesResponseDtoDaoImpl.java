@@ -2,37 +2,75 @@ package com.kata.cinema.base.dao.dto.impl;
 
 import com.kata.cinema.base.dao.dto.CollectionMoviesResponseDtoDao;
 import com.kata.cinema.base.dao.dto.MovieResponseDtoDao;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.kata.cinema.base.dao.entity.impl.AbstractDaoImpl;
+import com.kata.cinema.base.models.dto.response.CollectionMoviesResponseDto;
+import com.kata.cinema.base.models.enums.СollectionSortType;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public class CollectionMoviesResponseDtoDaoImpl implements CollectionMoviesResponseDtoDao {
+@Repository
+public class CollectionMoviesResponseDtoDaoImpl extends AbstractDaoImpl<Long, Collection> implements CollectionMoviesResponseDtoDao {
 
-    @Autowired
-    MovieResponseDtoDao movieResponseDtoDao;
 
     @PersistenceContext
     private EntityManager entityManager;
 
 
     @Override
-    public Map<Long, List<String>> getAllCollections() {
-        List<Object[]> collectionMoviesResponseDtos = entityManager.createQuery("select c.id, c.name, c.description, c.previewUrl," +
-                "m.id, m.name, m.originName, m.dateRelease, m.countries, g.name, p.name, mp.type, avg(s.score) from Collection c left join c.movies m join m.genres g on m.id = g.id " +
-                "join MoviePerson mp  join mp.professions p on p.id = m.id join Score s on m.id = s.id")
-                .getResultList();
-        Map<Long, List<String>> movieResponseDtoMap = new HashMap<>();
-        for (Object[] o : collectionMoviesResponseDtos) {
-            if (movieResponseDtoMap.get(o[0]) == null) {
-                movieResponseDtoMap.put((Long) o[0], new ArrayList<>());
+    public List<CollectionMoviesResponseDto> getItemsDto(Map<String, Object> parameters) {
+
+        String order;
+        switch ((СollectionSortType) parameters.get("collectionSortType")) {
+            case COUNT_SCORE: {
+                order = " order by countScore desc";
+                break;
             }
-            movieResponseDtoMap.get(o[0]).add((String) o[1]);
+            case RELEASE_DATE: {
+                order = " order by m.dateRelease";
+                break;
+            }
+            case NAME: {
+                order = " order by m.name";
+                break;
+            }
+            case RATING: {
+
+            }
+            default: {
+                order = " order by avgScore desc";
+            }
         }
-        return movieResponseDtoMap;
+
+        List<CollectionMoviesResponseDto> dtos = entityManager.createQuery("select new com.kata.cinema.base.models.dto.response.CollectionMoviesResponseDto" +
+                        "(c.id, c.name, c.description, c.previewUrl, cast(count(distinct s) as int) as countScore, cast(sum(s.score) as double)/count(s) as avgScore) " +
+                        "from Collection c left join c.movies m join m.genres g join Score s  where (select count(si) from Score si where si.movie.id = m.id)" +
+                        "and (g.name in (:name) or :genreId is null) " +
+                        "and (m.dateRelease in (:dateRelease) or :dateRekease is null)" +
+                        "and (m.countries in (:countries) or :countries is null) group by m.id, c.id" + order, CollectionMoviesResponseDto.class)
+                .setParameter("countries", parameters.get("countries"))
+                .setParameter("name", parameters.get("name"))
+                .setParameter("dateRelease", parameters.get("dateRelease"))
+                .getResultList();
+
+        return dtos;
+    }
+
+    @Override
+    public Long getResultTotal(Map<String, Object> parameters) {
+        return entityManager.createQuery("select count(distinct c) " +
+                        "from Collection c " +
+                        "left join Movie m " +
+                        "on c.id = c.movies.id " +
+                        "left join Score s on m.id = s.movie.id join m.genres g" +
+                        "where (select count(si) from Score si where si.movie.id = m.id) and (g.name in (:name) or :genreId is null) " +
+                        "and (m.dateRelease in (:dateRelease) or :dateRekease is null) " +
+                        "and (m.countries in (:countries) or :countries is null) ", Long.class)
+                .setParameter("countries", parameters.get("countries"))
+                .setParameter("name", parameters.get("name"))
+                .setParameter("dateRelease", parameters.get("dateRelease"))
+                .getSingleResult();
     }
 }
