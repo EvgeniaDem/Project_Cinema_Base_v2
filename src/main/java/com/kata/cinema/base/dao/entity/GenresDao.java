@@ -10,6 +10,4 @@ public interface GenresDao extends AbstractDao<Long, Genre> {
     Map<Long, List<String>> getAllMap();
 
     List<GenreResponseDto> getListOfGenres();
-
-    List<String> getAllMovieGenres(Long movieId);
 }

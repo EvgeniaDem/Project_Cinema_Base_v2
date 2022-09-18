@@ -52,7 +52,6 @@ public class UserFolderMovieRestController {
             @RequestParam(required = false, defaultValue = "ALL") ShowType showType) {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("id", id);
-        parameters.put("itemsOnPage", itemsOnPage);
         parameters.put("sortMovieFolderType", sortMovieFolder);
         parameters.put("showType", showType);
         return ResponseEntity.ok(movieResponseDtoPaginationService.getPageDtoWithParameters(pageNumber, itemsOnPage, parameters));
