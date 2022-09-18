@@ -9,6 +9,7 @@ import com.kata.cinema.base.models.entitys.Collection;
 import com.kata.cinema.base.models.entitys.Movie;
 import com.kata.cinema.base.models.entitys.User;
 import com.kata.cinema.base.models.enums.CollectionType;
+import com.kata.cinema.base.models.enums.СollectionSortType;
 import com.kata.cinema.base.service.dto.CollectionMoviesResponseDtoService;
 import com.kata.cinema.base.service.entity.CollectionService;
 import com.kata.cinema.base.service.entity.FolderMoviesService;
@@ -34,6 +35,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 import java.util.*;
+
+import static com.kata.cinema.base.models.enums.СollectionSortType.ORDER;
 
 @RestController
 @RequestMapping("/api/collections")
@@ -173,12 +176,14 @@ public class CollectionRestController {
             @RequestParam(required = false)
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
             @RequestParam(required = false, defaultValue = "false") Boolean b,
-            @RequestParam(required = false, defaultValue = "По порядку") String collectionSortType, @PathVariable String id) {
+            @RequestParam(required = false, defaultValue = "ORDER") СollectionSortType collectionSortType, @PathVariable Long id) {
+        System.out.println("Это контроллер");
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("country", country);
         parameters.put("genre", genre);
         parameters.put("date", date);
+        parameters.put("online", b);
         parameters.put("collectionSortType", collectionSortType);
-        return ResponseEntity.ok(collectionMoviesResponseDtoService.getPageDtoWithParameters(parameters));
+        return ResponseEntity.ok(collectionMoviesResponseDtoService.getPageDtoWithParameters(id, parameters));
     }
 }

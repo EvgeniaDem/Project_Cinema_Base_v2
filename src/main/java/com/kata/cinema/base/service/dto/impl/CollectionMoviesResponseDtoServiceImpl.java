@@ -16,19 +16,21 @@ import java.util.Map;
 public class CollectionMoviesResponseDtoServiceImpl extends PageDtoServiseImpl<CollectionMoviesResponseDto> implements CollectionMoviesResponseDtoService {
 
     private final MovieResponseDtoDao movieResponseDtoDao;
+    private final CollectionMoviesResponseDtoDao collectionMoviesResponseDtoDao;
 
 
-    public CollectionMoviesResponseDtoServiceImpl(PageDtoDao<CollectionMoviesResponseDto> pageDtoDao, MovieResponseDtoDao movieResponseDtoDao) {
+    public CollectionMoviesResponseDtoServiceImpl(PageDtoDao<CollectionMoviesResponseDto> pageDtoDao, MovieResponseDtoDao movieResponseDtoDao, CollectionMoviesResponseDtoDao collectionMoviesResponseDtoDao) {
         super(pageDtoDao);
         this.movieResponseDtoDao = movieResponseDtoDao;
+        this.collectionMoviesResponseDtoDao = collectionMoviesResponseDtoDao;
     }
 
     @Override
-    public PageDto<CollectionMoviesResponseDto> getPageDtoWithParameters(Map<String, Object> parameters) {
-        PageDto<CollectionMoviesResponseDto> pageDto = super.getPageDtoWithParameters(parameters);
-        Map<Long, List<MovieResponseDto>> movieResponseDtoMap = movieResponseDtoDao.getAllCollections();
+    public PageDto<CollectionMoviesResponseDto> getPageDtoWithParameters(Long id, Map<String, Object> parameters) {
+        PageDto<CollectionMoviesResponseDto> pageDto = super.getPageDtoWithParameters(id, parameters);
+        Map<Long, List<MovieResponseDto>> movieResponseDtoMap = movieResponseDtoDao.getMapMovieResponseValueByCollectionMoviesDtoIds(collectionMoviesResponseDtoDao.collectionMoviesResponseDtoIds(id));
         for (CollectionMoviesResponseDto dto : pageDto.getEntities()) {
-            dto.setMovies(movieResponseDtoMap.get(dto.getId()));
+            dto.setMovies(movieResponseDtoMap.get(dto.getId().toString()));
         }
         return pageDto;
     }

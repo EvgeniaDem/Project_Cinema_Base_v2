@@ -5,5 +5,5 @@ import com.kata.cinema.base.models.dto.PageDto;
 import java.util.Map;
 
 public interface PageDtoServise<T> {
-    PageDto<T> getPageDtoWithParameters(Map<String, Object> parameters);
+    PageDto<T> getPageDtoWithParameters(Long id, Map<String, Object> parameters);
 }

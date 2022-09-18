@@ -4,10 +4,12 @@ import com.kata.cinema.base.dao.dto.MovieResponseDtoDao;
 import com.kata.cinema.base.dao.entity.impl.AbstractDaoImpl;
 import com.kata.cinema.base.models.dto.response.MovieResponseDto;
 import com.kata.cinema.base.models.entitys.Movie;
+import org.hibernate.transform.ResultTransformer;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,19 +22,50 @@ public class MovieResponseDtoDaoImpl extends AbstractDaoImpl<Long, Movie> implem
     EntityManager entityManager;
 
     @Override
-    public Map<Long, List<MovieResponseDto>> getAllCollections() {
-        List<Object[]> collectionMoviesResponseDtos = entityManager.createQuery("select c.id, c.name, c.description, c.previewUrl," +
-                        "m.id, m.name, m.originName, m.dateRelease, m.countries, g.name, p.name, mp.type, avg(s.score) from Collection c left join c.movies m join m.genres g on m.id = g.id " +
-                        "join MoviePerson mp  join mp.professions p on p.id = m.id join Score s on m.id = s.id")
-                .getResultList();
-        Map<Long, List<MovieResponseDto>> movieResponseDtoMap = new HashMap<>();
-        for (Object[] o : collectionMoviesResponseDtos) {
-            if (movieResponseDtoMap.get(o[0]) == null) {
-                movieResponseDtoMap.put((Long) o[0], new ArrayList<>());
-            }
-            movieResponseDtoMap.get(o[0]).add((MovieResponseDto) o[1]);
-        }
-        return movieResponseDtoMap;
+    public Map<Long, List<MovieResponseDto>> getMapMovieResponseValueByCollectionMoviesDtoIds(List<Long> collectionMoviesResponseDtoIds) {
+        System.out.println("это мапа");
+        Map<Long, List<MovieResponseDto>> map = new HashMap<>();
+        entityManager.createQuery("select c.id, c.name, c.description, c.previewUrl, m.id, m.name, m.originName, m.time, m.dateRelease,  m.countries,  g.name, " +
+                        "p.name, mp.nameCharacter , avg(s.score) \n" +
+                        "from Collection  c \n" +
+                        "left join c.movies m on c.id = m.id \n" +
+                        "join m.genres g on m.id=g.id\n" +
+                        "join Score s on m.id = s.movie.id\n" +
+                        "join MoviePerson mp on mp.movie.id = m.id\n" +
+                        "join mp.professions p on mp.professions.id = p.id where c.id in :collectionMoviesResponseDtoIds group by c.id, m.id, g.id, p.id, mp.id ")
+                .setParameter("collectionMoviesResponseDtoIds", collectionMoviesResponseDtoIds)
+                .unwrap(org.hibernate.Query.class)
+                .setResultTransformer(new ResultTransformer() {
+                    @Override
+                    public Object transformTuple(Object[] objects, String[] strings) {
+
+                        MovieResponseDto movieResponseDto = new MovieResponseDto();
+                        movieResponseDto.setId((Long) objects[0]);
+                        movieResponseDto.setName((String) objects[1]);
+                        movieResponseDto.setOriginalName((String) objects[2]);
+                        movieResponseDto.setTime((Integer) objects[3]);
+                        movieResponseDto.setDateRelease((LocalDate) objects[4]);
+                        movieResponseDto.setCountries((String) objects[5]);
+                        movieResponseDto.setGenres((String) objects[6]);
+                        movieResponseDto.setDirector((String) objects[7]);
+                        movieResponseDto.setRoles((String) objects[8]);
+                        movieResponseDto.setAvgScore((Double) objects[9]);
+
+
+                        Long collectionMoviesResponseDtoId = (Long) objects[10];
+                        if (!map.containsKey(collectionMoviesResponseDtoId)) {
+                            map.put(collectionMoviesResponseDtoId, new ArrayList<>());
+                        }
+                        map.get(collectionMoviesResponseDtoId).add(movieResponseDto);
+                        return objects;
+                    }
+
+                    @Override
+                    public List transformList(List list) {
+                        return list;
+                    }
+                }).getResultList();
+        return map;
     }
 }
 

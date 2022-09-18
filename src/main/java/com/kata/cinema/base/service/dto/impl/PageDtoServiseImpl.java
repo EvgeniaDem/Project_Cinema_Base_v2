@@ -16,11 +16,12 @@ public class PageDtoServiseImpl<T> implements PageDtoServise<T> {
         this.pageDtoDao = pageDtoDao;
     }
 
+
     @Override
-    public PageDto<T> getPageDtoWithParameters(Map<String, Object> parameters) {
+    public PageDto<T> getPageDtoWithParameters(Long id, Map<String, Object> parameters) {
         PageDto<T> pageDto = new PageDto<>();
-        pageDto.setCount(pageDtoDao.getResultTotal(parameters));
-        pageDto.setEntities(pageDtoDao.getItemsDto(parameters));
+        pageDto.setCount(pageDtoDao.getResultTotal(id,parameters));
+        pageDto.setEntities(pageDtoDao.getItemsDto(id,parameters));
         return pageDto;
     }
 }

@@ -8,5 +8,6 @@ import java.util.Map;
 public interface MovieResponseDtoDao {
 //    List<MovieResponseDto> getMovieDto();
 
-    Map<Long, List<MovieResponseDto>> getAllCollections();
+//    Map<Long, List<MovieResponseDto>> getAllCollections();
+    Map<Long,List<MovieResponseDto>> getMapMovieResponseValueByCollectionMoviesDtoIds(List<Long> collectionMoviesResponseDtoIds);
 }

@@ -9,5 +9,6 @@ import java.util.Map;
 public interface CollectionMoviesResponseDtoDao extends PageDtoDao <CollectionMoviesResponseDto>{
 
 //    Map<Long, List<MovieResponseDto>> getAllCollections();
+List<Long>collectionMoviesResponseDtoIds(Long id);
 
 }

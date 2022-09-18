@@ -5,6 +5,6 @@ import java.util.Map;
 
 public interface PageDtoDao <T>{
 
-    List<T> getItemsDto(Map<String, Object> parameters);
-    Long getResultTotal(Map<String, Object> parameters);
+    List<T> getItemsDto(Long id, Map<String, Object> parameters);
+    Long getResultTotal(Long id, Map<String, Object> parameters);
 }
