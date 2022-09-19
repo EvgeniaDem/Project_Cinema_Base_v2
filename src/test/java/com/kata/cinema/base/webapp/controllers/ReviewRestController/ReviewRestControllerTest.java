@@ -1,12 +1,9 @@
 package com.kata.cinema.base.webapp.controllers.ReviewRestController;
 
-import com.kata.cinema.base.webapp.controllers.unauthorized.MovieRestController;
 import org.hamcrest.core.Is;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.junit.Test;
 import org.springframework.test.context.jdbc.Sql;
 import com.kata.cinema.base.AbstractTest;
-
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -16,14 +13,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @Sql(value = "/data/sql/controller/ReviewRestController/ReviewInit.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(value = "/data/sql/controller/ReviewRestController/ReviewClean.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-class ReviewRestControllerTest extends AbstractTest {
-
-    private MovieRestController movieRestController;
-
-
+public class ReviewRestControllerTest extends AbstractTest {
 
     @Test
-    void getReviews() throws Exception {
+    public void getReviews() throws Exception {
         mockMvc.perform(get("/api/movies/{id}/reviews/page/{pageNumber}", 100, 1))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -39,7 +32,7 @@ class ReviewRestControllerTest extends AbstractTest {
     }
 
     @Test
-    void getEmptyValuesWithWrongId() throws Exception {
+    public void getEmptyValuesWithWrongId() throws Exception {
         mockMvc.perform(get("/api/movies/{id}/reviews/page/{pageNumber}", 200, 1))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -47,7 +40,7 @@ class ReviewRestControllerTest extends AbstractTest {
     }
 
     @Test
-    void getEmptyValuesWithWrongPage() throws Exception {
+    public void getEmptyValuesWithWrongPage() throws Exception {
         mockMvc.perform(get("/api/movies/{id}/reviews/page/{pageNumber}", 100, 2))
                 .andDo(print())
                 .andExpect(status().isOk())
