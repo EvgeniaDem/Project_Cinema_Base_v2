@@ -14,11 +14,14 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.util.Objects;
 
+/*
+* Получение метаданных из корневой директории проекта: cinema_base/uploads/
+* */
 @RestController
 @RequestMapping("/uploads")
 @NoArgsConstructor
 public class ResourcesController {
-
+    //получение картинки на frontend логику
     @GetMapping("/**")
     public ResponseEntity<byte[]> getImage(HttpServletRequest request) {
         String image = request.getServletPath().substring(1);

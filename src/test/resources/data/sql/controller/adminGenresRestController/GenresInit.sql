@@ -1,5 +1,5 @@
-INSERT INTO users(id, avatar_url, birthday, email, first_name, last_name, password)
-VALUES (100, 'url', '2022-08-14', 'admin@mail.ru', '»Ïˇ1', '‘‡ÏËÎËˇ1', '$2a$11$Ig/7qJn7s0gllAzuvFU9vuF.FBUJKiJtzJc4xJmlnUcXklbo1QVO.');
+INSERT INTO users(id, avatar_url, birthday, email, first_name, last_name, login, password)
+VALUES (100, 'url', '2022-08-14', 'admin@mail.ru', '–ò–º—è1', '–§–∞–º–∏–ª–∏—è1', 'login_1', '$2a$11$Ig/7qJn7s0gllAzuvFU9vuF.FBUJKiJtzJc4xJmlnUcXklbo1QVO.');
 
 INSERT INTO roles(id, name)
 VALUES (100, 'ADMIN');
@@ -11,7 +11,7 @@ INSERT INTO genres(id, name)
 VALUES (100, 'TEST1');
 
 INSERT INTO genres(id, name)
-VALUES (101, 'TEST2');
+VALUES (200, 'TEST2');
 
 INSERT INTO genres(id, name)
-VALUES (102, 'TEST3');
+VALUES (300, 'TEST3');

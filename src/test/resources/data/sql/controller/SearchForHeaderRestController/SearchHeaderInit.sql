@@ -7,8 +7,8 @@ delete from public.user_role;
 delete from public.roles;
 delete from public.users;
 
-INSERT INTO users(id, avatar_url, birthday, email, first_name, last_name, password)
-VALUES (100, 'url', '2022-08-14', 'admin@mail.ru', 'Имя1', 'Фамилия1', '$2a$11$Ig/7qJn7s0gllAzuvFU9vuF.FBUJKiJtzJc4xJmlnUcXklbo1QVO.');
+INSERT INTO users(id, avatar_url, birthday, email, first_name, last_name, login, password)
+VALUES (100, 'url', '2022-08-14', 'admin@mail.ru', 'Имя1', 'Фамилия1', 'login_1', '$2a$11$Ig/7qJn7s0gllAzuvFU9vuF.FBUJKiJtzJc4xJmlnUcXklbo1QVO.');
 
 INSERT INTO roles(id, name)
 VALUES (100, 'ADMIN');
