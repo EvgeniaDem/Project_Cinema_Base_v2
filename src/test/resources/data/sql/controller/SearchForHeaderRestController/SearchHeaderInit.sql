@@ -17,15 +17,15 @@ INSERT INTO user_role(user_id, role_id)
 VALUES (100, 100);
 
 --Movies init
-INSERT INTO public.movies (id, countries, date_release, description, mpaa, name, origin_name, rars, time)
+INSERT INTO public.movies (id, countries, date_release, description, mpaa, name, original_name, rars, time)
 VALUES (101, 'Rus', '2022-08-14', '1 test movie', 1, 'test1movie', '11', 1, 100);
-INSERT INTO public.movies (id, countries, date_release, description, mpaa, name, origin_name, rars, time)
+INSERT INTO public.movies (id, countries, date_release, description, mpaa, name, original_name, rars, time)
 VALUES (102, 'Rus', '2022-08-15', '2 test movie', 2, 'test2movie', '22', 2, 100);
-INSERT INTO public.movies (id, countries, date_release, description, mpaa, name, origin_name, rars, time)
+INSERT INTO public.movies (id, countries, date_release, description, mpaa, name, original_name, rars, time)
 VALUES (103, 'Eng', '2022-08-16', '3 test movie', 3, 'test3movie', '33', 3, 100);
-INSERT INTO public.movies (id, countries, date_release, description, mpaa, name, origin_name, rars, time)
+INSERT INTO public.movies (id, countries, date_release, description, mpaa, name, original_name, rars, time)
 VALUES (104, 'Eng', '2022-08-15', '4 test movie', 4, 'test4movie', '44', 4, 100);
-INSERT INTO public.movies (id, countries, date_release, description, mpaa, name, origin_name, rars, time)
+INSERT INTO public.movies (id, countries, date_release, description, mpaa, name, original_name, rars, time)
 VALUES (105, 'Gen', '2022-08-15', '5 test movie', 5, 'test5movie', '55', 5, 100);
 
 -- Content init

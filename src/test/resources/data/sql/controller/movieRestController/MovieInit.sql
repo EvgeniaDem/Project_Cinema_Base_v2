@@ -6,17 +6,17 @@ delete from public.genres;
 delete from public.users;
 
 --Movies init
-INSERT INTO public.movies (id, countries, date_release, description, mpaa, name, origin_name, rars, time)
+INSERT INTO public.movies (id, countries, date_release, description, mpaa, name, original_name, rars, time)
 VALUES (1, 'Rus', '2022-08-14', '1 test', 1, '1', '11', 1, 100);
-INSERT INTO public.movies (id, countries, date_release, description, mpaa, name, origin_name, rars, time)
+INSERT INTO public.movies (id, countries, date_release, description, mpaa, name, original_name, rars, time)
 VALUES (2, 'Rus', '2022-08-15', '2 test', 2, '2', '22', 2, 100);
-INSERT INTO public.movies (id, countries, date_release, description, mpaa, name, origin_name, rars, time)
+INSERT INTO public.movies (id, countries, date_release, description, mpaa, name, original_name, rars, time)
 VALUES (3, 'Eng', '2022-08-16', '3 test', 3, '3', '33', 3, 100);
-INSERT INTO public.movies (id, countries, date_release, description, mpaa, name, origin_name, rars, time)
+INSERT INTO public.movies (id, countries, date_release, description, mpaa, name, original_name, rars, time)
 VALUES (4, 'Eng', '2022-08-15', '4 test', 4, '4', '44', 4, 100);
-INSERT INTO public.movies (id, countries, date_release, description, mpaa, name, origin_name, rars, time)
+INSERT INTO public.movies (id, countries, date_release, description, mpaa, name, original_name, rars, time)
 VALUES (5, 'Gen', '2022-08-15', '5 test', 5, '5', '55', 5, 100);
-INSERT INTO public.movies (id, countries, date_release, description, mpaa, name, origin_name, rars, time)
+INSERT INTO public.movies (id, countries, date_release, description, mpaa, name, original_name, rars, time)
 VALUES (999, 'Gen', current_date+1, 'release test', 5, 'release', 'release', 5, 100); --Movie for release test
 
 
