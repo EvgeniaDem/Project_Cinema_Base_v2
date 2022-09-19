@@ -23,6 +23,9 @@ public class UserRegistrationRequestDto {
     private String lastName;
 
     @NotBlank
+    private String login;
+
+    @NotBlank
     @Size(min = 6, max = 20)
     private String password;
 

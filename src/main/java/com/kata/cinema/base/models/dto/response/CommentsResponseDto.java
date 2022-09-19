@@ -1,12 +1,15 @@
 package com.kata.cinema.base.models.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.kata.cinema.base.models.dto.UserCommentDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import springfox.documentation.spring.web.json.Json;
 
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -14,9 +17,30 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CommentsResponseDto {
+
     private Long id;
-    @NotBlank
-    private String text;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy HH:mm")
-    private LocalDateTime localDateTime;
+
+    private String message;
+
+    private Long parentId;
+
+    private Integer level;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
+    private LocalDate date;
+
+    private Integer rating;
+
+    private UserCommentDto user;
+
+    public CommentsResponseDto(Long id, String message, Long parentId, Integer level, LocalDate date, Integer rating,
+                               Long idUser, String login, String avatarUrl) {
+        this.id = id;
+        this.message = message;
+        this.parentId = parentId;
+        this.level = level;
+        this.date = date;
+        this.rating = rating;
+        this.user = new UserCommentDto(idUser, login, avatarUrl);
+    }
 }

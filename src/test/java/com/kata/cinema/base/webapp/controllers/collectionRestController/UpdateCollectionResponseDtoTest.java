@@ -2,6 +2,7 @@ package com.kata.cinema.base.webapp.controllers.collectionRestController;
 
 import com.kata.cinema.base.AbstractTest;
 import com.kata.cinema.base.models.dto.request.CollectionRequestDto;
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.test.context.jdbc.Sql;
 
@@ -22,6 +23,9 @@ public class UpdateCollectionResponseDtoTest extends AbstractTest {
                         .content(objectMapper.writeValueAsString(collectionRequestDto)))
                 .andDo(print())
                 .andExpect(status().isOk());
-        //TODO селект запрос на проверку
+        Assert.assertTrue(entityManager.createQuery("SELECT count(c) > 0 FROM Collection c where c.name = :name and c.collectionType = :type", Boolean.class)
+                .setParameter("name", "refactoring collection")
+                .setParameter("type", MOVIES)
+                .getSingleResult());
     }
 }

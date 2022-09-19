@@ -28,9 +28,9 @@ public class GetGenresTest extends AbstractTest {
                 .andExpect(jsonPath("$.length()", Is.is(3)))
                 .andExpect(jsonPath("$.[0].id").value(100L))
                 .andExpect(jsonPath("$.[0].name").value("TEST1"))
-                .andExpect(jsonPath("$.[1].id").value(101L))
+                .andExpect(jsonPath("$.[1].id").value(200L))
                 .andExpect(jsonPath("$.[1].name").value("TEST2"))
-                .andExpect(jsonPath("$.[2].id").value(102L))
+                .andExpect(jsonPath("$.[2].id").value(300L))
                 .andExpect(jsonPath("$.[2].name").value("TEST3"));
 
     }

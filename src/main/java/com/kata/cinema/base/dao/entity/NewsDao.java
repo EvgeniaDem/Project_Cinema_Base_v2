@@ -1,5 +1,6 @@
 package com.kata.cinema.base.dao.entity;
 
+import com.kata.cinema.base.models.dto.response.NewsBodyResponseDto;
 import com.kata.cinema.base.models.dto.response.NewsResponseDto;
 import com.kata.cinema.base.models.dto.response.NewsTitleResponseDto;
 import com.kata.cinema.base.models.entitys.News;
@@ -13,4 +14,6 @@ public interface NewsDao extends AbstractDao<Long, News> {
     List<NewsTitleResponseDto> findLatestNews();
 
     List<NewsResponseDto> findByDateBetweenAndRubric(LocalDate dateStart, LocalDate dateEnd, Rubric rubric);
+
+    NewsBodyResponseDto getByIdNewsBody(Long id);
 }
