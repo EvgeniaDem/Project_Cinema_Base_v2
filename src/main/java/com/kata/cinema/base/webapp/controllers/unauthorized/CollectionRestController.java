@@ -12,7 +12,9 @@ import com.kata.cinema.base.models.enums.CollectionType;
 import com.kata.cinema.base.models.enums.СollectionSortType;
 import com.kata.cinema.base.service.dto.CollectionMoviesResponseDtoService;
 import com.kata.cinema.base.service.entity.CollectionService;
+import com.kata.cinema.base.service.entity.FolderMoviesService;
 import com.kata.cinema.base.service.entity.MovieService;
+import com.kata.cinema.base.service.entity.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -31,6 +33,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -60,7 +65,7 @@ public class CollectionRestController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> postCollectionResponseDto(CollectionRequestDto collectionRequestDto) {
+    public ResponseEntity<Void> postCollectionResponseDto(@RequestBody CollectionRequestDto collectionRequestDto) {
         Collection collections = new Collection(collectionRequestDto.getName(), collectionRequestDto.getType());
         collectionService.create(collections);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -68,7 +73,7 @@ public class CollectionRestController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateCollectionResponseDto(@PathVariable Long id, CollectionRequestDto collectionRequestDto) {
+    public ResponseEntity<Void> updateCollectionResponseDto(@PathVariable Long id, @RequestBody CollectionRequestDto collectionRequestDto) {
         Collection updateCollections = collectionService.getById(id).orElse(null);
         if (updateCollections == null) {
             throw new NotFoundByIdException("There is no collection with ID: " + id + " , try again.");

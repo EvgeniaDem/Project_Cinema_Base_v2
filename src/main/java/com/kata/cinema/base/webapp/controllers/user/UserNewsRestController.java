@@ -27,11 +27,14 @@ public class UserNewsRestController {
     private final CommentService commentService;
 
     @PostMapping("/{id}/comments")
+    //TODO убрать userId, доставать из сеьюритит контекста
     public ResponseEntity<CommentsRequestDto> addComments(
             @PathVariable Long id, @RequestParam Long userId,
             @RequestBody CommentsRequestDto commentsRequestDto) {
         Comment comments = new Comment();
         comments.setDate(LocalDateTime.now());
+
+        //TODO в ифе выкидывать есепшинал
         if (newsService.isExistById(id) && userService.isExistById(userId)) {
             comments.setNews(newsService.getById(id).orElseThrow());
             comments.setUser(userService.getById(userId).orElseThrow());

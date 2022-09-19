@@ -1,6 +1,7 @@
 package com.kata.cinema.base.service.entity.impl;
 
 import com.kata.cinema.base.dao.entity.NewsDao;
+import com.kata.cinema.base.models.dto.response.NewsBodyResponseDto;
 import com.kata.cinema.base.models.dto.response.NewsResponseDto;
 import com.kata.cinema.base.models.dto.response.NewsTitleResponseDto;
 import com.kata.cinema.base.models.entitys.News;
@@ -29,5 +30,10 @@ public class NewsServiceImpl extends AbstractServiceImpl<Long, News> implements 
     @Override
     public List<NewsResponseDto> findByDateBetweenAndRubric(LocalDate dateStart, LocalDate dateEnd, Rubric rubric) {
         return newsDao.findByDateBetweenAndRubric(dateStart, dateEnd, rubric);
+    }
+
+    @Override
+    public NewsBodyResponseDto getByIdNewsBodyPageInfo(Long id) {
+        return newsDao.getByIdNewsBody(id);
     }
 }

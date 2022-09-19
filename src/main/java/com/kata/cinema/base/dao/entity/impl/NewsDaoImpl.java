@@ -1,10 +1,12 @@
 package com.kata.cinema.base.dao.entity.impl;
 
 import com.kata.cinema.base.dao.entity.NewsDao;
+import com.kata.cinema.base.models.dto.response.NewsBodyResponseDto;
 import com.kata.cinema.base.models.dto.response.NewsResponseDto;
 import com.kata.cinema.base.models.dto.response.NewsTitleResponseDto;
 import com.kata.cinema.base.models.entitys.News;
 import com.kata.cinema.base.models.enums.Rubric;
+import io.swagger.models.auth.In;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -32,5 +34,18 @@ public class NewsDaoImpl extends AbstractDaoImpl<Long, News> implements NewsDao 
                 .setParameter("dateEnd", dateEnd)
                 .setParameter("rubric", rubric)
                 .getResultList();
+    }
+
+    @Override
+    public NewsBodyResponseDto getByIdNewsBody(Long id) {
+        return entityManager
+                .createQuery(
+                        "select new com.kata.cinema.base.models.dto.response.NewsBodyResponseDto(" +
+                                "n.id, n.date, " +
+                                "(select cast(count(coms) as java.lang.Integer) from Comment coms where coms.news.id = :id)," +
+                                " n.title, n.htmlBody, n.rubric, concat(u.lastName, ' ', u.firstName))" +
+                                "from News n join n.user u where n.id = :id", NewsBodyResponseDto.class)
+                .setParameter("id", id)
+                .getSingleResult();
     }
 }
