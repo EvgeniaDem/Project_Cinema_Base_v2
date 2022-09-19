@@ -26,7 +26,7 @@ import java.util.concurrent.ThreadLocalRandom;
 * In order to initialize some data for Movie, Genre, Collection entity-related tables
 * */
 @Component
-@ConditionalOnExpression("${RUN_INIT}")
+@ConditionalOnExpression("${RUN_INIT:false}")
 @Transactional
 public class MovieGenreCollectionInit {
 
