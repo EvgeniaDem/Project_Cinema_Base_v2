@@ -2,8 +2,6 @@
 -- users init
 INSERT INTO users(id, avatar_url, birthday, email, first_name, last_name, login, password)
 VALUES (100, 'url', '2022-08-14', 'user@mail.ru', '1', '1', '1', '$2a$12$d0JwWidrGyG6UyRVTJ8OOeCdy6vdvrMgjxhlLFjI.0dVFB85.Gw0y');
-insert into users(id, avatar_url, birthday, email, first_name, last_name, password)
-values (100, 'url', '2022-08-14', 'user@mail.ru', '1', '1', '$2a$12$P9SthnXDDRjoBRxvJ90Pa.YikT9.iUp4jphemPEScNGPyLJMJ4jHC');
 
 INSERT INTO roles(id, name)
 VALUES (100, 'USER');
@@ -22,6 +20,3 @@ VALUES (100, '2022-08-20 03:07:04.000000', 'test comment 01', 100, 100, 1, 2);
 insert into comments(id, date, text, news_id, user_id)
 values (100, '2022-08-20 03:07:04.000000', 'test comment 01', 100, 100);
 
--- folders_movies init
-insert into folders_movies(id, category, description, name, privacy, user_id)
-values (100, 'CUSTOM', 'test description', 'some test name', 'PUBLIC', 100);

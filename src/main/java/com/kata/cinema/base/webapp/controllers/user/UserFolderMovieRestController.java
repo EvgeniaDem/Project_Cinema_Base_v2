@@ -19,7 +19,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.ArrayList;
@@ -37,7 +36,6 @@ public class UserFolderMovieRestController {
     private final FolderMovieDtoService folderMovieDtoService;
     private final MovieResponseDtoPaginationService movieResponseDtoPaginationService;
     private FolderMoviesService folderMoviesService;
-    private FolderMovieDtoService folderMovieDtoService;
 
     @GetMapping
     public ResponseEntity<List<FolderResponseDto>> getFolderMovieResponseDto() {
@@ -45,7 +43,7 @@ public class UserFolderMovieRestController {
         List<FolderMovieDto> folderMovie = folderMovieDtoService.getAllByUserId(user.getId());
         List<FolderResponseDto> folderResponseDtos = new ArrayList<>();
         for (FolderMovieDto fi : folderMovie) {
-            FolderResponseDto folderResponseDto = new FolderResponseDto(fi.getId(), fi.getName(), fi.getCategory(), folderMovie.size());
+            FolderResponseDto folderResponseDto = new FolderResponseDto(fi.getId(), fi.getName(), fi.getCategory(), 0);
             folderResponseDtos.add(folderResponseDto);
         }
         return ResponseEntity.ok(folderResponseDtos);

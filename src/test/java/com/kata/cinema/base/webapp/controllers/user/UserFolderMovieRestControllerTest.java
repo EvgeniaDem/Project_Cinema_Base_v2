@@ -16,36 +16,49 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Sql(value = "/data/sql/controller/userNewsRestController/UserNewsInit.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-//@Sql(value = "/data/sql/controller/userNewsRestController/UserNewsClear.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+@Sql(value = "/data/sql/controller/userFolderMovieRestController/getUserFolderMovies/GetUserFolderMoviesInit.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 
-
-//TODO переделать, как остальные тесты
 public class UserFolderMovieRestControllerTest extends AbstractTest {
     private static String accessToken;
 
     @Test
     public void getFolderMovieResponseDto() throws Exception {
-        accessToken = obtainNewAccessToken("user@mail.ru", "user", mockMvc);
+        accessToken = obtainNewAccessToken("user1@mail.ru", "101", mockMvc);
         this.mockMvc.perform(get("/api/user/folders")
                         .header("Authorization", "Bearer " + accessToken))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.length()", Is.is(1)))
-                .andExpect(jsonPath("$.[0].id").value(100L))
-                .andExpect(jsonPath("$.[0].name").value("some test name"))
-                .andExpect(jsonPath("$.[0].category").value("CUSTOM"))
-                .andExpect(jsonPath("$.[0].countMovies").value(1));
+                .andExpect(jsonPath("$.length()", Is.is(5)))
+                .andExpect(jsonPath("$.[0].id").value(1L))
+                .andExpect(jsonPath("$.[0].name").value("folder1"))
+                .andExpect(jsonPath("$.[0].category").value("VIEWED_MOVIES"))
+                .andExpect(jsonPath("$.[0].countMovies").value(0))
+                .andExpect(jsonPath("$.[1].id").value(2L))
+                .andExpect(jsonPath("$.[1].name").value("folder2"))
+                .andExpect(jsonPath("$.[1].category").value("WAITING_MOVIES"))
+                .andExpect(jsonPath("$.[1].countMovies").value(0))
+                .andExpect(jsonPath("$.[2].id").value(3L))
+                .andExpect(jsonPath("$.[2].name").value("folder3"))
+                .andExpect(jsonPath("$.[2].category").value("FAVORITE_MOVIES"))
+                .andExpect(jsonPath("$.[2].countMovies").value(0));
     }
 
     @Test
-    public void addNewFolderMovie() throws Exception{
-        accessToken = obtainNewAccessToken("user@mail.ru", "user", mockMvc);
-        FolderMovie folderMovie = new FolderMovie(101L,CUSTOM,PUBLIC,"comedy","description 2");
+    public void addNewFolderMovie() throws Exception {
+        accessToken = obtainNewAccessToken("user1@mail.ru", "101", mockMvc);
+        FolderMovie folderMovie = new FolderMovie(101L, CUSTOM, PUBLIC, "comedy", "description 2");
         this.mockMvc.perform(post("/api/user/folders")
-                .header("Authorization", "Bearer " + accessToken)
+                        .header("Authorization", "Bearer " + accessToken)
                         .contentType("application/json")
-                .content(objectMapper.writeValueAsString(folderMovie)))
+                        .content(objectMapper.writeValueAsString(folderMovie)))
                 .andDo(print());
+
+        accessToken = obtainNewAccessToken("user1@mail.ru", "101", mockMvc);
+        FolderMovie folderMovie1 = new FolderMovie(101L, CUSTOM, PUBLIC, "comedy", "description 2");//попытка создания с одинаковым id
+        this.mockMvc.perform(post("/api/user/folders")
+                        .header("Authorization", "Bearer " + accessToken)
+                        .contentType("application/json")
+                        .content(objectMapper.writeValueAsString(folderMovie1)))
+                .andExpect(status().isInternalServerError());
     }
 }
