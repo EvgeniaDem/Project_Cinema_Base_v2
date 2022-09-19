@@ -4,6 +4,7 @@ import com.kata.cinema.base.dao.dto.MovieResponseDtoDao;
 import com.kata.cinema.base.dao.entity.impl.AbstractDaoImpl;
 import com.kata.cinema.base.models.dto.response.MovieResponseDto;
 import com.kata.cinema.base.models.entitys.Movie;
+import com.kata.cinema.base.models.enums.СollectionSortType;
 import org.hibernate.transform.ResultTransformer;
 import org.springframework.stereotype.Repository;
 
@@ -22,18 +23,49 @@ public class MovieResponseDtoDaoImpl extends AbstractDaoImpl<Long, Movie> implem
     EntityManager entityManager;
 
     @Override
-    public Map<Long, List<MovieResponseDto>> getMapMovieResponseValueByCollectionMoviesDtoIds(List<Long> collectionMoviesResponseDtoIds) {
-        System.out.println("это мапа");
+    public Map<Long, List<MovieResponseDto>> getMapMovieResponseValueByCollectionMoviesDtoIds(List<Long> collectionMoviesResponseDtoIds, Map<String, Object> parameters) {
+
+        String order;
+        switch ((СollectionSortType) parameters.get("collectionSortType")) {
+            case COUNT_SCORE: {
+                order = " order by countScore desc";
+                break;
+            }
+            case RELEASE_DATE: {
+                order = " order by m.dateRelease";
+                break;
+            }
+            case NAME: {
+                order = " order by m.name";
+                break;
+            }
+            case RATING: {
+
+            }
+            default: {
+                order = " order by avgScore desc";
+            }
+        }
+
         Map<Long, List<MovieResponseDto>> map = new HashMap<>();
-        entityManager.createQuery("select c.id, c.name, c.description, c.previewUrl, m.id, m.name, m.originName, m.time, m.dateRelease,  m.countries,  g.name, " +
-                        "p.name, mp.nameCharacter , avg(s.score) \n" +
-                        "from Collection  c \n" +
-                        "left join c.movies m on c.id = m.id \n" +
-                        "join m.genres g on m.id=g.id\n" +
-                        "join Score s on m.id = s.movie.id\n" +
-                        "join MoviePerson mp on mp.movie.id = m.id\n" +
-                        "join mp.professions p on mp.professions.id = p.id where c.id in :collectionMoviesResponseDtoIds group by c.id, m.id, g.id, p.id, mp.id ")
+        entityManager.createQuery("select m.id, m.name, m.originName as OriginalName, m.time, m.dateRelease as date, m.countries as country, g.name as genre, p.name, mp.nameCharacter as role , " +
+                        "avg(s.score) as avgScore " +
+                        "from Movie m " +
+                        "join Genre g on (g.name in (:genre) or :genre is null) \n" +
+                        "join MoviePerson mp on m.id = mp.movie.id\n" +
+                        "join Profession p on p.id = mp.professions.id\n" +
+                        "join Collection c on m.id = c.id join Score s on s.id = m.id " +
+                        "where (m.countries in (:country) or :country is null) " +
+                        "and (c.id in (:collectionMoviesResponseDtoIds) or :collectionMoviesResponseDtoIds is null) " +
+                        "and (m.countries in (:country) or :country is null)" +
+                        "and (c.enable in (:online) or :online is null ) " +
+                        "and (m.dateRelease in (:date)) " +
+                        "group by m.id, g.name, p.name, mp.nameCharacter" + order)
                 .setParameter("collectionMoviesResponseDtoIds", collectionMoviesResponseDtoIds)
+                .setParameter("country", parameters.get("country"))
+                .setParameter("genre", parameters.get("genre"))
+                .setParameter("date", parameters.get("date"))
+                .setParameter("online", parameters.get("online"))
                 .unwrap(org.hibernate.Query.class)
                 .setResultTransformer(new ResultTransformer() {
                     @Override
@@ -68,41 +100,4 @@ public class MovieResponseDtoDaoImpl extends AbstractDaoImpl<Long, Movie> implem
         return map;
     }
 }
-
-//    @Override
-//    public List<MovieResponseDto> getMovieDto() {
-//
-////        String order;
-////        switch ((СollectionSortType)parameters.get("collectionSortType")) {
-////            case COUNT_SCORE: {
-////                order = " order by countScore desc";
-////                break;
-////            }
-////            case RELEASE_DATE: {
-////                order = " order by m.dateRelease";
-////                break;
-////            }
-////            case NAME: {
-////                order = " order by m.name";
-////                break;
-////            }
-////            case RATING: {
-////
-////            }
-////            default: {
-////                order = " order by avgScore desc";
-////            }
-////        }
-//
-//
-//        return entityManager.createQuery("SELECT  new MovieResponseDto(m.id, m.name, m.origin_name as originalName, m.time, m.date_release as dateRelease, " +
-//                        "m.countries, g.name as genres, p.name as director, mp.type_person as roles, avg(s.score) as avgScore)" +
-//                        "From movies m\n" +
-//                        "Join genres g ON m.id = g.id\n" +
-//                        "JOIN movie_person mp ON m.id = mp.movie_id\n" +
-//                        "JOIN professions p ON p.id = mp.profession_id\n" +
-//                        "JOIN score s ON m.id = s.movie_id\n" +
-//                        "group by mp.type_person, p.name, g.name, m.countries, m.date_release, m.time, m.origin_name, m.name, m.id" , MovieResponseDto.class)
-//                .getResultList();
-//    }
 

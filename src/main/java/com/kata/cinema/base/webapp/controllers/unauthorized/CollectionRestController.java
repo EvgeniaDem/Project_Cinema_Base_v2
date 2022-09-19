@@ -12,9 +12,7 @@ import com.kata.cinema.base.models.enums.CollectionType;
 import com.kata.cinema.base.models.enums.СollectionSortType;
 import com.kata.cinema.base.service.dto.CollectionMoviesResponseDtoService;
 import com.kata.cinema.base.service.entity.CollectionService;
-import com.kata.cinema.base.service.entity.FolderMoviesService;
 import com.kata.cinema.base.service.entity.MovieService;
-import com.kata.cinema.base.service.entity.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -36,7 +34,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDate;
 import java.util.*;
 
-import static com.kata.cinema.base.models.enums.СollectionSortType.ORDER;
 
 @RestController
 @RequestMapping("/api/collections")
@@ -177,7 +174,6 @@ public class CollectionRestController {
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
             @RequestParam(required = false, defaultValue = "false") Boolean b,
             @RequestParam(required = false, defaultValue = "ORDER") СollectionSortType collectionSortType, @PathVariable Long id) {
-        System.out.println("Это контроллер");
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("country", country);
         parameters.put("genre", genre);

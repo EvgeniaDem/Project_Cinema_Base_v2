@@ -28,9 +28,9 @@ public class CollectionMoviesResponseDtoServiceImpl extends PageDtoServiseImpl<C
     @Override
     public PageDto<CollectionMoviesResponseDto> getPageDtoWithParameters(Long id, Map<String, Object> parameters) {
         PageDto<CollectionMoviesResponseDto> pageDto = super.getPageDtoWithParameters(id, parameters);
-        Map<Long, List<MovieResponseDto>> movieResponseDtoMap = movieResponseDtoDao.getMapMovieResponseValueByCollectionMoviesDtoIds(collectionMoviesResponseDtoDao.collectionMoviesResponseDtoIds(id));
+        Map<Long, List<MovieResponseDto>> movieResponseDtoMap = movieResponseDtoDao.getMapMovieResponseValueByCollectionMoviesDtoIds(collectionMoviesResponseDtoDao.collectionMoviesResponseDtoIds(id),parameters);
         for (CollectionMoviesResponseDto dto : pageDto.getEntities()) {
-            dto.setMovies(movieResponseDtoMap.get(dto.getId().toString()));
+            dto.setMovies(movieResponseDtoMap.get(dto.getId()));
         }
         return pageDto;
     }
