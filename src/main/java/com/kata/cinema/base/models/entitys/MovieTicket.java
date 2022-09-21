@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -21,10 +21,14 @@ public class MovieTicket {
     private Long id;
 
     @ManyToOne(targetEntity = Movie.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "movie_id", insertable = false, updatable = false)
+    @JoinColumn(name = "movie_id")
     private Movie movie;
 
     @Column(name = "end_show_date")
-    private LocalDateTime endShowDate;
+    private LocalDate endShowDate;
 
+    public MovieTicket(Movie movie, LocalDate endShowDate) {
+        this.movie = movie;
+        this.endShowDate = endShowDate;
+    }
 }
