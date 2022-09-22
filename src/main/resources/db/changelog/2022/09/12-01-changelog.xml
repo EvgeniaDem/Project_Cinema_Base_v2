@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1662989436234-2" author="Admin (generated)">
+        <createIndex indexName="IX_pk_movie_person" tableName="movie_person" unique="true">
+            <column name="person_id"/>
+            <column name="movie_id"/>
+            <column name="profession_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="1662989436234-1" author="Admin (generated)">
+        <addNotNullConstraint columnDataType="INT" columnName="time" tableName="movies" validate="true"/>
+    </changeSet>
+
+</databaseChangeLog>
