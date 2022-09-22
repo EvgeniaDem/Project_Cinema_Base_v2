@@ -57,12 +57,14 @@ public class UserFolderMovieRestController {
             @ApiResponse(code = 403, message = "Недостаточно прав для просмотра контента"),
             @ApiResponse(code = 404, message = "Невозможно найти.")
     })
-    ResponseEntity<PageDto<MovieResponseDto>> getUserFolderMovies(
+    public ResponseEntity<PageDto<MovieResponseDto>> getUserFolderMovies(
             @PathVariable("id") Long id,
             @PathVariable("pageNumber") Integer pageNumber,
             @RequestParam(required = false, defaultValue = "10") Integer itemsOnPage,
             @RequestParam(required = false, defaultValue = "ORDER") SortMovieFolderType sortMovieFolder,
             @RequestParam(required = false, defaultValue = "ALL") ShowType showType) {
+        //TODO проверка на существование фолдера
+        //TODO проверка, что фолдера относиться к пользователю из контекста
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("id", id);
         parameters.put("sortMovieFolderType", sortMovieFolder);

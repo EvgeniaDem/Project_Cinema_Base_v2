@@ -10,9 +10,6 @@ import javax.persistence.EntityManager;
 @Repository
 public class RoleDaoImpl extends AbstractDaoImpl<Long, Role> implements RoleDao {
 
-
-    private EntityManager entityManager;
-
     public RoleDaoImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }

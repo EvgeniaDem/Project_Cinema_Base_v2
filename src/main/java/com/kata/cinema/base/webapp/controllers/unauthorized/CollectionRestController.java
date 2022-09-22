@@ -40,7 +40,6 @@ public class CollectionRestController {
     private final CollectionService collectionService;
     private final FolderMoviesService folderMoviesService;
     private final MovieService movieService;
-
     private final UserService userService;
 
     @GetMapping
