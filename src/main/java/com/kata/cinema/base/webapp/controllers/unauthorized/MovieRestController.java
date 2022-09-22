@@ -46,7 +46,7 @@ public class MovieRestController {
         return ResponseEntity.ok(movieService.getReleaseFilms());
     }
 
-    @GetMapping("/top")
+    @GetMapping("/top/page/{pageNumber}")
     @ApiOperation(value = "Получение списка лучших фильмов", response = TopMoviesResponseDto.class, responseContainer = "pageDto")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Успешное получение списка лучших фильмов"),

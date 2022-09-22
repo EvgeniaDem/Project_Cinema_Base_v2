@@ -34,9 +34,4 @@ public class MovieDaoImpl extends AbstractDaoImpl<Long, Movie> implements MovieD
                 .getResultList();
 
     }
-
-    @Override
-    public Optional<Movie> getById(Long id) {
-        return super.getById(id);
-    }
 }
