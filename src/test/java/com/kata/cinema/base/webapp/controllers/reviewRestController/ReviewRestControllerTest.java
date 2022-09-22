@@ -1,4 +1,4 @@
-package com.kata.cinema.base.webapp.controllers.ReviewRestController;
+package com.kata.cinema.base.webapp.controllers.reviewRestController;
 
 import org.hamcrest.core.Is;
 import org.junit.Test;
@@ -11,8 +11,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-@Sql(value = "/data/sql/controller/ReviewRestController/ReviewInit.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-@Sql(value = "/data/sql/controller/ReviewRestController/ReviewClean.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+@Sql(value = "/data/sql/controller/reviewRestController/ReviewInit.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+@Sql(value = "/data/sql/controller/reviewRestController/ReviewClean.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 public class ReviewRestControllerTest extends AbstractTest {
 
     @Test
