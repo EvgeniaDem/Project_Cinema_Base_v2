@@ -19,8 +19,8 @@ public class NewsResponseDto {
     private Rubric rubric;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
-
     private LocalDate date;
+
     private String title;
     private String description;
 }

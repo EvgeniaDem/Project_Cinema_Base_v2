@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -30,7 +31,11 @@ public class Comment {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    private String text;
+    private String message;
+
+    private Long parentId;
+
+    private Integer level;
 
     @NotNull
     private LocalDateTime date;

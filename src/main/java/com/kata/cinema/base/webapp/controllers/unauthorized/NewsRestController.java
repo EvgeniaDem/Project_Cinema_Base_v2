@@ -2,6 +2,7 @@ package com.kata.cinema.base.webapp.controllers.unauthorized;
 
 import com.kata.cinema.base.exceptions.NotFoundByIdException;
 import com.kata.cinema.base.models.dto.response.CommentsResponseDto;
+import com.kata.cinema.base.models.dto.response.NewsBodyResponseDto;
 import com.kata.cinema.base.models.dto.response.NewsTitleResponseDto;
 import com.kata.cinema.base.service.entity.CommentService;
 import com.kata.cinema.base.service.entity.NewsService;
@@ -9,6 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,10 +45,17 @@ public class NewsRestController {
 
     @GetMapping("/{id}/comments")
     public ResponseEntity<List<CommentsResponseDto>> getListOfComments(@PathVariable Long id) {
-        if (newsService.isExistById(id)) {
-            newsService.getById(id);
-            return ResponseEntity.ok(commentService.getComments(id));
+        if (!newsService.isExistById(id)) {
+            throw new NotFoundByIdException("News with id: " + id + " does not exist, try looking for another");
         }
-        throw new NotFoundByIdException("News with id: " + id + " does not exist, try looking for another");
+        return ResponseEntity.ok(commentService.getComments(id));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<NewsBodyResponseDto> getNewsBody(@PathVariable Long id) {
+        if (!newsService.isExistById(id)) {
+            throw new NotFoundByIdException("News with id: " + id + " does not exist, try looking for another");
+        }
+        return new ResponseEntity<>(newsService.getByIdNewsBodyPageInfo(id), HttpStatus.OK);
     }
 }

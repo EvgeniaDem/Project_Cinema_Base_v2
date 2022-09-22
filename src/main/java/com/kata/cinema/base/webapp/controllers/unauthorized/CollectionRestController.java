@@ -40,7 +40,6 @@ public class CollectionRestController {
     private final CollectionService collectionService;
     private final FolderMoviesService folderMoviesService;
     private final MovieService movieService;
-
     private final UserService userService;
 
     @GetMapping
@@ -116,7 +115,7 @@ public class CollectionRestController {
             Set<Movie> moviesSet = collectionsAddMovie.getMovies();
             if (moviesSet.isEmpty()) {
                 for (Long i : setMoviesId) {
-                    moviesSet.add(movieService.getById(i));
+                    moviesSet.add(movieService.getById(i).get());
                 }
             } else {
                 Set<Long> availableFilmsId = new HashSet<>();
@@ -125,7 +124,7 @@ public class CollectionRestController {
                 }
                 availableFilmsId.addAll(setMoviesId);
                 for (Long i : availableFilmsId) {
-                    moviesSet.add(movieService.getById(i));
+                    moviesSet.add(movieService.getById(i).get());
                 }
             }
             collectionService.update(collectionsAddMovie);
@@ -147,7 +146,7 @@ public class CollectionRestController {
                 for (Movie i : moviesSet) {
                     for (Long n : setMoviesDeleteId) {
                         if (i.getId().equals(n)) {
-                            deleteSet.add(movieService.getById(n));
+                            deleteSet.add(movieService.getById(n).get());
                         }
                     }
                 }

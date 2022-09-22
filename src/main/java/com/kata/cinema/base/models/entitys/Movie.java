@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +19,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -43,10 +45,10 @@ public class Movie {
     private String name;
 
     @Column(name = "countries")
-    public String countries;
+    private String countries;
 
     @Column(name = "date_release")
-    public LocalDate dateRelease;
+    private LocalDate dateRelease;
 
     @Column(name = "rars")
     @Enumerated(EnumType.STRING)
@@ -60,10 +62,12 @@ public class Movie {
     private int time;
 
     @Column(name = "description")
+    @Lob
+    @Type(type = "org.hibernate.type.TextType")
     private String description;
 
-    @Column(name = "origin_name")
-    private String originName;
+    @Column(name = "original_name")
+    private String originalName;
 
     @ToString.Exclude
     @ManyToMany(fetch = FetchType.LAZY)

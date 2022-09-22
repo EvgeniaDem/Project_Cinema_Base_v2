@@ -1,5 +1,6 @@
 package com.kata.cinema.base.service.entity;
 
+import com.kata.cinema.base.models.dto.response.NewsBodyResponseDto;
 import com.kata.cinema.base.models.dto.response.NewsResponseDto;
 import com.kata.cinema.base.models.dto.response.NewsTitleResponseDto;
 import com.kata.cinema.base.models.entitys.News;
@@ -14,4 +15,6 @@ public interface NewsService extends AbstractService<Long, News> {
     List<NewsTitleResponseDto> getLatestNews();
 
     List<NewsResponseDto> findByDateBetweenAndRubric(LocalDate dateStart, LocalDate dateEnd, Rubric rubric);
+
+    NewsBodyResponseDto getByIdNewsBodyPageInfo(Long id);
 }
