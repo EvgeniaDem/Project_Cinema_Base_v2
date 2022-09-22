@@ -1,6 +1,7 @@
 package com.kata.cinema.base.dao.entity.impl;
 
 import com.kata.cinema.base.dao.entity.MovieTicketsDao;
+import com.kata.cinema.base.models.dto.MovieTicketDto;
 import com.kata.cinema.base.models.entitys.MovieTicket;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,11 +22,12 @@ public class MovieTicketsDaoImpl extends AbstractDaoImpl <Long, MovieTicket> imp
     @Transactional
     public void addMovieTickets() {
         LocalDate now = LocalDate.now();
-        List<MovieTicket> movieTicketList = entityManager.createQuery("select  new MovieTicket(m, m.dateRelease) from Movie m" +
-                        " where m.dateRelease = :now", MovieTicket.class)
+        List<MovieTicketDto> movieTicketDtoList = entityManager.createQuery("select  new com.kata.cinema.base.models.dto.MovieTicketDto(m, m.dateRelease) from Movie m" +
+                        " where m.dateRelease = :now", MovieTicketDto.class)
                 .setParameter("now", now)
                 .getResultList();
-        for (MovieTicket movieTicket: movieTicketList) {
+        for (MovieTicketDto movieTicketDto: movieTicketDtoList) {
+            MovieTicket movieTicket = new MovieTicket(movieTicketDto.getMovie(), movieTicketDto.getEndShowDate());
             entityManager.persist(movieTicket);
         }
     }
