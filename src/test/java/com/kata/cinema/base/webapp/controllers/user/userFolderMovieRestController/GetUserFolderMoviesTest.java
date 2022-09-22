@@ -1,6 +1,7 @@
 package com.kata.cinema.base.webapp.controllers.user.userFolderMovieRestController;
 
 import com.kata.cinema.base.AbstractTest;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.test.context.jdbc.Sql;
 

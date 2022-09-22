@@ -16,7 +16,7 @@ public class GenresDaoImpl extends AbstractDaoImpl<Long, Genre> implements Genre
     @Override
     public Map<Long, List<String>> getAllMap() {
         Map<Long, List<String>> genresMap = new HashMap<>();
-        entityManager.createQuery("select m.id, g.name from Genre g left join g.movie m")
+        entityManager.createQuery("select m.id, g.name from Movie m join m.genres g")
                 .unwrap(org.hibernate.query.Query.class)
                 .setResultTransformer(new ResultTransformer() {
                     @Override

@@ -38,14 +38,6 @@ public class Genre {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "movie_genre",
-            joinColumns = @JoinColumn(name = "genre_id"),
-            inverseJoinColumns = @JoinColumn(name = "movie_id")
-    )
-    @ToString.Exclude
-    private Set<Movie> movie;
-
     public Genre(String name) {
         this.name = name;
     }
