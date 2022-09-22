@@ -26,13 +26,13 @@ import java.util.concurrent.ThreadLocalRandom;
 * */
 @Component
 @ConditionalOnExpression("${RUN_INIT:false}")
-public class MovieGenreCollectionInit {
+public class TestDataInitializer {
 
     private final MovieService movieService;
     private final GenreService genreService;
     private final CollectionService collectionService;
 
-    public MovieGenreCollectionInit(MovieService movieService, GenreService genreService, CollectionService collectionService) {
+    public TestDataInitializer(MovieService movieService, GenreService genreService, CollectionService collectionService) {
         this.movieService = movieService;
         this.genreService = genreService;
         this.collectionService = collectionService;
@@ -48,12 +48,10 @@ public class MovieGenreCollectionInit {
                     .nextLong(LocalDate.of(1990, Month.JANUARY, 1).toEpochDay(),
                             LocalDate.now().toEpochDay())));
             movie.setTime(ThreadLocalRandom.current().nextInt(100, 181));
-            movie.setDescription("""
-                описание фильма описание фильма описание фильма описание фильма описание фильма описание фильма описание фильма
-                описание фильма описание фильма описание фильма описание фильма описание фильма описание фильма описание фильма
-                описание фильма описание фильма описание фильма описание фильма описание фильма описание фильма описание фильма
-                описание фильма описание фильма описание фильма описание фильма описание фильма описание фильма описание фильма
-                """);
+            movie.setDescription("описание фильма описание фильма описание фильма описание фильма описание фильма описание фильма описание фильма\n" +
+                            "описание фильма описание фильма описание фильма описание фильма описание фильма описание фильма описание фильма\n" +
+                            "описание фильма описание фильма описание фильма описание фильма описание фильма описание фильма описание фильма\n" +
+                            "описание фильма описание фильма описание фильма описание фильма описание фильма описание фильма описание фильма");
 
             List<MPAA> mpaaList = Arrays.asList(MPAA.values());
             movie.setMpaa(mpaaList.get(new SecureRandom().nextInt(mpaaList.size())));
