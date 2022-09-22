@@ -45,10 +45,10 @@ public class Movie {
     private String name;
 
     @Column(name = "countries")
-    public String countries;
+    private String countries;
 
     @Column(name = "date_release")
-    public LocalDate dateRelease;
+    private LocalDate dateRelease;
 
     @Column(name = "rars")
     @Enumerated(EnumType.STRING)
