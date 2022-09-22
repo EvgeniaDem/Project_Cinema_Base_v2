@@ -6,12 +6,10 @@ import com.kata.cinema.base.models.entitys.Movie;
 
 import java.util.List;
 
-public interface MovieService {
+public interface MovieService extends AbstractService<Long, Movie> {
 
     //TODO вынести в MovieDtoService(реализацию тоже)
     List<MovieReleaseResponseDto> getReleaseFilms();
-
-    Movie getById(Long id);
 
     List<SearchMovieDto> getSearchMoviesWithFilter(String filterPattern);
 }
