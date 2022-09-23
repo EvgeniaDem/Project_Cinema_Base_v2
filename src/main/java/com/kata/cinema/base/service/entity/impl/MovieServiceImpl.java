@@ -4,17 +4,19 @@ import com.kata.cinema.base.dao.entity.MovieDao;
 import com.kata.cinema.base.models.dto.SearchMovieDto;
 import com.kata.cinema.base.models.dto.response.MovieReleaseResponseDto;
 import com.kata.cinema.base.models.entitys.Movie;
+import com.kata.cinema.base.service.entity.AbstractServiceImpl;
 import com.kata.cinema.base.service.entity.MovieService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class MovieServiceImpl implements MovieService {
+public class MovieServiceImpl extends AbstractServiceImpl<Long, Movie> implements MovieService {
 
     private final MovieDao movieDao;
 
     public MovieServiceImpl(MovieDao movieDao) {
+        super(movieDao);
         this.movieDao = movieDao;
     }
 
@@ -26,10 +28,5 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public List<SearchMovieDto> getSearchMoviesWithFilter(String filterPattern) {
         return movieDao.getSearchMoviesWithFilter(filterPattern);
-    }
-
-    @Override
-    public Movie getById(Long id) {
-        return movieDao.getById(id).orElse(null);
     }
 }

@@ -16,9 +16,6 @@ import java.util.List;
 @Repository
 public class CollectionDaoImpl extends AbstractDaoImpl<Long, Collection> implements CollectionDao {
 
-    @PersistenceContext
-    private EntityManager entityManager;
-
     public List<CollectionResponseDto> findCollectionByType(CollectionType collectionType, User user) {
 
         return entityManager.createQuery("select new com.kata.cinema.base.models.dto.response.CollectionResponseDto(c.name, c.previewUrl, c.movies.size, f.movies.size) " +

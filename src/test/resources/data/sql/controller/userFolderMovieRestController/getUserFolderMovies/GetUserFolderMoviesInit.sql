@@ -12,12 +12,12 @@ delete from public.users;
 delete from public.professions;
 
 -- users init
-INSERT INTO public.users (id, avatar_url, birthday, email, first_name, last_name, password)
-VALUES (1, null, '2022-08-14', 'user1@mail.ru', 'user1', 'userovich1', '$2a$12$/FIhv2k1jeNx5YCr6bZLlujKpN5V8V3j7qD16WtMC9Ov/tVhyjUIW'); -- password == 101
-INSERT INTO public.users (id, avatar_url, birthday, email, first_name, last_name, password)
-VALUES (2, null, '2022-08-15', 'user2@mail.ru', 'user2', 'userovich2', '$2a$12$eJQNiWAf01OGGrzY4dYMludZGSZG06myrpsjH0P3SzH7IRbO624h6'); -- password == 102
-INSERT INTO public.users (id, avatar_url, birthday, email, first_name, last_name, password)
-VALUES (3, null, '2022-08-11', 'user3@mail.ru', 'user3', 'userovich3', '$2a$12$kxj107giVr0cwRRy6csu8OAgML4fiofnZ/YIR.C7P.kAHe2Cr2kru'); -- password == 103
+INSERT INTO public.users (id, avatar_url, birthday, email, first_name, last_name, login, password)
+VALUES (1, null, '2022-08-14', 'user1@mail.ru', 'user1', 'userovich1', 'login1', '$2a$12$/FIhv2k1jeNx5YCr6bZLlujKpN5V8V3j7qD16WtMC9Ov/tVhyjUIW'); -- password == 101
+INSERT INTO public.users (id, avatar_url, birthday, email, first_name, last_name, login, password)
+VALUES (2, null, '2022-08-15', 'user2@mail.ru', 'user2', 'userovich2', 'login2', '$2a$12$eJQNiWAf01OGGrzY4dYMludZGSZG06myrpsjH0P3SzH7IRbO624h6'); -- password == 102
+INSERT INTO public.users (id, avatar_url, birthday, email, first_name, last_name, login, password)
+VALUES (3, null, '2022-08-11', 'user3@mail.ru', 'user3', 'userovich3', 'login3', '$2a$12$kxj107giVr0cwRRy6csu8OAgML4fiofnZ/YIR.C7P.kAHe2Cr2kru'); -- password == 103
 
 -- roles init
 INSERT INTO public.roles(id, name)
@@ -67,7 +67,7 @@ VALUES (10, 'Niue', '2012-12-24', '10 test', 'GENERAL_AUDIENCES', 'Бумера�
 INSERT INTO public.movies (id, countries, date_release, description, mpaa, name, original_name, rars, time)
 VALUES (11, 'Kyrgyzstan', '1922-01-28', '11 test', 'NO_ONE_SEVENTEEN_AND_UNDER_ADMITTED', 'Крик совы', 'The Cry of the Owl', 'SIX_PLUS', 111);
 
--- genres init
+-- -- genres init
 INSERT INTO public.genres (id, name)
 VALUES (1, 'Драма');
 INSERT INTO public.genres (id, name)

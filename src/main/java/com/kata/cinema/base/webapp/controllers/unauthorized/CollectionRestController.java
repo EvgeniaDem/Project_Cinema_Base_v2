@@ -12,7 +12,6 @@ import com.kata.cinema.base.models.enums.CollectionType;
 import com.kata.cinema.base.models.enums.СollectionSortType;
 import com.kata.cinema.base.service.dto.CollectionMoviesResponseDtoService;
 import com.kata.cinema.base.service.entity.CollectionService;
-import com.kata.cinema.base.service.entity.FolderMoviesService;
 import com.kata.cinema.base.service.entity.MovieService;
 import com.kata.cinema.base.service.entity.UserService;
 import lombok.AllArgsConstructor;
@@ -117,14 +116,14 @@ public class CollectionRestController {
     }
 
     @PostMapping("/{id}/movies")
-    public ResponseEntity<Void> addMovie(@PathVariable Long id, @RequestBody List<Long> movieIds) {
+    public ResponseEntity<Void> addMovie(@PathVariable Long id,@RequestBody List<Long> movieIds) {
         Collection collectionsAddMovie = collectionService.getById(id).orElse(null);
         Set<Long> setMoviesId = new HashSet<>(movieIds);
         if (collectionsAddMovie != null) {
             Set<Movie> moviesSet = collectionsAddMovie.getMovies();
             if (moviesSet.isEmpty()) {
                 for (Long i : setMoviesId) {
-                    moviesSet.add(movieService.getById(i));
+                    moviesSet.add(movieService.getById(i).get());
                 }
             } else {
                 Set<Long> availableFilmsId = new HashSet<>();
@@ -133,7 +132,7 @@ public class CollectionRestController {
                 }
                 availableFilmsId.addAll(setMoviesId);
                 for (Long i : availableFilmsId) {
-                    moviesSet.add(movieService.getById(i));
+                    moviesSet.add(movieService.getById(i).get());
                 }
             }
             collectionService.update(collectionsAddMovie);
@@ -144,7 +143,7 @@ public class CollectionRestController {
     }
 
     @DeleteMapping("/{id}/movies")
-    public ResponseEntity<Void> deleteMovie(@PathVariable Long id, @RequestBody List<Long> movieIds) {
+    public ResponseEntity<Void> deleteMovie(@PathVariable Long id,@RequestBody List<Long> movieIds) {
 
         Collection collectionsDeleteMovie = collectionService.getById(id).orElse(null);
         Set<Long> setMoviesDeleteId = new HashSet<>(movieIds);
@@ -155,7 +154,7 @@ public class CollectionRestController {
                 for (Movie i : moviesSet) {
                     for (Long n : setMoviesDeleteId) {
                         if (i.getId().equals(n)) {
-                            deleteSet.add(movieService.getById(n));
+                            deleteSet.add(movieService.getById(n).get());
                         }
                     }
                 }
