@@ -9,6 +9,7 @@ import com.kata.cinema.base.models.dto.response.MovieResponseDto;
 import com.kata.cinema.base.service.dto.CollectionMoviesResponseDtoService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -26,11 +27,12 @@ public class CollectionMoviesResponseDtoServiceImpl extends PageDtoServiseImpl<C
     }
 
     @Override
-    public PageDto<CollectionMoviesResponseDto> getPageDtoWithParameters(Long id, Map<String, Object> parameters) {
-        PageDto<CollectionMoviesResponseDto> pageDto = super.getPageDtoWithParameters(id, parameters);
-        Map<Long, List<MovieResponseDto>> movieResponseDtoMap = movieResponseDtoDao.getMapMovieResponseValueByCollectionMoviesDtoIds(collectionMoviesResponseDtoDao.collectionMoviesResponseDtoIds(id),parameters);
+    public PageDto<CollectionMoviesResponseDto> getPageDtoWithParameters(Long id, Map<String, Object> parameters, LocalDate date) {
+        PageDto<CollectionMoviesResponseDto> pageDto = super.getPageDtoWithParameters(id, parameters,date);
+        Map<Long, List<MovieResponseDto>> movieResponseDtoMap = movieResponseDtoDao.getMapMovieResponseValueByCollectionMoviesDtoIds(parameters, id,date);
         for (CollectionMoviesResponseDto dto : pageDto.getEntities()) {
-            dto.setMovies(movieResponseDtoMap.get(dto.getId()));
+            dto.setMovies(movieResponseDtoMap.get(id));
+            System.out.println(movieResponseDtoMap.get(dto.getId()));
         }
         return pageDto;
     }

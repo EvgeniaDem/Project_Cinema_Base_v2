@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface CollectionMoviesResponseDtoDao extends PageDtoDao <CollectionMoviesResponseDto>{
 
-List<Long>collectionMoviesResponseDtoIds(Long id);
+
 
 }

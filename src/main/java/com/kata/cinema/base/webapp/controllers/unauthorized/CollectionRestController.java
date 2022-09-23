@@ -13,7 +13,6 @@ import com.kata.cinema.base.models.enums.СollectionSortType;
 import com.kata.cinema.base.service.dto.CollectionMoviesResponseDtoService;
 import com.kata.cinema.base.service.entity.CollectionService;
 import com.kata.cinema.base.service.entity.MovieService;
-import com.kata.cinema.base.service.entity.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -176,14 +175,14 @@ public class CollectionRestController {
             @RequestParam(required = false) String genre,
             @RequestParam(required = false)
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
-            @RequestParam(required = false, defaultValue = "false") Boolean b,
+            @RequestParam(required = false, defaultValue = "false") Boolean online,
             @RequestParam(required = false, defaultValue = "ORDER") СollectionSortType collectionSortType, @PathVariable Long id) {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("country", country);
         parameters.put("genre", genre);
         parameters.put("date", date);
-        parameters.put("online", b);
+        parameters.put("online", online);
         parameters.put("collectionSortType", collectionSortType);
-        return ResponseEntity.ok(collectionMoviesResponseDtoService.getPageDtoWithParameters(id, parameters));
+        return ResponseEntity.ok(collectionMoviesResponseDtoService.getPageDtoWithParameters(id, parameters, date));
     }
 }

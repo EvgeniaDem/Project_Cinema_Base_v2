@@ -30,16 +30,9 @@ public class CollectionMoviesResponseDtoDaoImpl extends AbstractDaoImpl<Long, Co
 
     @Override
     public Long getResultTotal(Long id, Map<String, Object> parameters) {
-        System.out.println("это количество энтити");
         return entityManager.createQuery("select count(distinct c) from Collection c where c.id in :id", Long.class)
                 .setParameter("id", id)
                 .getSingleResult();
     }
 
-    @Override
-    public List<Long> collectionMoviesResponseDtoIds(Long id) {
-        return entityManager.createQuery("select c.id as id from Collection c where c.id = (:id)")
-                .setParameter("id", id)
-                .getResultList();
-    }
 }
