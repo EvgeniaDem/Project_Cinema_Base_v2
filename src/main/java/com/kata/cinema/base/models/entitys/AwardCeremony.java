@@ -1,5 +1,6 @@
 package com.kata.cinema.base.models.entitys;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,8 +31,13 @@ public class AwardCeremony {
 
     private String placeEvent;
 
+    @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "awards_id")
     private Award awards;
 
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

@@ -21,12 +21,18 @@ public class RatingComment {
     @Range(min = -1, max = 1)
     private Integer rating;
 
+    @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
+    @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "comment_id")
     private Comment comment;
 
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
