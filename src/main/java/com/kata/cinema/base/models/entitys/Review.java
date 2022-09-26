@@ -1,10 +1,7 @@
 package com.kata.cinema.base.models.entitys;
 
 import com.kata.cinema.base.models.enums.TypeReview;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -35,10 +32,16 @@ public class Review {
     @Column(nullable = false)
     private LocalDate date;
 
+    @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Movie movie;
 
+    @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private User user;
 
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

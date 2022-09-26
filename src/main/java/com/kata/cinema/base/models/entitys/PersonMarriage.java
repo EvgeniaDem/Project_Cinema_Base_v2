@@ -1,5 +1,6 @@
 package com.kata.cinema.base.models.entitys;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,10 +31,12 @@ public class PersonMarriage implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen_person_marriage")
     private Long id;
 
+    @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "person_id", referencedColumnName = "id")
     private Person person;
 
+    @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "human_id", referencedColumnName = "id")
     private Person human;
@@ -41,5 +44,9 @@ public class PersonMarriage implements Serializable {
     @Column(name = "marriageStatus")
     private String marriageStatus;
 
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
 
