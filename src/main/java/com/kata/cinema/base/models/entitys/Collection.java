@@ -1,10 +1,7 @@
 package com.kata.cinema.base.models.entitys;
 
 import com.kata.cinema.base.models.enums.CollectionType;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.Column;
@@ -49,6 +46,7 @@ public class Collection {
     @Column(name = "previewUrl")
     private String previewUrl;
 
+    @EqualsAndHashCode.Exclude
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "collections_movies",

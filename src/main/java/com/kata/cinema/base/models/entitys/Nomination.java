@@ -24,4 +24,9 @@ public class Nomination {
     private Long id;
 
     private String name;
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

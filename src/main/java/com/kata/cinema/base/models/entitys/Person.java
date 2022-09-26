@@ -46,6 +46,11 @@ public class Person {
 
     @Column(name = "original_last_name")
     private String originalLastName;
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
 
 

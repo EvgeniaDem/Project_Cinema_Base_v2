@@ -26,4 +26,9 @@ public class Award {
     private String name;
 
     private String description;
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

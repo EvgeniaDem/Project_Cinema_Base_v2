@@ -1,9 +1,6 @@
 package com.kata.cinema.base.models.entitys;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -40,9 +37,16 @@ public class Comment {
     @NotNull
     private LocalDateTime date;
 
+    @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private User user;
 
+    @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private News news;
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

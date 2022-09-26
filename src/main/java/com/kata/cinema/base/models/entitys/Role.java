@@ -48,4 +48,9 @@ public class Role implements GrantedAuthority {
         return name.name();
 
     }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

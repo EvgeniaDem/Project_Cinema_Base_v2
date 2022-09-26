@@ -1,6 +1,7 @@
 package com.kata.cinema.base.models.entitys;
 
 import com.kata.cinema.base.models.enums.Privacy;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -44,6 +45,7 @@ public class FolderPerson {
 
     private String description;
 
+    @EqualsAndHashCode.Exclude
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "folder_persons_to_person",
             joinColumns = @JoinColumn(name = "folders_persons_id"),
@@ -51,4 +53,8 @@ public class FolderPerson {
     )
     private Set<Person> person;
 
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
