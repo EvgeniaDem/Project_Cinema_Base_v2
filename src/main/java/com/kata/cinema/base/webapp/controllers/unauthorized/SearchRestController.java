@@ -8,11 +8,7 @@ import com.kata.cinema.base.models.dto.response.SearchMovieResponseDto;
 import com.kata.cinema.base.models.dto.response.SearchResponseDto;
 import com.kata.cinema.base.models.dto.response.SearchUserResponseDto;
 import com.kata.cinema.base.models.enums.MovieSortType;
-import com.kata.cinema.base.service.dto.SearchMovieResponseDtoPaginationService;
-import com.kata.cinema.base.service.abstracts.model.PersonsService;
-import com.kata.cinema.base.service.dto.SearchUserDtoService;
-import com.kata.cinema.base.service.entity.CollectionService;
-import com.kata.cinema.base.service.entity.MovieService;
+import com.kata.cinema.base.service.dto.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -38,11 +34,11 @@ import java.util.Map;
 @AllArgsConstructor
 public class SearchRestController {
 
-    private final SearchUserDtoService searchUserService;
+    private final SearchUserDtoService searchUserDtoService;
     private final SearchMovieResponseDtoPaginationService searchMovieResponseDtoPaginationService;
-    private final MovieService movieService;
-    private final CollectionService collectionsService;
-    private final PersonsService personsService;
+    private final MovieDtoService movieDtoService;
+    private final CollectionDtoService collectionDtoService;
+    private final PersonsDtoService personsDtoService;
 
     @GetMapping("/users")
     @ApiOperation(value = "Получение списка пользователей с помощью почты", response = SearchUserResponseDto.class, responseContainer = "list")
@@ -54,7 +50,7 @@ public class SearchRestController {
     })
     public ResponseEntity<List<SearchUserResponseDto>> getUserByMail(
             @RequestParam(name = "email") String email) {
-        List<SearchUserResponseDto> users = searchUserService.findSearchUserByEmail(email);
+        List<SearchUserResponseDto> users = searchUserDtoService.findSearchUserByEmail(email);
         return users.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(users);
     }
 
@@ -88,9 +84,9 @@ public class SearchRestController {
     @GetMapping
     public ResponseEntity<SearchResponseDto> searchHeader(@RequestParam String filterPattern) {
 
-        List<SearchMovieDto> searchMovieDtoList = movieService.getSearchMoviesWithFilter(filterPattern);
-        List<SearchCollectionDto> searchCollectionDtoList = collectionsService.getSearchCollectionWithFilter(filterPattern);
-        List<SearchPersonDto> searchPersonDtoList = personsService.getSearchPersonWithFilter(filterPattern);
+        List<SearchMovieDto> searchMovieDtoList = movieDtoService.getSearchMoviesWithFilter(filterPattern);
+        List<SearchCollectionDto> searchCollectionDtoList = collectionDtoService.getSearchCollectionWithFilter(filterPattern);
+        List<SearchPersonDto> searchPersonDtoList = personsDtoService.getSearchPersonWithFilter(filterPattern);
 
         return new ResponseEntity<>(new SearchResponseDto(searchMovieDtoList, searchCollectionDtoList,searchPersonDtoList), HttpStatus.OK);
     }
