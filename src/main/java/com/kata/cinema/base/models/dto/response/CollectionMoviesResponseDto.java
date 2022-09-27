@@ -15,11 +15,11 @@ import java.util.List;
 @Setter
 public class CollectionMoviesResponseDto {
 
-    Long id;
-    String collectionName;
-    String description;
-    String collectionUrl;
-    List<MovieResponseDto> movies;
+    private Long id;
+    private String collectionName;
+    private String description;
+    private String collectionUrl;
+    private List<MovieResponseDto> movies;
 
     public CollectionMoviesResponseDto() {
 

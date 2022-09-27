@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContext;
 import java.util.*;
 
 @Repository
-public class CollectionMoviesResponseDtoDaoImpl extends AbstractDaoImpl<Long, Collection> implements CollectionMoviesResponseDtoDao {
+public class CollectionMoviesResponseDtoDaoImpl  implements CollectionMoviesResponseDtoDao {
 
 
     @PersistenceContext
