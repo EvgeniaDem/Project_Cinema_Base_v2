@@ -26,7 +26,7 @@ public class MovieViewResponseDtoDaoImpl implements MovieViewResponseDtoDao {
 
     @Override
     public MovieViewResponseDto getMovieViewResponse(long id, User user) {
-             MovieViewResponseDto movieViewResponseDto = entityManager.createQuery("select new com.kata.cinema.base.models.dto.response.MovieViewResponseDto(" +
+        MovieViewResponseDto movieViewResponseDto = entityManager.createQuery("select new com.kata.cinema.base.models.dto.response.MovieViewResponseDto(" +
                         "m.id, m.name, m.originalName, m.countries, m.dateRelease, m.rars, m.mpaa, m.description," +
                         "cast(:previewUrl as java.lang.String), cast(:genres as java.lang.String)," +
                         "(select cast(avg(sc.score) as double) from Score sc where sc.movie.id = :id), (select cast(count(sc) as int) from Score sc where sc.movie.id = :id)," +
