@@ -1,5 +1,6 @@
 package com.kata.cinema.base.webapp.controllers.unauthorized;
 
+import com.kata.cinema.base.exceptions.NotFoundByIdException;
 import com.kata.cinema.base.models.dto.PageDto;
 import com.kata.cinema.base.models.dto.response.MovieReleaseResponseDto;
 import com.kata.cinema.base.models.dto.response.MovieViewResponseDto;
@@ -102,11 +103,11 @@ public class MovieRestController {
     @ApiOperation(value = "Получение фильма")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Фильм успешно получен"),
-            @ApiResponse(code = 404, message = "Невозможно найти фильм"),
             @ApiResponse(code = 403, message = "Недостаточно прав доступа "),
             @ApiResponse(code = 401, message = "Проблема с авторизацией или аутентикацией")
     })
     public ResponseEntity<MovieViewResponseDto> getMovieViewResponseDto(@PathVariable Long id, @AuthenticationPrincipal User user) {
+        if (!movieService.isExistById(id)) throw new NotFoundByIdException("Не существует такое кино");
         return ResponseEntity.ok(movieViewResponseDtoService.getMovieViewResponseDtoById(id, user));
     }
 }
