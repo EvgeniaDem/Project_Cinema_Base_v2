@@ -3,9 +3,11 @@ package com.kata.cinema.base.webapp.initializer;
 import com.kata.cinema.base.models.entitys.Collection;
 import com.kata.cinema.base.models.entitys.Genre;
 import com.kata.cinema.base.models.entitys.Movie;
+import com.kata.cinema.base.models.entitys.Person;
 import com.kata.cinema.base.models.enums.MPAA;
 import com.kata.cinema.base.models.enums.RARS;
 
+import com.kata.cinema.base.service.abstracts.model.PersonsService;
 import com.kata.cinema.base.service.entity.CollectionService;
 import com.kata.cinema.base.service.entity.GenreService;
 import com.kata.cinema.base.service.entity.MovieService;
@@ -16,6 +18,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.security.SecureRandom;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.*;
@@ -25,17 +28,19 @@ import java.util.concurrent.ThreadLocalRandom;
 * In order to initialize some data for Movie, Genre, Collection entity-related tables
 * */
 @Component
-@ConditionalOnExpression("${RUN_INIT:false}")
+@ConditionalOnExpression("${RUN_INIT:true}")
 public class TestDataInitializer {
 
     private final MovieService movieService;
     private final GenreService genreService;
     private final CollectionService collectionService;
+    private final com.kata.cinema.base.service.abstracts.model.PersonsService personsService;
 
-    public TestDataInitializer(MovieService movieService, GenreService genreService, CollectionService collectionService) {
+    public TestDataInitializer(MovieService movieService, GenreService genreService, CollectionService collectionService, PersonsService personsService) {
         this.movieService = movieService;
         this.genreService = genreService;
         this.collectionService = collectionService;
+        this.personsService = personsService;
     }
 
     @EventListener(ApplicationReadyEvent.class)
@@ -89,6 +94,30 @@ public class TestDataInitializer {
             collection.setMovies(new HashSet<>(movieList.subList(movieList.size() - randomSize, movieList.size())));
 
             collectionService.create(collection);
+        }
+    }
+
+    @EventListener(ApplicationReadyEvent.class)
+    @Order(4)
+    public void personInit(){
+        for (int i = 1; i<=50; i++){
+            Person person = new Person();
+            person.setFirstName("Имя" + i);
+            person.setLastName("Фамилия" + i);
+            person.setOriginalName("Name" + i);
+            person.setOriginalLastName("LastName" + i);
+            person.setHeight(ThreadLocalRandom.current().nextDouble(1.50, 2.20));
+
+
+            long leftLimit = 1970L;
+            long rightLimit = 2010L;
+            long generatedLong = leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
+            var randomDate = Instant.ofEpochMilli(generatedLong);
+
+            person.setBirthday(Date.from(randomDate));
+            person.setPhotoUrl("/uploads/persons/photos/" + i + "persons");
+
+            personsService.create(person);
         }
     }
 }
