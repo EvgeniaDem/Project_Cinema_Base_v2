@@ -47,6 +47,7 @@ public class MovieResponseDtoDaoImpl extends AbstractDaoImpl<Long, Movie> implem
 
         Map<Long, List<MovieResponseDto>> map = new HashMap<>();
 
+
         String q = "select m.id, m.name, m.originalName , m.time, m.dateRelease, m.countries, g.name, p.name, mp.nameCharacter, c.id, " +
                 "cast(count(distinct s) as int) as countScore, cast(sum(s.score) as double)/count(s) as avgScore " +
                 "from Collection c " +
@@ -58,7 +59,7 @@ public class MovieResponseDtoDaoImpl extends AbstractDaoImpl<Long, Movie> implem
                 "where (c.id in :id) " +
                 "and (g.name in :genre or :genre is null) " +
                 "and (m.countries in :country or :country is null) " +
-                "and (m.dateRelease in :date or :date is null) " +
+                "and (DATE(m.dateRelease) = DATE(:date) or DATE(:date) is null) " +
                 "group by m.id, m.name, m.originalName , m.time, m.dateRelease, m.countries, g.name, p.name, mp.nameCharacter, c.id " + order;
 
         entityManager.createQuery(q)
