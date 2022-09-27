@@ -30,4 +30,8 @@ public class Profession implements Serializable {
     @Column(unique = true)
     private String name;
 
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
