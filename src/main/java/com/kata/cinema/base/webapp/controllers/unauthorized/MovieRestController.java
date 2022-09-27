@@ -9,7 +9,7 @@ import com.kata.cinema.base.models.enums.TopMoviesType;
 import com.kata.cinema.base.models.enums.TypeReview;
 import com.kata.cinema.base.service.dto.ReviewMovieResponseDtoPaginationService;
 import com.kata.cinema.base.service.dto.TopMoviesResponseDtoPaginationService;
-import com.kata.cinema.base.service.entity.MovieService;
+import com.kata.cinema.base.service.dto.MovieDtoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -30,7 +30,7 @@ import java.util.Map;
 @AllArgsConstructor
 public class MovieRestController {
 
-    private final MovieService movieService;
+    private final MovieDtoService movieDtoService;
     private final TopMoviesResponseDtoPaginationService topMoviesResponseDtoPaginationService;
     private final ReviewMovieResponseDtoPaginationService reviewsResponseDtoPaginationService;
 
@@ -43,7 +43,7 @@ public class MovieRestController {
             @ApiResponse(code = 404, message = "Невозможно найти.")
     })
     ResponseEntity<List<MovieReleaseResponseDto>> getReleaseFilms() {
-        return ResponseEntity.ok(movieService.getReleaseFilms());
+        return ResponseEntity.ok(movieDtoService.getReleaseFilms());
     }
 
     @GetMapping("/top/page/{pageNumber}")

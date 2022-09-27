@@ -1,4 +1,4 @@
-package com.kata.cinema.base.service.entity.impl;
+package com.kata.cinema.base.service.dto.impl;
 
 import com.kata.cinema.base.dao.entity.AbstractDao;
 import com.kata.cinema.base.dao.entity.CollectionDao;
@@ -8,17 +8,17 @@ import com.kata.cinema.base.models.entitys.Collection;
 import com.kata.cinema.base.models.entitys.User;
 import com.kata.cinema.base.models.enums.CollectionType;
 import com.kata.cinema.base.service.entity.AbstractServiceImpl;
-import com.kata.cinema.base.service.entity.CollectionService;
+import com.kata.cinema.base.service.dto.CollectionDtoService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class CollectionServiceImpl extends AbstractServiceImpl<Long, Collection> implements CollectionService {
+public class CollectionDtoServiceImpl extends AbstractServiceImpl<Long, Collection> implements CollectionDtoService {
 
     private final CollectionDao collectionDao;
 
-    public CollectionServiceImpl(AbstractDao<Long, Collection> abstractDao, CollectionDao collectionDao) {
+    public CollectionDtoServiceImpl(AbstractDao<Long, Collection> abstractDao, CollectionDao collectionDao) {
         super(abstractDao);
         this.collectionDao = collectionDao;
     }

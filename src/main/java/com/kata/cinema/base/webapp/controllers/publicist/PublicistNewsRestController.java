@@ -5,7 +5,7 @@ import com.kata.cinema.base.models.dto.request.NewsRequestDto;
 import com.kata.cinema.base.models.dto.response.NewsResponseDto;
 import com.kata.cinema.base.models.entitys.News;
 import com.kata.cinema.base.models.enums.Rubric;
-import com.kata.cinema.base.service.entity.NewsService;
+import com.kata.cinema.base.service.dto.NewsDtoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -31,7 +31,7 @@ import java.util.List;
 @AllArgsConstructor
 public class PublicistNewsRestController {
 
-    private final NewsService newsService;
+    private final NewsDtoService newsDtoService;
     private final NewsMapper newsMapper;
 
 
@@ -49,7 +49,7 @@ public class PublicistNewsRestController {
                                                          @RequestParam(name = "endDate", required = false)
                                                          @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
                                                          @RequestParam(name = "rubric", required = false) Rubric rubric) {
-        return ResponseEntity.ok(newsService.findByDateBetweenAndRubric(startDate, endDate, rubric));
+        return ResponseEntity.ok(newsDtoService.findByDateBetweenAndRubric(startDate, endDate, rubric));
     }
 
     @PostMapping
@@ -64,7 +64,7 @@ public class PublicistNewsRestController {
     public ResponseEntity<NewsRequestDto> createNews(@RequestBody NewsRequestDto newsRequestDto) {
         News news = newsMapper.toNews(newsRequestDto);
         news.setDate(LocalDate.now());
-        newsService.create(news);
+        newsDtoService.create(news);
         return new ResponseEntity<>(newsRequestDto, HttpStatus.CREATED);
     }
 
