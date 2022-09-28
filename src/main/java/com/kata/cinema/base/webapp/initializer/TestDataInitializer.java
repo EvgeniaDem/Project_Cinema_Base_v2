@@ -4,6 +4,9 @@ import com.kata.cinema.base.models.entitys.*;
 import com.kata.cinema.base.models.entitys.Collection;
 import com.kata.cinema.base.models.enums.*;
 
+import com.kata.cinema.base.service.dto.CollectionDtoService;
+import com.kata.cinema.base.service.dto.GenreDtoService;
+import com.kata.cinema.base.service.dto.MovieDtoService;
 import com.kata.cinema.base.service.entity.*;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.context.event.*;
@@ -24,20 +27,19 @@ import java.util.concurrent.ThreadLocalRandom;
 @ConditionalOnExpression("${RUN_INIT:false}")
 public class TestDataInitializer {
 
-    private final MovieService movieService;
-    private final GenreService genreService;
-    private final CollectionService collectionService;
+    private final MovieDtoService movieDtoService;
+    private final GenreDtoService genreDtoService;
+    private final CollectionDtoService collectionDtoService;
     private final UserService userService;
     private final FolderMoviesService folderMoviesService;
-
     private final RoleService roleService;
 
 
-    public TestDataInitializer(MovieService movieService, GenreService genreService, CollectionService collectionService,
+    public TestDataInitializer(MovieDtoService movieDtoService, GenreDtoService genreDtoService, CollectionDtoService collectionDtoService,
                                UserService userService, FolderMoviesService folderMoviesService, RoleService roleService) {
-        this.movieService = movieService;
-        this.genreService = genreService;
-        this.collectionService = collectionService;
+        this.movieDtoService = movieDtoService;
+        this.genreDtoService = genreDtoService;
+        this.collectionDtoService = collectionDtoService;
         this.userService = userService;
         this.folderMoviesService = folderMoviesService;
         this.roleService = roleService;
@@ -64,12 +66,12 @@ public class TestDataInitializer {
             List<RARS> rarsList = Arrays.asList(RARS.values());
             movie.setRars(rarsList.get(new SecureRandom().nextInt(rarsList.size())));
 
-            List<Genre> genreList = new ArrayList<>(genreService.getAll());
+            List<Genre> genreList = new ArrayList<>(genreDtoService.getAll());
             int randomSize = ThreadLocalRandom.current().nextInt(1, 4);
             Collections.shuffle(genreList);
             movie.setGenres(new HashSet<>(genreList.subList(genreList.size() - randomSize, genreList.size())));
 
-            movieService.create(movie);
+            movieDtoService.create(movie);
         }
     }
 
@@ -77,7 +79,7 @@ public class TestDataInitializer {
     @Order(1)
     public void genreInit() {
         for (int i = 1; i <= 10; i++) {
-            genreService.create(new Genre("Жанр" + i));
+            genreDtoService.create(new Genre("Жанр" + i));
         }
     }
 
@@ -88,12 +90,12 @@ public class TestDataInitializer {
             boolean enable = !Arrays.asList(2, 6, 10, 14, 18).contains(i);
             Collection collection = new Collection("Коллекция" + i, enable);
 
-            List<Movie> movieList = new ArrayList<>(movieService.getAll());
+            List<Movie> movieList = new ArrayList<>(movieDtoService.getAll());
             int randomSize = ThreadLocalRandom.current().nextInt(5, 16);
             Collections.shuffle(movieList);
             collection.setMovies(new HashSet<>(movieList.subList(movieList.size() - randomSize, movieList.size())));
 
-            collectionService.create(collection);
+            collectionDtoService.create(collection);
         }
     }
 
@@ -167,7 +169,7 @@ public class TestDataInitializer {
         folderMovie.setCategory(categoryMovies);
         folderMovie.setDescription("описание описание описание описание описание описание описание описание ");
         int countAddMovies = random.nextInt(5, 25);
-        List<Movie> movieList = movieService.getAll();
+        List<Movie> movieList = movieDtoService.getAll();
         int countMovies = movieList.size();
         Set<Movie> movieSet = new HashSet<>();
         for (int i = 5; i <= countAddMovies ; i++) {
