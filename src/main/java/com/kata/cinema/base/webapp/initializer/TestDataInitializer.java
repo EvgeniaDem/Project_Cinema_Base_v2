@@ -1,14 +1,17 @@
 package com.kata.cinema.base.webapp.initializer;
 
+import com.kata.cinema.base.models.entitys.*;
 import com.kata.cinema.base.models.entitys.Collection;
-import com.kata.cinema.base.models.entitys.Genre;
-import com.kata.cinema.base.models.entitys.Movie;
 import com.kata.cinema.base.models.enums.MPAA;
 import com.kata.cinema.base.models.enums.RARS;
 
-import com.kata.cinema.base.service.entity.CollectionService;
-import com.kata.cinema.base.service.entity.GenreService;
-import com.kata.cinema.base.service.entity.MovieService;
+<<<<<<<<< Temporary merge branch 1
+import com.kata.cinema.base.service.entity.*;
+=========
+import com.kata.cinema.base.service.dto.CollectionDtoService;
+import com.kata.cinema.base.service.dto.GenreDtoService;
+import com.kata.cinema.base.service.dto.MovieDtoService;
+>>>>>>>>> Temporary merge branch 2
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.context.event.*;
 import org.springframework.context.event.EventListener;
@@ -22,20 +25,20 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 /*
-* In order to initialize some data for Movie, Genre, Collection entity-related tables
+* In order to initialize some data for entity-related tables
 * */
 @Component
 @ConditionalOnExpression("${RUN_INIT:false}")
 public class TestDataInitializer {
 
-    private final MovieService movieService;
-    private final GenreService genreService;
-    private final CollectionService collectionService;
+    private final MovieDtoService movieDtoService;
+    private final GenreDtoService genreDtoService;
+    private final CollectionDtoService collectionDtoService;
 
-    public TestDataInitializer(MovieService movieService, GenreService genreService, CollectionService collectionService) {
-        this.movieService = movieService;
-        this.genreService = genreService;
-        this.collectionService = collectionService;
+    public TestDataInitializer(MovieDtoService movieDtoService, GenreDtoService genreDtoService, CollectionDtoService collectionDtoService) {
+        this.movieDtoService = movieDtoService;
+        this.genreDtoService = genreDtoService;
+        this.collectionDtoService = collectionDtoService;
     }
 
     @EventListener(ApplicationReadyEvent.class)
@@ -59,12 +62,12 @@ public class TestDataInitializer {
             List<RARS> rarsList = Arrays.asList(RARS.values());
             movie.setRars(rarsList.get(new SecureRandom().nextInt(rarsList.size())));
 
-            List<Genre> genreList = new ArrayList<>(genreService.getAll());
+            List<Genre> genreList = new ArrayList<>(genreDtoService.getAll());
             int randomSize = ThreadLocalRandom.current().nextInt(1, 4);
             Collections.shuffle(genreList);
             movie.setGenres(new HashSet<>(genreList.subList(genreList.size() - randomSize, genreList.size())));
 
-            movieService.create(movie);
+            movieDtoService.create(movie);
         }
     }
 
@@ -72,7 +75,7 @@ public class TestDataInitializer {
     @Order(1)
     public void genreInit() {
         for (int i = 1; i <= 10; i++) {
-            genreService.create(new Genre("Жанр" + i));
+            genreDtoService.create(new Genre("Жанр" + i));
         }
     }
 
@@ -83,12 +86,12 @@ public class TestDataInitializer {
             boolean enable = !Arrays.asList(2, 6, 10, 14, 18).contains(i);
             Collection collection = new Collection("Коллекция" + i, enable);
 
-            List<Movie> movieList = new ArrayList<>(movieService.getAll());
+            List<Movie> movieList = new ArrayList<>(movieDtoService.getAll());
             int randomSize = ThreadLocalRandom.current().nextInt(5, 16);
             Collections.shuffle(movieList);
             collection.setMovies(new HashSet<>(movieList.subList(movieList.size() - randomSize, movieList.size())));
 
-            collectionService.create(collection);
+            collectionDtoService.create(collection);
         }
     }
 }
