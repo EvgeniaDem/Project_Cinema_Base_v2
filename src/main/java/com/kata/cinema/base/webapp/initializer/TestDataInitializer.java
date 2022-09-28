@@ -1,11 +1,14 @@
 package com.kata.cinema.base.webapp.initializer;
 
-import com.kata.cinema.base.models.entitys.*;
 import com.kata.cinema.base.models.entitys.Collection;
+import com.kata.cinema.base.models.entitys.Genre;
+import com.kata.cinema.base.models.entitys.Movie;
 import com.kata.cinema.base.models.enums.MPAA;
 import com.kata.cinema.base.models.enums.RARS;
 
-import com.kata.cinema.base.service.entity.*;
+import com.kata.cinema.base.service.entity.CollectionService;
+import com.kata.cinema.base.service.entity.GenreService;
+import com.kata.cinema.base.service.entity.MovieService;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.context.event.*;
 import org.springframework.context.event.EventListener;
@@ -19,7 +22,7 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 /*
-* In order to initialize some data for entity-related tables
+* In order to initialize some data for Movie, Genre, Collection entity-related tables
 * */
 @Component
 @ConditionalOnExpression("${RUN_INIT:false}")
