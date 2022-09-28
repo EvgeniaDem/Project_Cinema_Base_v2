@@ -1,12 +1,13 @@
-package com.kata.cinema.base.service.entity;
+package com.kata.cinema.base.service.dto;
 
 import com.kata.cinema.base.models.dto.SearchMovieDto;
 import com.kata.cinema.base.models.dto.response.MovieReleaseResponseDto;
 import com.kata.cinema.base.models.entitys.Movie;
+import com.kata.cinema.base.service.entity.AbstractService;
 
 import java.util.List;
 
-public interface MovieService extends AbstractService<Long, Movie> {
+public interface MovieDtoService extends AbstractService<Long, Movie> {
 
     //TODO вынести в MovieDtoService(реализацию тоже)
     List<MovieReleaseResponseDto> getReleaseFilms();

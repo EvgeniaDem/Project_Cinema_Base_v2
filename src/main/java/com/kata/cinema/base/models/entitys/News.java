@@ -1,6 +1,7 @@
 package com.kata.cinema.base.models.entitys;
 
 import com.kata.cinema.base.models.enums.Rubric;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -45,9 +46,11 @@ public class News {
     @NotNull
     private String htmlBody;
 
+    @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
+    @EqualsAndHashCode.Exclude
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "news_movie",
@@ -56,4 +59,8 @@ public class News {
     )
     private Set<Movie> movies;
 
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

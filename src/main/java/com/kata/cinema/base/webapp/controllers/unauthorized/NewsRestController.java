@@ -4,8 +4,8 @@ import com.kata.cinema.base.exceptions.NotFoundByIdException;
 import com.kata.cinema.base.models.dto.response.CommentsResponseDto;
 import com.kata.cinema.base.models.dto.response.NewsBodyResponseDto;
 import com.kata.cinema.base.models.dto.response.NewsTitleResponseDto;
-import com.kata.cinema.base.service.entity.CommentService;
-import com.kata.cinema.base.service.entity.NewsService;
+import com.kata.cinema.base.service.dto.CommentDtoService;
+import com.kata.cinema.base.service.dto.NewsDtoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -23,12 +23,12 @@ import java.util.List;
 @RequestMapping("/api/news")
 @Api(tags = "Новости")
 public class NewsRestController {
-    private final CommentService commentService;
-    private final NewsService newsService;
+    private final CommentDtoService commentDtoService;
+    private final NewsDtoService newsDtoService;
 
-    public NewsRestController(CommentService commentService, NewsService newsService) {
-        this.commentService = commentService;
-        this.newsService = newsService;
+    public NewsRestController(CommentDtoService commentDtoService, NewsDtoService newsDtoService) {
+        this.commentDtoService = commentDtoService;
+        this.newsDtoService = newsDtoService;
     }
 
     @GetMapping("/latest")
@@ -40,22 +40,22 @@ public class NewsRestController {
             @ApiResponse(code = 404, message = "Невозможно найти.")
     })
     public ResponseEntity<List<NewsTitleResponseDto>> getLatestNews() {
-        return ResponseEntity.ok(newsService.getLatestNews());
+        return ResponseEntity.ok(newsDtoService.getLatestNews());
     }
 
     @GetMapping("/{id}/comments")
     public ResponseEntity<List<CommentsResponseDto>> getListOfComments(@PathVariable Long id) {
-        if (!newsService.isExistById(id)) {
+        if (!newsDtoService.isExistById(id)) {
             throw new NotFoundByIdException("News with id: " + id + " does not exist, try looking for another");
         }
-        return ResponseEntity.ok(commentService.getComments(id));
+        return ResponseEntity.ok(commentDtoService.getComments(id));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<NewsBodyResponseDto> getNewsBody(@PathVariable Long id) {
-        if (!newsService.isExistById(id)) {
+        if (!newsDtoService.isExistById(id)) {
             throw new NotFoundByIdException("News with id: " + id + " does not exist, try looking for another");
         }
-        return new ResponseEntity<>(newsService.getByIdNewsBodyPageInfo(id), HttpStatus.OK);
+        return new ResponseEntity<>(newsDtoService.getByIdNewsBodyPageInfo(id), HttpStatus.OK);
     }
 }

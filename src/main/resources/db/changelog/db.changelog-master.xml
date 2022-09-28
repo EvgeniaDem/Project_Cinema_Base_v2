@@ -8,8 +8,8 @@
     </preConditions>
 
     <include file="db/changelog/14-08-2022-init-db.sql"/>
-    <include file="db/changelog/2022/09/12-01-changelog.xml"/>
-
 
     <!--    <include file="testdata/db.changelog-test_data.xml" relativeToChangelogFile="true"/>-->
+    <include file="testdata/db.changelog-test_data.xml" relativeToChangelogFile="true"/>
+    <include file="db/changelog/2022/09/21-01-changelog.sql"/>
 </databaseChangeLog>

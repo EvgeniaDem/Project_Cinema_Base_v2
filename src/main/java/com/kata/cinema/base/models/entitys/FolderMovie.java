@@ -2,6 +2,7 @@ package com.kata.cinema.base.models.entitys;
 
 import com.kata.cinema.base.models.enums.Category;
 import com.kata.cinema.base.models.enums.Privacy;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -35,6 +36,7 @@ public class FolderMovie {
     @Enumerated(EnumType.STRING)
     private Category category;
 
+    @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
@@ -46,6 +48,7 @@ public class FolderMovie {
 
     private String description;
 
+    @EqualsAndHashCode.Exclude
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "folders_movies_to_movies",
             joinColumns = @JoinColumn(name = "folders_id"),
@@ -58,5 +61,10 @@ public class FolderMovie {
         this.privacy = privacy;
         this.name = name;
         this.description = description;
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }

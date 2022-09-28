@@ -1,5 +1,6 @@
 package com.kata.cinema.base.models.entitys;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,21 +26,30 @@ public class AwardsCeremonyResult {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen_awards_ceremony_result")
     private Long id;
 
+    @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "person_id")
     private Person person;
 
+    @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "movie_id")
     private Movie movie;
 
+    @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "nomination_id")
     private Nomination nomination;
 
+    @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "awards_ceremony_id")
     private AwardCeremony awardCeremony;
 
     private String nominationStatus;
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

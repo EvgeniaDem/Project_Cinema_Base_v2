@@ -69,4 +69,9 @@ public class MoviePerson {
 
     @Column(name = "name_role")
     private String nameCharacter;
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

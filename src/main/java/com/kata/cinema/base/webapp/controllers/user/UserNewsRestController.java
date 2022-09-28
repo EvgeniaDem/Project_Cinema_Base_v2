@@ -3,8 +3,8 @@ package com.kata.cinema.base.webapp.controllers.user;
 import com.kata.cinema.base.exceptions.NotFoundByIdException;
 import com.kata.cinema.base.models.dto.request.CommentsRequestDto;
 import com.kata.cinema.base.models.entitys.Comment;
-import com.kata.cinema.base.service.entity.CommentService;
-import com.kata.cinema.base.service.entity.NewsService;
+import com.kata.cinema.base.service.dto.CommentDtoService;
+import com.kata.cinema.base.service.dto.NewsDtoService;
 import com.kata.cinema.base.service.entity.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,9 +22,9 @@ import java.time.LocalDateTime;
 @RequestMapping("/api/user/news")
 @AllArgsConstructor
 public class UserNewsRestController {
-    private final NewsService newsService;
+    private final NewsDtoService newsDtoService;
     private final UserService userService;
-    private final CommentService commentService;
+    private final CommentDtoService commentDtoService;
 
     @PostMapping("/{id}/comments")
     //TODO убрать userId, доставать из сеьюритит контекста
@@ -35,10 +35,10 @@ public class UserNewsRestController {
         comments.setDate(LocalDateTime.now());
 
         //TODO в ифе выкидывать есепшинал
-        if (newsService.isExistById(id) && userService.isExistById(userId)) {
-            comments.setNews(newsService.getById(id).orElseThrow());
+        if (newsDtoService.isExistById(id) && userService.isExistById(userId)) {
+            comments.setNews(newsDtoService.getById(id).orElseThrow());
             comments.setUser(userService.getById(userId).orElseThrow());
-            commentService.create(comments);
+            commentDtoService.create(comments);
             return new ResponseEntity<>(commentsRequestDto, HttpStatus.OK);
         }
         throw new NotFoundByIdException("You entered incorrect data, try again or contact support");
