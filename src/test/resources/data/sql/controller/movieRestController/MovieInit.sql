@@ -61,8 +61,8 @@ INSERT INTO public.movie_genre (movie_id, genre_id)
 VALUES (3, 3);
 
 -- users init
-INSERT INTO public.users (id, avatar_url, birthday, email, first_name, last_name, password)
-VALUES (1, null, '2022-08-14', '1', '1', '1', '1');
+INSERT INTO public.users (id, avatar_url, birthday, email, first_name, last_name, login, password)
+VALUES (1, null, '2022-08-14', '1', '1', '1', '1', '1');
 
 -- score init
 INSERT INTO public.score (id, score, movie_id, user_id)

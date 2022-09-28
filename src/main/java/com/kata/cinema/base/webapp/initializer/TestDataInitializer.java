@@ -5,13 +5,10 @@ import com.kata.cinema.base.models.entitys.Collection;
 import com.kata.cinema.base.models.enums.MPAA;
 import com.kata.cinema.base.models.enums.RARS;
 
-<<<<<<<<< Temporary merge branch 1
-import com.kata.cinema.base.service.entity.*;
-=========
 import com.kata.cinema.base.service.dto.CollectionDtoService;
 import com.kata.cinema.base.service.dto.GenreDtoService;
 import com.kata.cinema.base.service.dto.MovieDtoService;
->>>>>>>>> Temporary merge branch 2
+
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.context.event.*;
 import org.springframework.context.event.EventListener;

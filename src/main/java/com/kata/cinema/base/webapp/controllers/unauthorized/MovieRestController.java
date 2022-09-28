@@ -107,7 +107,7 @@ public class MovieRestController {
             @ApiResponse(code = 401, message = "Проблема с авторизацией или аутентикацией")
     })
     public ResponseEntity<MovieViewResponseDto> getMovieViewResponseDto(@PathVariable Long id, @AuthenticationPrincipal User user) {
-        if (!movieService.isExistById(id)) throw new NotFoundByIdException("Не существует такое кино");
+        if (!movieDtoService.isExistById(id)) throw new NotFoundByIdException("Не существует такое кино");
         return ResponseEntity.ok(movieViewResponseDtoService.getMovieViewResponseDtoById(id, user));
     }
 }

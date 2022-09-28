@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -33,7 +34,7 @@ public class Person {
 
     private Double height;
 
-    private Date birthday;
+    private LocalDate birthday;
 
     @Column(name = "place_birthday")
     private String placeBirthday;
