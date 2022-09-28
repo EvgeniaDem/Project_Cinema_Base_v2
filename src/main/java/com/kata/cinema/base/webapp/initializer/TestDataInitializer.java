@@ -5,7 +5,6 @@ import com.kata.cinema.base.models.entitys.Collection;
 import com.kata.cinema.base.models.enums.*;
 
 import com.kata.cinema.base.service.entity.*;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.context.event.*;
 import org.springframework.context.event.EventListener;
@@ -101,26 +100,27 @@ public class TestDataInitializer {
     @EventListener(ApplicationReadyEvent.class)
     @Order(4)
     public void roleInit() {
-        Role roleAdmin = new Role(100L, Roles.ADMIN);
+        Role roleAdmin = new Role();
+        roleAdmin.setName(Roles.ADMIN);
         roleService.create(roleAdmin);
 
-        Role roleUser = new Role(200L, Roles.USER);
+        Role roleUser = new Role();
+        roleUser.setName(Roles.USER);
         roleService.create(roleUser);
 
-        Role rolePublicist = new Role(300L, Roles.PUBLICIST);
+        Role rolePublicist = new Role();
+        rolePublicist.setName(Roles.PUBLICIST);
         roleService.create(rolePublicist);
     }
 
     @EventListener(ApplicationReadyEvent.class)
     @Order(5)
-    public void userInit() throws Exception {
-        Role roleAdmin = roleService.getById(100L).get();
-        Role roleUser = roleService.getById(200L).get();
-        Role rolePublicist = roleService.getById(300L).get();
+    public void userInit() {
+        Role roleAdmin = roleService.getByName(Roles.ADMIN);
+        Role roleUser = roleService.getByName(Roles.USER);
+        Role rolePublicist = roleService.getByName(Roles.PUBLICIST);
         for (int i = 1; i <= 25; i++) {
-
             addUser(i, Set.of(roleUser), "login");
-
         }
         addUser(100, Set.of(roleUser, roleAdmin), "admin");
         addUser(200, Set.of(roleUser, rolePublicist), "publicist");
@@ -138,7 +138,6 @@ public class TestDataInitializer {
         user.setLastName("Фамилия" + i);
         user.setLogin(fullLogin);
         user.setPassword("password");
-        user.setId((long) i);
 
         int year = random.nextInt(70, 2010);
         LocalDate birthday = LocalDate.of(year, 1, 1);
@@ -159,11 +158,13 @@ public class TestDataInitializer {
         }
     }
 
-    private void addFolder(User user, @NotNull Category categoryMovies) {
+    private void addFolder(User user, Category categoryMovies) {
         Random random = new Random();
         FolderMovie folderMovie = new FolderMovie();
         folderMovie.setPrivacy(Privacy.PUBLIC);
         folderMovie.setName(categoryMovies.getName());
+        folderMovie.setUser(user);
+        folderMovie.setCategory(categoryMovies);
         folderMovie.setDescription("описание описание описание описание описание описание описание описание ");
         int countAddMovies = random.nextInt(5, 25);
         List<Movie> movieList = movieService.getAll();
@@ -174,5 +175,6 @@ public class TestDataInitializer {
             movieSet.add(movie);
         }
         folderMovie.setMovies(movieSet);
+        folderMoviesService.create(folderMovie);
     }
 }
