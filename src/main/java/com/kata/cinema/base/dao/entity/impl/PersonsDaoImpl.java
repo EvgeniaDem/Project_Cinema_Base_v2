@@ -12,7 +12,7 @@ public class PersonsDaoImpl extends AbstractDaoImpl<Person, Long> implements Per
 
     @Override
     public List<SearchPersonDto> getSearchPersonWithFilter(String filterPattern) {
-        return entityManager.createQuery("select new com.kata.cinema.base.models.dto.SearchPersonDto(p.id, concat(p.firstName, ' ', p.lastName), concat(p.originalName, ' ',  p.originalLastName), p.photoUrl, p.birthday) from Person p where lower(p.firstName) like lower(:filter)", SearchPersonDto.class)
+        return entityManager.createQuery("select new com.kata.cinema.base.models.dto.SearchPersonDto(p.id, concat(p.firstName, ' ', p.lastName), concat(p.originalName, ' ',  p.originalLastName), p.photoUrl, cast(p.birthday as java.util.Date)) from Person p where lower(p.firstName) like lower(:filter)", SearchPersonDto.class)
                 .setParameter("filter", filterPattern + "%")
                 .setMaxResults(3)
                 .getResultList();
