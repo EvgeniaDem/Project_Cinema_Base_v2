@@ -1,18 +1,18 @@
-package com.kata.cinema.base.service.entity.impl;
+package com.kata.cinema.base.service.dto.impl;
 
 import com.kata.cinema.base.dao.entity.PersonsDao;
 import com.kata.cinema.base.models.dto.SearchPersonDto;
-import com.kata.cinema.base.service.abstracts.model.PersonsService;
+import com.kata.cinema.base.service.dto.PersonsDtoService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class PersonsServiceImpl implements PersonsService {
+public class PersonsDtoServiceImpl implements PersonsDtoService {
 
     private final PersonsDao personsDao;
 
-    public PersonsServiceImpl(PersonsDao personsDao) {
+    public PersonsDtoServiceImpl(PersonsDao personsDao) {
         this.personsDao = personsDao;
     }
 
