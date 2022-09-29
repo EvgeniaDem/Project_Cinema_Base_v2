@@ -31,7 +31,7 @@ public class MovieViewResponseDtoServiceImpl implements MovieViewResponseDtoServ
         castResponseDtoSet.forEach(cast -> {
             Set<MoviePersonResponseDto> eachPersonList = new HashSet<>();
             moviePerson.forEach(person -> {
-                if (cast.getProfessionId().equals(person.getProfessionId())) eachPersonList.add(person);
+                if (cast.getProfessionId().intern() == person.getProfessionId().intern()) eachPersonList.add(person);
             });
             cast.setPersons(new ArrayList<>(eachPersonList));
         });
