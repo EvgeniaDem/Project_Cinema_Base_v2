@@ -9,6 +9,5 @@ import java.util.List;
 
 @Service
 public interface GenreDtoService extends AbstractService<Long, Genre> {
-    //TODO вынести в GenreDtoService (реализацию тоже)
     List<GenreResponseDto> findGenres();
 }

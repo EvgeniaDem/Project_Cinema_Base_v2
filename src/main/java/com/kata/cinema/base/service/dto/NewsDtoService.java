@@ -12,7 +12,6 @@ import java.util.List;
 
 public interface NewsDtoService extends AbstractService<Long, News> {
 
-    //TODO вынести методы в NewsDtoService(реализацию тоже)
     List<NewsTitleResponseDto> getLatestNews();
 
     List<NewsResponseDto> findByDateBetweenAndRubric(LocalDate dateStart, LocalDate dateEnd, Rubric rubric);
