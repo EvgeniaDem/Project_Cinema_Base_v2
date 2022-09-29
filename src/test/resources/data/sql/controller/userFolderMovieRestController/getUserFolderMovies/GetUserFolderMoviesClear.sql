@@ -1,4 +1,4 @@
-delete from public.movie_person;
+delete from movie_person;
 delete from public.folders_movies_to_movies;
 delete from public.movie_genre;
 delete from public.persons;
