@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class PersonsDaoImpl extends AbstractDaoImpl<Person, Long> implements PersonsDao {
+public class PersonsDaoImpl extends AbstractDaoImpl<Long,Person> implements PersonsDao {
 
     @Override
     public List<SearchPersonDto> getSearchPersonWithFilter(String filterPattern) {
