@@ -5,8 +5,7 @@ import com.kata.cinema.base.models.dto.response.CastResponseDto;
 import com.kata.cinema.base.models.dto.response.MoviePersonResponseDto;
 import com.kata.cinema.base.models.dto.response.MovieViewResponseDto;
 import com.kata.cinema.base.models.entitys.User;
-import liquibase.pro.packaged.em;
-import org.springframework.context.annotation.Primary;
+
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -18,7 +17,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Repository
-@Primary
 public class MovieViewResponseDtoDaoImpl implements MovieViewResponseDtoDao {
 
     @PersistenceContext
@@ -26,7 +24,7 @@ public class MovieViewResponseDtoDaoImpl implements MovieViewResponseDtoDao {
 
     @Override
     public MovieViewResponseDto getMovieViewResponse(long id, User user) {
-        MovieViewResponseDto movieViewResponseDto = entityManager.createQuery("select new com.kata.cinema.base.models.dto.response.MovieViewResponseDto(" +
+        return entityManager.createQuery("select new com.kata.cinema.base.models.dto.response.MovieViewResponseDto(" +
                         "m.id, m.name, m.originalName, m.countries, m.dateRelease, m.rars, m.mpaa, m.description," +
                         "cast(:previewUrl as java.lang.String), cast(:genres as java.lang.String)," +
                         "(select cast(avg(sc.score) as double) from Score sc where sc.movie.id = :id), (select cast(count(sc) as int) from Score sc where sc.movie.id = :id)," +
@@ -37,20 +35,18 @@ public class MovieViewResponseDtoDaoImpl implements MovieViewResponseDtoDao {
                 .setParameter("previewUrl", concatPreviewUrl(id).collect(Collectors.joining(" | ")))
                 .setParameter("genres", concatGenres(id).collect(Collectors.joining(" | ")))
                 .getSingleResult();
-        movieViewResponseDto.setCasts(getCastResponse(id));
-        return movieViewResponseDto;
     }
 
+    @Override
     public List<CastResponseDto> getCastResponse(long id) {
-        List<CastResponseDto> castResponseDtoList = entityManager.createQuery("select new com.kata.cinema.base.models.dto.response.CastResponseDto(" +
+        return entityManager.createQuery("select new com.kata.cinema.base.models.dto.response.CastResponseDto(" +
                         "mv.id.movieId,cast(mv.id.professionId as java.lang.String), cast(pr.name as java.lang.String)" +
                         ") from MoviePerson mv join mv.movie m join mv.professions pr where m.id = :id", CastResponseDto.class)
                 .setParameter("id", id)
                 .getResultList();
-        castResponseDtoList.forEach(c -> c.setPersons(getMoviePerson(id)));
-        return castResponseDtoList;
     }
 
+    @Override
     public List<MoviePersonResponseDto> getMoviePerson(long id) {
         return entityManager.createQuery("select new com.kata.cinema.base.models.dto.response.MoviePersonResponseDto(" +
                         "cast(mv.id.professionId as java.lang.String), mv.id.personId, concat(p.firstName, ' ', p.lastName), concat(p.originalName, ' ', p.originalLastName), mv.type, mv.nameCharacter" +

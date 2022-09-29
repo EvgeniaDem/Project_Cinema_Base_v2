@@ -16,7 +16,7 @@ public class MovieViewTest extends AbstractTest {
 
     @Test
     public void getMovieView() throws Exception {
-        mockMvc.perform(get("/api/movies/1"))
+        mockMvc.perform(get("/api/movies/100"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()", Is.is(14)))
@@ -29,11 +29,11 @@ public class MovieViewTest extends AbstractTest {
                 .andExpect(jsonPath("$.genres").value("genre1 | genre2 | genre3"))
                 .andExpect(jsonPath("$.mpaa").value("GENERAL_AUDIENCES"))
                 .andExpect(jsonPath("$.countries").value("country1"))
-                .andExpect(jsonPath("$.casts[0].professionId").value("1"))
+                .andExpect(jsonPath("$.casts[0].professionId").value("100"))
                 .andExpect(jsonPath("$.casts[0].movieId").doesNotHaveJsonPath())
                 .andExpect(jsonPath("$.casts[0].professionName").value("name1"))
                 .andExpect(jsonPath("$.casts[0].persons[0].professionId").doesNotHaveJsonPath())
-                .andExpect(jsonPath("$.casts[0].persons[0].personId").value(1))
+                .andExpect(jsonPath("$.casts[0].persons[0].personId").value(100))
                 .andExpect(jsonPath("$.casts[0].persons[0].originalFullName").value("origlast1 origname1"))
                 .andExpect(jsonPath("$.myScore").doesNotExist());
     }
