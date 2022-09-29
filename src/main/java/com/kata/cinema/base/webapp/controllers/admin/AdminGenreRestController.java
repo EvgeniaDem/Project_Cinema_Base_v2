@@ -3,7 +3,7 @@ package com.kata.cinema.base.webapp.controllers.admin;
 import com.kata.cinema.base.exceptions.NotFoundByIdException;
 import com.kata.cinema.base.models.dto.response.GenreResponseDto;
 import com.kata.cinema.base.models.entitys.Genre;
-import com.kata.cinema.base.service.entity.GenreService;
+import com.kata.cinema.base.service.dto.GenreDtoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -30,7 +30,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class AdminGenreRestController {
 
-    private final GenreService genreService;
+    private final GenreDtoService genreDtoService;
 
 
     @GetMapping
@@ -43,7 +43,7 @@ public class AdminGenreRestController {
 
     })
     public ResponseEntity<List<GenreResponseDto>> getGenres() {
-        return ResponseEntity.ok(genreService.findGenres());
+        return ResponseEntity.ok(genreDtoService.findGenres());
     }
 
     @DeleteMapping("/{id}")
@@ -56,10 +56,10 @@ public class AdminGenreRestController {
             @ApiResponse(code = 403, message = "Недостаточно прав для просмотра контента")
     })
     public ResponseEntity<GenreResponseDto> deleteGenres(@ApiParam(value = "id жанра") @PathVariable Long id) {
-        if (!genreService.isExistById(id)) {
+        if (!genreDtoService.isExistById(id)) {
             throw new NotFoundByIdException("There is no genre with ID: " + id + " , try again.");
         }
-        genreService.deleteById(id);
+        genreDtoService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -74,13 +74,13 @@ public class AdminGenreRestController {
             @ApiParam(value = "id жанра") @PathVariable Long id,
             @ApiParam(value = "name жанра") @RequestParam String name) {
 
-        Optional<Genre> optionalGenres = genreService.getById(id);
+        Optional<Genre> optionalGenres = genreDtoService.getById(id);
         if (optionalGenres.isEmpty()) {
             throw new NotFoundByIdException("There is no genre with ID: " + id + " , try again.");
         }
         Genre genres = optionalGenres.get();
         genres.setName(name);
-        genreService.update(genres);
+        genreDtoService.update(genres);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -95,7 +95,7 @@ public class AdminGenreRestController {
     })
     public ResponseEntity<GenreResponseDto> addGenre(
             @ApiParam(value = "name жанра") @RequestParam String name) {
-        genreService.create(new Genre(name));
+        genreDtoService.create(new Genre(name));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
