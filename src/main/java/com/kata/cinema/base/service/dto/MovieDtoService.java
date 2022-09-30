@@ -9,7 +9,6 @@ import java.util.List;
 
 public interface MovieDtoService extends AbstractService<Long, Movie> {
 
-    //TODO вынести в MovieDtoService(реализацию тоже)
     List<MovieReleaseResponseDto> getReleaseFilms();
 
     List<SearchMovieDto> getSearchMoviesWithFilter(String filterPattern);
