@@ -3,13 +3,15 @@ delete from folders_movies_to_movies;
 delete from folders_movies;
 delete from movie_genre;
 delete from movie_person;
+delete from user_role;
+delete from score;
 delete from movies;
 delete from collections;
 delete from users;
 delete from genres;
 delete from professions;
 delete from persons;
-delete from score;
+
 
 
 

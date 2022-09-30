@@ -6,5 +6,5 @@ import com.kata.cinema.base.models.dto.response.CollectionMoviesResponseDto;
 import java.util.Map;
 
 public interface MovieResponseDtoService {
-   PageDto<CollectionMoviesResponseDto> getPageDto(Map<String, Object> parameters);
+    PageDto<CollectionMoviesResponseDto> getPageDto(Map<String, Object> parameters);
 }

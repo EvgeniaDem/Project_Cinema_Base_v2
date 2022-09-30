@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -19,31 +20,24 @@ public class MovieResponseDtoDaoImpl implements MovieResponseDtoDao {
     EntityManager entityManager;
 
     @Override
-    public Map<Long, List<MovieResponseDto>> getMapMovieResponseValueByCollectionMoviesDtoIds(Map<String, Object> parameters, Long id, LocalDate date) {
+    public Map<Long, List<MovieResponseDto>> getMapMovieResponseValueByCollectionMoviesDtoIds(Map<String, Object> parameters, Long id) {
 
         Map<Long, List<MovieResponseDto>> map = new HashMap<>();
 
-        String q = "select m.id, m.name, m.originalName , m.time, m.dateRelease, m.countries, g.name, p.name, mp.nameCharacter, c.id, " +
-                "cast(count(distinct s) as int) as countScore, cast(sum(s.score) as double)/count(s) as avgScore " +
+        TypedQuery<?> query = (TypedQuery<?>) entityManager.createQuery("select m.id, m.name, m.originalName , m.time, m.dateRelease, m.countries, g.name, p.name, mp.nameCharacter, c.id, " +
+                "cast(count(distinct s) as int) as countScore, cast(sum(s.score) as double)/count(s) as avgScore  " +
                 "from Collection c " +
                 "left join c.movies m " +
-                "left join m.genres g  " +
+                "left join m.genres g " +
                 "left join MoviePerson mp on m.id = mp.id.movieId " +
                 "left join mp.professions p " +
-                "left join Score s on m.id = s.movie.id " +
-                "where (c.id in :id) " +
-                "and (g.name in :genre or :genre is null) " +
-                "and (m.countries in :country or :country is null) " +
-                "and (DATE(m.dateRelease) = DATE(:date) or DATE(:date) is null) " +
-                "group by m.id, m.name, m.originalName , m.time, m.dateRelease, m.countries, g.name, p.name, mp.nameCharacter, c.id " + getOrder((СollectionSortType) parameters.get("collectionSortType"));
+                "left join Score s on m.id = s.movie.id " + queryFilters(parameters, id) + " " +
+                "group by m.id, m.name, m.originalName , m.time, m.dateRelease, m.countries, g.name, p.name, mp.nameCharacter, c.id "
+                + getOrder((СollectionSortType) parameters.get("collectionSortType")));
 
-        entityManager.createQuery(q)
+        setParametersToQuery(query, parameters, id);
 
-                .setParameter("id", id)
-                .setParameter("country", parameters.get("country"))
-                .setParameter("genre", parameters.get("genre"))
-                .setParameter("date", date)
-                .unwrap(Query.class)
+        query.unwrap(Query.class)
                 .setResultTransformer(new ResultTransformer() {
                     @Override
                     public Object transformTuple(Object[] objects, String[] strings) {
@@ -102,6 +96,41 @@ public class MovieResponseDtoDaoImpl implements MovieResponseDtoDao {
         return order;
 
     }
+
+    private void setParametersToQuery(TypedQuery<?> query, Map<String, Object> parameters, Long id) {
+        if (parameters.get("id") != null) {
+            query.setParameter("id", parameters.get(id));
+        }
+        if (parameters.get("country") != null) {
+            query.setParameter("country", parameters.get("country"));
+        }
+        if (parameters.get("genre") != null) {
+            query.setParameter("genre", parameters.get("genre"));
+        }
+        if (parameters.get("date") != null) {
+            query.setParameter("date", parameters.get("date"));
+        }
+
+    }
+
+    private String queryFilters(Map<String, Object> parameters, Long id) {
+        StringJoiner stringJoiner = new StringJoiner(" and ", "where", " ");
+        if (parameters.get("id") != null) {
+            stringJoiner.add(" c.id in :id ");
+        }
+        if (parameters.get("country") != null) {
+            stringJoiner.add(" m.countries in :country ");
+        }
+        if (parameters.get("genre") != null) {
+            stringJoiner.add(" g.name in :genre ");
+        }
+        if (parameters.get("date") != null) {
+            stringJoiner.add(" DATE(m.dateRelease) = DATE(:date) ");
+        }
+        stringJoiner.setEmptyValue("");
+        return stringJoiner.toString();
+    }
+
 
 }
 

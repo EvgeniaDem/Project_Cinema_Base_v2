@@ -11,8 +11,6 @@ import com.kata.cinema.base.models.entitys.User;
 import com.kata.cinema.base.models.enums.CollectionType;
 import com.kata.cinema.base.models.enums.СollectionSortType;
 import com.kata.cinema.base.service.dto.CollectionMoviesResponseDtoService;
-import com.kata.cinema.base.service.entity.CollectionService;
-import com.kata.cinema.base.service.entity.MovieService;
 import com.kata.cinema.base.service.dto.CollectionDtoService;
 import com.kata.cinema.base.service.entity.FolderMoviesService;
 import com.kata.cinema.base.service.dto.MovieDtoService;
@@ -47,15 +45,10 @@ import java.util.*;
 @AllArgsConstructor
 public class CollectionRestController {
 
-    private final CollectionService collectionService;
-    private final MovieService movieService;
-
     private final CollectionMoviesResponseDtoService collectionMoviesResponseDtoService;
 
     private final CollectionDtoService collectionDtoService;
-    private final FolderMoviesService folderMoviesService;
     private final MovieDtoService movieDtoService;
-    private final UserService userService;
 
     @GetMapping
     public ResponseEntity<List<CollectionResponseDto>> getCollectionResponseDto(@RequestParam(defaultValue = "MOVIES") CollectionType type) {
@@ -191,6 +184,6 @@ public class CollectionRestController {
         parameters.put("date", date);
         parameters.put("online", online);
         parameters.put("collectionSortType", collectionSortType);
-        return ResponseEntity.ok(collectionMoviesResponseDtoService.getPageDtoWithParameters(id, parameters, date));
+        return ResponseEntity.ok(collectionMoviesResponseDtoService.getPageDtoWithParameters(id, parameters));
     }
 }
