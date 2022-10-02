@@ -25,6 +25,7 @@ public class PutProductionStudioTest extends AbstractTest {
         accessToken = obtainNewAccessToken("admin@mail.ru", "admin", mockMvc);
         ProductionStudioRequestDto productionStudioRequestDto = new ProductionStudioRequestDto("studioTest", "description1", LocalDate.now());
         mockMvc.perform(put("/api/admin/studios/{id}", 1L)
+                        .contentType("application/json")
                         .header("Authorization", "Bearer " + accessToken)
                         .content(objectMapper.writeValueAsString(productionStudioRequestDto)))
                 .andDo(print())
@@ -41,6 +42,7 @@ public class PutProductionStudioTest extends AbstractTest {
         accessToken = obtainNewAccessToken("admin@mail.ru", "admin", mockMvc);
         ProductionStudioRequestDto productionStudioRequestDto = new ProductionStudioRequestDto("studioTest", "description1", LocalDate.now());
         mockMvc.perform(put("/api/admin/studios/{id}", 666L)
+                        .contentType("application/json")
                         .header("Authorization", "Bearer " + accessToken)
                         .content(objectMapper.writeValueAsString(productionStudioRequestDto)))
                 .andExpect(jsonPath("$.text").value("There is no production studio with ID: 666, try again."));
