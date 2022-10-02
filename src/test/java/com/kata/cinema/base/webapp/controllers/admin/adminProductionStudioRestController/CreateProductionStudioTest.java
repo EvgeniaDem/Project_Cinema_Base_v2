@@ -4,6 +4,7 @@ import com.kata.cinema.base.AbstractTest;
 import com.kata.cinema.base.models.dto.request.ProductionStudioRequestDto;
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 
 import java.time.LocalDate;
@@ -23,6 +24,7 @@ public class CreateProductionStudioTest extends AbstractTest {
         accessToken = obtainNewAccessToken("admin@mail.ru", "admin", mockMvc);
         ProductionStudioRequestDto productionStudioRequestDto = new ProductionStudioRequestDto("studio1", "description1", LocalDate.now());
         mockMvc.perform(post("/api/admin/studios")
+                        .contentType("application/json")
                         .header("Authorization", "Bearer " + accessToken)
                         .content(objectMapper.writeValueAsString(productionStudioRequestDto)))
                 .andDo(print())
