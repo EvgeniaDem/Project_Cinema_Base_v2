@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +33,6 @@ public class ProductionStudioRestController {
             @ApiResponse(code = 404, message = "Невозможно найти.")
     })
     public ResponseEntity<List<ProductionMovieStudioResponseDto>> getAllProductionStudiosMovie(@PathVariable Long id) {
-        return ResponseEntity.ok(productionMovieStudioResponseDtoService.getProductionStudiosMovie(id));
+        return new ResponseEntity<>(productionMovieStudioResponseDtoService.getProductionStudiosMovie(id), HttpStatus.OK);
     }
 }

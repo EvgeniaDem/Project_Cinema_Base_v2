@@ -1,9 +1,12 @@
 package com.kata.cinema.base.webapp.controllers.admin.adminProductionStudioRestController;
 
 import com.kata.cinema.base.AbstractTest;
+import com.kata.cinema.base.models.dto.request.ProductionStudioRequestDto;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.test.context.jdbc.Sql;
+
+import java.time.LocalDate;
 
 import static com.kata.cinema.base.webapp.util.IntegrationTestingAccessTokenUtil.obtainNewAccessToken;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -16,15 +19,14 @@ public class CreateProductionStudioTest extends AbstractTest {
     private static String accessToken;
 
     @Test
-    public void createGenres() throws Exception {
+    public void createProductionStudio() throws Exception {
         accessToken = obtainNewAccessToken("admin@mail.ru", "admin", mockMvc);
-
-        String productionStudio = "{\"name\": \"studio1\", \"description\": \"description1\", \"dateFoundation\": \"2022-08-23\"}";
+        ProductionStudioRequestDto productionStudioRequestDto = new ProductionStudioRequestDto("studio1", "description1", LocalDate.now());
         mockMvc.perform(post("/api/admin/studios")
                         .header("Authorization", "Bearer " + accessToken)
-                        .content(productionStudio))
+                        .content(objectMapper.writeValueAsString(productionStudioRequestDto)))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
 
         Assert.assertTrue(entityManager.createQuery("SELECT count(ps) = 1 FROM ProductionStudio ps", Boolean.class)
                 .getSingleResult());

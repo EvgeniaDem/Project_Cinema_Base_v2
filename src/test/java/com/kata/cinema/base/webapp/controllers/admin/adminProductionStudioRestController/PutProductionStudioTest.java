@@ -1,9 +1,12 @@
 package com.kata.cinema.base.webapp.controllers.admin.adminProductionStudioRestController;
 
 import com.kata.cinema.base.AbstractTest;
+import com.kata.cinema.base.models.dto.request.ProductionStudioRequestDto;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.test.context.jdbc.Sql;
+
+import java.time.LocalDate;
 
 import static com.kata.cinema.base.webapp.util.IntegrationTestingAccessTokenUtil.obtainNewAccessToken;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -20,10 +23,10 @@ public class PutProductionStudioTest extends AbstractTest {
     @Test
     public void updateProductionStudio() throws Exception {
         accessToken = obtainNewAccessToken("admin@mail.ru", "admin", mockMvc);
-        String productionStudio = "{\"name\": \"studioTest\", \"description\": \"description1\", \"dateFoundation\": \"2022-08-23\"}";
+        ProductionStudioRequestDto productionStudioRequestDto = new ProductionStudioRequestDto("studioTest", "description1", LocalDate.now());
         mockMvc.perform(put("/api/admin/studios/{id}", 1L)
                         .header("Authorization", "Bearer " + accessToken)
-                        .content(productionStudio))
+                        .content(objectMapper.writeValueAsString(productionStudioRequestDto)))
                 .andDo(print())
                 .andExpect(status().isOk());
 
@@ -36,8 +39,10 @@ public class PutProductionStudioTest extends AbstractTest {
     @Test
     public void updateProductionStudioWithWrongId() throws Exception {
         accessToken = obtainNewAccessToken("admin@mail.ru", "admin", mockMvc);
+        ProductionStudioRequestDto productionStudioRequestDto = new ProductionStudioRequestDto("studioTest", "description1", LocalDate.now());
         mockMvc.perform(put("/api/admin/studios/{id}", 666L)
-                        .header("Authorization", "Bearer " + accessToken))
+                        .header("Authorization", "Bearer " + accessToken)
+                        .content(objectMapper.writeValueAsString(productionStudioRequestDto)))
                 .andExpect(jsonPath("$.text").value("There is no production studio with ID: 666, try again."));
     }
 }
