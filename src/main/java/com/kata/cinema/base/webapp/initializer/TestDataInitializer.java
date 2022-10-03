@@ -3,8 +3,6 @@ package com.kata.cinema.base.webapp.initializer;
 import com.kata.cinema.base.models.entitys.*;
 import com.kata.cinema.base.models.entitys.Collection;
 import com.kata.cinema.base.models.enums.*;
-//import com.kata.cinema.base.models.enums.MPAA;
-//import com.kata.cinema.base.models.enums.RARS;
 
 import com.kata.cinema.base.service.dto.CollectionDtoService;
 import com.kata.cinema.base.service.dto.GenreDtoService;
