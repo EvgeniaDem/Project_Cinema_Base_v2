@@ -3,8 +3,8 @@ package com.kata.cinema.base.webapp.initializer;
 import com.kata.cinema.base.models.entitys.*;
 import com.kata.cinema.base.models.entitys.Collection;
 import com.kata.cinema.base.models.enums.*;
-import com.kata.cinema.base.models.enums.MPAA;
-import com.kata.cinema.base.models.enums.RARS;
+//import com.kata.cinema.base.models.enums.MPAA;
+//import com.kata.cinema.base.models.enums.RARS;
 
 import com.kata.cinema.base.service.dto.CollectionDtoService;
 import com.kata.cinema.base.service.dto.GenreDtoService;
@@ -29,8 +29,8 @@ import java.util.concurrent.ThreadLocalRandom;
 import static com.kata.cinema.base.models.enums.TypeCharacter.*;
 
 /*
-* In order to initialize some data for entity-related tables
-* */
+ * In order to initialize some data for entity-related tables
+ * */
 @Component
 @ConditionalOnExpression("${RUN_INIT:true}")
 public class TestDataInitializer {
@@ -46,10 +46,10 @@ public class TestDataInitializer {
     private final FolderMoviesService folderMoviesService;
     private final RoleService roleService;
 
-    public TestDataInitializer(MovieDtoService movieDtoService, GenreDtoService genreDtoService, CollectionDtoService collectionDtoService, PersonsDtoService personsDtoService, ProfessionService professionService, MoviePersonService moviePersonService, PersonMarriageService personMarriageService) {
-
     public TestDataInitializer(MovieDtoService movieDtoService, GenreDtoService genreDtoService, CollectionDtoService collectionDtoService,
-                               UserService userService, FolderMoviesService folderMoviesService, RoleService roleService) {
+                               PersonsDtoService personsDtoService, ProfessionService professionService,
+                               MoviePersonService moviePersonService, PersonMarriageService personMarriageService, UserService userService,
+                               FolderMoviesService folderMoviesService, RoleService roleService) {
         this.movieDtoService = movieDtoService;
         this.genreDtoService = genreDtoService;
         this.collectionDtoService = collectionDtoService;
@@ -256,7 +256,7 @@ public class TestDataInitializer {
     @Order(6)
     public void FolderMovieInit() {
         List<User> userList = userService.getAll();
-        for (User user: userList) {
+        for (User user : userList) {
             addFolder(user, Category.VIEWED_MOVIES);
             addFolder(user, Category.FAVORITE_MOVIES);
             addFolder(user, Category.WAITING_MOVIES);
@@ -275,7 +275,7 @@ public class TestDataInitializer {
         List<Movie> movieList = movieDtoService.getAll();
         int countMovies = movieList.size();
         Set<Movie> movieSet = new HashSet<>();
-        for (int i = 5; i <= countAddMovies ; i++) {
+        for (int i = 5; i <= countAddMovies; i++) {
             Movie movie = movieList.get(random.nextInt(countMovies));
             movieSet.add(movie);
         }
@@ -283,3 +283,4 @@ public class TestDataInitializer {
         folderMoviesService.create(folderMovie);
     }
 }
+
