@@ -10,22 +10,30 @@ import java.util.*;
 
 @Repository
 public class MoviePersonDaoImpl extends AbstractDaoImpl<Long, MoviePerson> implements MoviePersonDao {
-    //TODO переписать на трансформер
     public Map<Long, List<String>> getTwoMoviePersonMap() {
-        List<Object[]> rows = entityManager.createQuery("select m.id, mp.nameCharacter from MoviePerson mp left join mp.movie m" +
+        Map<Long, List<String>> map = new HashMap<>();
+        entityManager.createQuery("select m.id, mp.nameCharacter from MoviePerson mp left join mp.movie m" +
                         " where mp.type = :type")
                 .setParameter("type", TypeCharacter.MAIN_CHARACTER)
+                .unwrap(org.hibernate.Query.class)
+                .setResultTransformer(new ResultTransformer() {
+                    @Override
+                    public Object transformTuple(Object[] objects, String[] strings) {
+                        Long id = (Long) objects[0];
+                        String actorsName = (String) objects[1];
+                        if (!map.containsKey(id)){
+                            map.put(id,new ArrayList<>());
+                        }
+                        map.get(id).add(actorsName);
+                        return objects;
+                    }
+                    @Override
+                    public List transformList(List list) {
+                        return list;
+                    }
+                })
                 .getResultList();
-        Map<Long, List<String>> moviePersonMap = new HashMap<>();
-        for (Object[] row : rows) {
-            Long key = (Long) row[0];
-            String value = (String) row[1];
-            moviePersonMap.computeIfAbsent(key, k -> new ArrayList<>());
-            if (moviePersonMap.get(key).size() < 2) {
-                moviePersonMap.get(key).add(value);
-            }
-        }
-        return moviePersonMap;
+        return map;
     }
 
     @Override
