@@ -12,8 +12,8 @@ public class ProfessionServiceImpl extends AbstractServiceImpl<Long, Profession>
 
     private final ProfessionDao professionDao;
 
-    public ProfessionServiceImpl(AbstractDao<Long, Profession> abstractDao, ProfessionDao professionDao) {
-        super(abstractDao);
+    public ProfessionServiceImpl(ProfessionDao professionDao) {
+        super(professionDao);
         this.professionDao = professionDao;
     }
 

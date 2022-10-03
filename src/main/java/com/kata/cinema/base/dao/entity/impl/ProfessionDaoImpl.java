@@ -11,8 +11,7 @@ public class ProfessionDaoImpl extends AbstractDaoImpl<Long, Profession> impleme
 
     @Override
     public Profession getByName(String name) {
-        TypedQuery<Profession> query = entityManager.createQuery("select p from Profession p where p.name in (:name)", Profession.class)
-                .setParameter("name",name);
-        return query.getSingleResult();
+        return entityManager.createQuery("select p from Profession p where p.name = (:name)", Profession.class)
+                .setParameter("name",name).getSingleResult();
     }
 }
