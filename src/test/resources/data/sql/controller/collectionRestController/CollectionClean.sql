@@ -1,3 +1,5 @@
+delete from movie_person;
+delete from movie_genre;
 delete from public.collections_movies;
 delete from public.folders_movies_to_movies;
 delete from public.folders_movies;

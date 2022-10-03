@@ -21,12 +21,13 @@ public class MoviePersonDaoImpl extends AbstractDaoImpl<Long, MoviePerson> imple
                     public Object transformTuple(Object[] objects, String[] strings) {
                         Long id = (Long) objects[0];
                         String actorsName = (String) objects[1];
-                        if (!map.containsKey(id)){
-                            map.put(id,new ArrayList<>());
+                        if (!map.containsKey(id)) {
+                            map.put(id, new ArrayList<>());
                         }
                         map.get(id).add(actorsName);
                         return objects;
                     }
+
                     @Override
                     public List transformList(List list) {
                         return list;
