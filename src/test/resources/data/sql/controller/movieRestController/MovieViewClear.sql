@@ -1,0 +1,9 @@
+delete from public.movie_person;
+delete from public.professions;
+delete from public.persons;
+delete from public.movie_genre;
+delete from public.collections_movies;
+delete from public.score;
+delete from public.movies;
+delete from public.genres;
+delete from public.collections;

@@ -2,12 +2,14 @@ package com.kata.cinema.base.webapp.initializer;
 
 import com.kata.cinema.base.models.entitys.*;
 import com.kata.cinema.base.models.entitys.Collection;
+import com.kata.cinema.base.models.enums.*;
 import com.kata.cinema.base.models.enums.MPAA;
 import com.kata.cinema.base.models.enums.RARS;
 
 import com.kata.cinema.base.service.dto.CollectionDtoService;
 import com.kata.cinema.base.service.dto.GenreDtoService;
 import com.kata.cinema.base.service.dto.MovieDtoService;
+import com.kata.cinema.base.service.entity.*;
 import com.kata.cinema.base.service.dto.PersonsDtoService;
 import com.kata.cinema.base.service.entity.MoviePersonService;
 import com.kata.cinema.base.service.entity.PersonMarriageService;
@@ -27,8 +29,8 @@ import java.util.concurrent.ThreadLocalRandom;
 import static com.kata.cinema.base.models.enums.TypeCharacter.*;
 
 /*
- * In order to initialize some data for Movie, Genre, Collection entity-related tables
- * */
+* In order to initialize some data for entity-related tables
+* */
 @Component
 @ConditionalOnExpression("${RUN_INIT:true}")
 public class TestDataInitializer {
@@ -40,8 +42,14 @@ public class TestDataInitializer {
     private final ProfessionService professionService;
     private final MoviePersonService moviePersonService;
     private final PersonMarriageService personMarriageService;
+    private final UserService userService;
+    private final FolderMoviesService folderMoviesService;
+    private final RoleService roleService;
 
     public TestDataInitializer(MovieDtoService movieDtoService, GenreDtoService genreDtoService, CollectionDtoService collectionDtoService, PersonsDtoService personsDtoService, ProfessionService professionService, MoviePersonService moviePersonService, PersonMarriageService personMarriageService) {
+
+    public TestDataInitializer(MovieDtoService movieDtoService, GenreDtoService genreDtoService, CollectionDtoService collectionDtoService,
+                               UserService userService, FolderMoviesService folderMoviesService, RoleService roleService) {
         this.movieDtoService = movieDtoService;
         this.genreDtoService = genreDtoService;
         this.collectionDtoService = collectionDtoService;
@@ -49,6 +57,9 @@ public class TestDataInitializer {
         this.professionService = professionService;
         this.moviePersonService = moviePersonService;
         this.personMarriageService = personMarriageService;
+        this.userService = userService;
+        this.folderMoviesService = folderMoviesService;
+        this.roleService = roleService;
     }
 
 
@@ -189,5 +200,86 @@ public class TestDataInitializer {
             personMarriage.setMarriageStatus(marriageStatus[index]);
             personMarriageService.create(personMarriage);
         }
+    }
+
+    @EventListener(ApplicationReadyEvent.class)
+    @Order(4)
+    public void roleInit() {
+        Role roleAdmin = new Role();
+        roleAdmin.setName(Roles.ADMIN);
+        roleService.create(roleAdmin);
+
+        Role roleUser = new Role();
+        roleUser.setName(Roles.USER);
+        roleService.create(roleUser);
+
+        Role rolePublicist = new Role();
+        rolePublicist.setName(Roles.PUBLICIST);
+        roleService.create(rolePublicist);
+    }
+
+    @EventListener(ApplicationReadyEvent.class)
+    @Order(5)
+    public void userInit() {
+        Role roleAdmin = roleService.getByName(Roles.ADMIN);
+        Role roleUser = roleService.getByName(Roles.USER);
+        Role rolePublicist = roleService.getByName(Roles.PUBLICIST);
+        for (int i = 1; i <= 25; i++) {
+            addUser(i, Set.of(roleUser), "login");
+        }
+        addUser(100, Set.of(roleUser, roleAdmin), "admin");
+        addUser(200, Set.of(roleUser, rolePublicist), "publicist");
+    }
+
+    private void addUser(int i, Set<Role> roles, String login) {
+
+        Random random = new Random();
+        User user = new User();
+        String fullLogin = i < 100 ? login + i : login;
+        String email = i < 100 ? "email " + i + "@mail.ru" : login + "@mail.ru";
+        user.setEmail(email);
+        user.setRoles(roles);
+        user.setFirstName("Имя" + i);
+        user.setLastName("Фамилия" + i);
+        user.setLogin(fullLogin);
+        user.setPassword("password");
+
+        int year = random.nextInt(70, 2010);
+        LocalDate birthday = LocalDate.of(year, 1, 1);
+        user.setBirthday(birthday);
+        user.setAvatarUrl("/uploads/users/avatar/" + i);
+
+        userService.create(user);
+    }
+
+    @EventListener(ApplicationReadyEvent.class)
+    @Order(6)
+    public void FolderMovieInit() {
+        List<User> userList = userService.getAll();
+        for (User user: userList) {
+            addFolder(user, Category.VIEWED_MOVIES);
+            addFolder(user, Category.FAVORITE_MOVIES);
+            addFolder(user, Category.WAITING_MOVIES);
+        }
+    }
+
+    private void addFolder(User user, Category categoryMovies) {
+        Random random = new Random();
+        FolderMovie folderMovie = new FolderMovie();
+        folderMovie.setPrivacy(Privacy.PUBLIC);
+        folderMovie.setName(categoryMovies.getName());
+        folderMovie.setUser(user);
+        folderMovie.setCategory(categoryMovies);
+        folderMovie.setDescription("описание описание описание описание описание описание описание описание ");
+        int countAddMovies = random.nextInt(5, 25);
+        List<Movie> movieList = movieDtoService.getAll();
+        int countMovies = movieList.size();
+        Set<Movie> movieSet = new HashSet<>();
+        for (int i = 5; i <= countAddMovies ; i++) {
+            Movie movie = movieList.get(random.nextInt(countMovies));
+            movieSet.add(movie);
+        }
+        folderMovie.setMovies(movieSet);
+        folderMoviesService.create(folderMovie);
     }
 }

@@ -1,17 +1,22 @@
 package com.kata.cinema.base.webapp.controllers.unauthorized;
 
 import com.kata.cinema.base.exceptions.NotFoundByIdException;
+import com.kata.cinema.base.models.dto.PageDto;
 import com.kata.cinema.base.models.dto.request.CollectionRequestDto;
+import com.kata.cinema.base.models.dto.response.CollectionMoviesResponseDto;
 import com.kata.cinema.base.models.dto.response.CollectionResponseDto;
 import com.kata.cinema.base.models.entitys.Collection;
 import com.kata.cinema.base.models.entitys.Movie;
 import com.kata.cinema.base.models.entitys.User;
 import com.kata.cinema.base.models.enums.CollectionType;
+import com.kata.cinema.base.models.enums.СollectionSortType;
+import com.kata.cinema.base.service.dto.CollectionMoviesResponseDtoService;
 import com.kata.cinema.base.service.dto.CollectionDtoService;
 import com.kata.cinema.base.service.entity.FolderMoviesService;
 import com.kata.cinema.base.service.dto.MovieDtoService;
 import com.kata.cinema.base.service.entity.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -31,16 +36,19 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.time.LocalDate;
+import java.util.*;
+
 
 @RestController
 @RequestMapping("/api/collections")
 @AllArgsConstructor
 public class CollectionRestController {
 
+    private final CollectionMoviesResponseDtoService collectionMoviesResponseDtoService;
+
     private final CollectionDtoService collectionDtoService;
-    private final FolderMoviesService folderMoviesService;
     private final MovieDtoService movieDtoService;
-    private final UserService userService;
 
     @GetMapping
     public ResponseEntity<List<CollectionResponseDto>> getCollectionResponseDto(@RequestParam(defaultValue = "MOVIES") CollectionType type) {
@@ -160,5 +168,22 @@ public class CollectionRestController {
         } else {
             throw new NotFoundByIdException("There is no collection with ID: " + id + " , try again.");
         }
+    }
+
+    @GetMapping("/{id}/movies")
+    public ResponseEntity<PageDto<CollectionMoviesResponseDto>> getCollectionMovies(
+            @RequestParam(required = false) String country,
+            @RequestParam(required = false) String genre,
+            @RequestParam(required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
+            @RequestParam(required = false, defaultValue = "false") Boolean online,
+            @RequestParam(required = false, defaultValue = "ORDER") СollectionSortType collectionSortType, @PathVariable Long id) {
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("country", country);
+        parameters.put("genre", genre);
+        parameters.put("date", date);
+        parameters.put("online", online);
+        parameters.put("collectionSortType", collectionSortType);
+        return ResponseEntity.ok(collectionMoviesResponseDtoService.getPageDtoWithParameters(id, parameters));
     }
 }
