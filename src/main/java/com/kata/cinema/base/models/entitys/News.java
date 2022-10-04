@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -34,6 +35,7 @@ public class News {
 
     @NotNull
     @Lob
+    @Type(type = "org.hibernate.type.TextType")
     private String htmlBody;
 
     @EqualsAndHashCode.Exclude
