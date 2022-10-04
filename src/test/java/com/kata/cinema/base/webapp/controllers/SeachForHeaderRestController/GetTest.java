@@ -1,7 +1,8 @@
-package com.kata.cinema.base.webapp.controllers.seachForHeaderRestController;
+package com.kata.cinema.base.webapp.controllers.SeachForHeaderRestController;
 
 import com.kata.cinema.base.AbstractTest;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.test.context.jdbc.Sql;
 
@@ -20,6 +21,7 @@ public class GetTest extends AbstractTest {
     private static String accessToken;
 
     @Test
+    @Ignore
     public void searchHeader() throws Exception{
         accessToken = obtainNewAccessToken("admin@mail.ru", "admin", mockMvc);
         this.mockMvc.perform(get("/api/search/?filterPattern=t")
