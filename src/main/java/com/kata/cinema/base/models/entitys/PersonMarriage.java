@@ -41,7 +41,7 @@ public class PersonMarriage implements Serializable {
     @JoinColumn(name = "human_id", referencedColumnName = "id")
     private Person human;
 
-    @Column(name = "marriageStatus")
+    @Column(name = "marriage_status")
     private String marriageStatus;
 
     @Override

@@ -15,7 +15,10 @@ create sequence gen_profession start 1 increment 50;
 create sequence gen_role start 1 increment 50;
 create sequence gen_score start 1 increment 50;
 create sequence gen_user start 1 increment 50;
-create sequence person start 1 increment 50;
+create sequence gen_person start 1 increment 50;
+create sequence gen_productions_studios start 1 increment 50;
+create sequence gen_production_studios_movies start 1 increment 50;
+create sequence gen_studios_performance start 1 increment 50;
 
 -- changeset Daniil_Kulikov:1660458159432-18
 CREATE TABLE awards
@@ -33,7 +36,7 @@ CREATE TABLE awards_ceremony
     date_event  VARCHAR(255),
     place_event VARCHAR(255),
     awards_id   BIGINT,
-    CONSTRAINT pk_awardsceremony PRIMARY KEY (id)
+    CONSTRAINT pk_awards_ceremony PRIMARY KEY (id)
 );
 
 -- changeset Daniil_Kulikov:1660458159432-20
@@ -45,7 +48,7 @@ CREATE TABLE awards_ceremony_result
     nomination_id      BIGINT,
     awards_ceremony_id BIGINT,
     nomination_status  VARCHAR(255),
-    CONSTRAINT pk_awardsceremonyresult PRIMARY KEY (id)
+    CONSTRAINT pk_awards_ceremony_result PRIMARY KEY (id)
 );
 
 -- changeset Daniil_Kulikov:1660458159432-21
@@ -256,11 +259,35 @@ CREATE TABLE comments
     id BIGINT not null,
     date timestamp not null,
     text varchar(255),
-    news_id int8 not null,
-    user_id int8 not null,
-    primary key (id)
+    news_id BIGINT not null,
+    user_id BIGINT not null,
+    CONSTRAINT pk_comments primary key (id)
 );
 
+CREATE TABLE studios_performance
+(
+    id   BIGINT,
+    name VARCHAR(255) NOT NULL,
+    CONSTRAINT pk_studios_performance PRIMARY KEY(id)
+);
+
+create table production_studios
+(
+    id              BIGINT,
+    name            VARCHAR(255) NOT NULL,
+    description     VARCHAR(255),
+    date_foundation DATE NOT NULL,
+    CONSTRAINT pk_production_studios PRIMARY KEY(id)
+);
+
+create table production_studios_movies
+(
+    id             BIGINT,
+    movie_id       BIGINT NOT NULL,
+    studio_id      BIGINT NOT NULL,
+    performance_id BIGINT NOT NULL,
+    CONSTRAINT pk_production_studios_movies PRIMARY KEY(id)
+);
 
 -- changeset Daniil_Kulikov:1660458159432-42
 ALTER TABLE persons_marriage
@@ -274,25 +301,28 @@ ALTER TABLE professions
 ALTER TABLE roles
     ADD CONSTRAINT uc_roles_name UNIQUE (name);
 
+ALTER TABLE production_studios_movies
+    ADD CONSTRAINT uc_production_studios_movies UNIQUE (movie_id, studio_id);
+
 -- changeset Daniil_Kulikov:1660458159432-45
 ALTER TABLE awards_ceremony_result
-    ADD CONSTRAINT FK_AWARDSCEREMONYRESULT_ON_AWARDS_CEREMONY FOREIGN KEY (awards_ceremony_id) REFERENCES awards_ceremony (id);
+    ADD CONSTRAINT FK_AWARDS_CEREMONY_RESULT_ON_AWARDS_CEREMONY FOREIGN KEY (awards_ceremony_id) REFERENCES awards_ceremony (id);
 
 -- changeset Daniil_Kulikov:1660458159432-46
 ALTER TABLE awards_ceremony_result
-    ADD CONSTRAINT FK_AWARDSCEREMONYRESULT_ON_MOVIE FOREIGN KEY (movie_id) REFERENCES movies (id);
+    ADD CONSTRAINT FK_AWARDS_CEREMONY_RESULT_ON_MOVIE FOREIGN KEY (movie_id) REFERENCES movies (id);
 
 -- changeset Daniil_Kulikov:1660458159432-47
 ALTER TABLE awards_ceremony_result
-    ADD CONSTRAINT FK_AWARDSCEREMONYRESULT_ON_NOMINATION FOREIGN KEY (nomination_id) REFERENCES nomination (id);
+    ADD CONSTRAINT FK_AWARDS_CEREMONY_RESULT_ON_NOMINATION FOREIGN KEY (nomination_id) REFERENCES nomination (id);
 
 -- changeset Daniil_Kulikov:1660458159432-48
 ALTER TABLE awards_ceremony_result
-    ADD CONSTRAINT FK_AWARDSCEREMONYRESULT_ON_PERSON FOREIGN KEY (person_id) REFERENCES persons (id);
+    ADD CONSTRAINT FK_AWARDS_CEREMONY_RESULT_ON_PERSON FOREIGN KEY (person_id) REFERENCES persons (id);
 
 -- changeset Daniil_Kulikov:1660458159432-49
 ALTER TABLE awards_ceremony
-    ADD CONSTRAINT FK_AWARDSCEREMONY_ON_AWARDS FOREIGN KEY (awards_id) REFERENCES awards (id);
+    ADD CONSTRAINT FK_AWARDS_CEREMONY_ON_AWARDS FOREIGN KEY (awards_id) REFERENCES awards (id);
 
 -- changeset Daniil_Kulikov:1660458159432-50
 ALTER TABLE content
@@ -340,35 +370,35 @@ ALTER TABLE score
 
 -- changeset Daniil_Kulikov:1660458159432-61
 ALTER TABLE collections_movies
-    ADD CONSTRAINT fk_colmov_on_collections FOREIGN KEY (collections_id) REFERENCES collections (id);
+    ADD CONSTRAINT fk_collections_movies_on_collections FOREIGN KEY (collections_id) REFERENCES collections (id);
 
 -- changeset Daniil_Kulikov:1660458159432-62
 ALTER TABLE collections_movies
-    ADD CONSTRAINT fk_colmov_on_movies FOREIGN KEY (movies_id) REFERENCES movies (id);
+    ADD CONSTRAINT fk_collections_movies_on_movies FOREIGN KEY (movies_id) REFERENCES movies (id);
 
 -- changeset Daniil_Kulikov:1660458159432-63
 ALTER TABLE folders_movies_to_movies
-    ADD CONSTRAINT fk_folmovtomov_on_folder_movies FOREIGN KEY (folders_id) REFERENCES folders_movies (id);
+    ADD CONSTRAINT fk_folders_movies_to_movies_on_folder_movies FOREIGN KEY (folders_id) REFERENCES folders_movies (id);
 
 -- changeset Daniil_Kulikov:1660458159432-64
 ALTER TABLE folders_movies_to_movies
-    ADD CONSTRAINT fk_folmovtomov_on_movies FOREIGN KEY (movie_id) REFERENCES movies (id);
+    ADD CONSTRAINT fk_folders_movies_to_movies_on_movies FOREIGN KEY (movie_id) REFERENCES movies (id);
 
 -- changeset Daniil_Kulikov:1660458159432-65
 ALTER TABLE movie_genre
-    ADD CONSTRAINT fk_movgen_on_genres FOREIGN KEY (genre_id) REFERENCES genres (id);
+    ADD CONSTRAINT fk_movie_genre_on_genres FOREIGN KEY (genre_id) REFERENCES genres (id);
 
 -- changeset Daniil_Kulikov:1660458159432-66
 ALTER TABLE movie_genre
-    ADD CONSTRAINT fk_movgen_on_movies FOREIGN KEY (movie_id) REFERENCES movies (id);
+    ADD CONSTRAINT fk_movie_genre_on_movies FOREIGN KEY (movie_id) REFERENCES movies (id);
 
 -- changeset Daniil_Kulikov:1660458159432-67
 ALTER TABLE news_movie
-    ADD CONSTRAINT fk_newmov_on_movies FOREIGN KEY (movie_id) REFERENCES movies (id);
+    ADD CONSTRAINT fk_news_movie_on_movies FOREIGN KEY (movie_id) REFERENCES movies (id);
 
 -- changeset Daniil_Kulikov:1660458159432-68
 ALTER TABLE news_movie
-    ADD CONSTRAINT fk_newmov_on_news FOREIGN KEY (news_id) REFERENCES news (id);
+    ADD CONSTRAINT fk_news_movie_on_news FOREIGN KEY (news_id) REFERENCES news (id);
 
 -- changeset Daniil_Kulikov:1660458159432-69
 ALTER TABLE user_role
@@ -378,13 +408,18 @@ ALTER TABLE user_role
 ALTER TABLE user_role
     ADD CONSTRAINT fk_user_role_on_user FOREIGN KEY (user_id) REFERENCES users (id);
 
-alter table if exists comments
-    add constraint FKqx89vg0vuof2ninmn5x5eqau2
-    foreign key (news_id)
-    references news;
+ALTER TABLE production_studios_movies
+    ADD CONSTRAINT fk_production_studios_movies_on_production_studios FOREIGN KEY (studio_id) REFERENCES production_studios (id);
 
-alter table if exists comments
-    add constraint FK8omq0tc18jd43bu5tjh6jvraq
-    foreign key (user_id)
-    references users;
+ALTER TABLE production_studios_movies
+    ADD CONSTRAINT fk_production_studios_movies_on_studios_performance FOREIGN KEY (performance_id) REFERENCES studios_performance (id);
+
+ALTER TABLE production_studios_movies
+    ADD CONSTRAINT fk_production_studios_movies_on_movies FOREIGN KEY (movie_id) REFERENCES movies (id);
+
+ALTER TABLE comments
+    ADD CONSTRAINT fk_comments_on_news FOREIGN KEY (news_id) REFERENCES news (id);
+
+ALTER TABLE comments
+    ADD CONSTRAINT fk_comments_on_news FOREIGN KEY (user_id) REFERENCES users (id);
 

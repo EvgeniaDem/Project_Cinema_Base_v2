@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -23,17 +24,19 @@ public class Person {
 
     @Id
     @SequenceGenerator(name = "gen_person")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "person")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen_person")
     private Long id;
 
     @NotNull
+    @Column(name = "first_name")
     private String firstName;
 
+    @Column(name = "last_name")
     private String lastName;
 
     private Double height;
 
-    private Date birthday;
+    private LocalDate birthday;
 
     @Column(name = "place_birthday")
     private String placeBirthday;
