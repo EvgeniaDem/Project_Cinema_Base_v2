@@ -1,9 +1,11 @@
 delete from public.movie_person;
 delete from public.folders_movies_to_movies;
 delete from public.movie_genre;
+delete from public.persons_marriage;
 delete from public.persons;
 delete from public.score;
 delete from public.user_role;
+delete from public.collections_movies;
 delete from public.movies;
 delete from public.genres;
 delete from public.roles;
