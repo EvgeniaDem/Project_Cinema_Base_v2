@@ -5,7 +5,6 @@ import com.kata.cinema.base.models.enums.Rubric;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import javax.persistence.Lob;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
@@ -22,7 +21,6 @@ public class NewsBodyResponseDto {
 
     private String title;
 
-    @Lob
     private String htmlBody;
 
     private Rubric rubric;
