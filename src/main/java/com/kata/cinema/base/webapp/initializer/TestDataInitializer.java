@@ -9,6 +9,10 @@ import com.kata.cinema.base.service.dto.GenreDtoService;
 import com.kata.cinema.base.service.dto.MovieDtoService;
 import com.kata.cinema.base.service.dto.NewsDtoService;
 import com.kata.cinema.base.service.entity.*;
+import com.kata.cinema.base.service.dto.PersonsDtoService;
+import com.kata.cinema.base.service.entity.MoviePersonService;
+import com.kata.cinema.base.service.entity.PersonMarriageService;
+import com.kata.cinema.base.service.entity.ProfessionService;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.context.event.*;
 import org.springframework.context.event.EventListener;
@@ -23,16 +27,22 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicLong;
 
+import static com.kata.cinema.base.models.enums.TypeCharacter.*;
+
 /*
-* In order to initialize some data for entity-related tables
-* */
+ * In order to initialize some data for entity-related tables
+ * */
 @Component
-@ConditionalOnExpression("${RUN_INIT:false}")
+@ConditionalOnExpression("${RUN_INIT:true}")
 public class TestDataInitializer {
 
     private final MovieDtoService movieDtoService;
     private final GenreDtoService genreDtoService;
     private final CollectionDtoService collectionDtoService;
+    private final PersonsDtoService personsDtoService;
+    private final ProfessionService professionService;
+    private final MoviePersonService moviePersonService;
+    private final PersonMarriageService personMarriageService;
     private final UserService userService;
     private final FolderMoviesService folderMoviesService;
     private final RoleService roleService;
@@ -40,12 +50,17 @@ public class TestDataInitializer {
     private final NewsDtoService newsDtoService;
     private final ReviewService reviewService;
 
-
     public TestDataInitializer(MovieDtoService movieDtoService, GenreDtoService genreDtoService, CollectionDtoService collectionDtoService,
-                               UserService userService, FolderMoviesService folderMoviesService, RoleService roleService, ScoreService scoreService, NewsDtoService newsDtoService, ReviewService reviewService) {
+                               PersonsDtoService personsDtoService, ProfessionService professionService,
+                               MoviePersonService moviePersonService, PersonMarriageService personMarriageService, UserService userService,
+                               FolderMoviesService folderMoviesService, RoleService roleService) {
         this.movieDtoService = movieDtoService;
         this.genreDtoService = genreDtoService;
         this.collectionDtoService = collectionDtoService;
+        this.personsDtoService = personsDtoService;
+        this.professionService = professionService;
+        this.moviePersonService = moviePersonService;
+        this.personMarriageService = personMarriageService;
         this.userService = userService;
         this.folderMoviesService = folderMoviesService;
         this.roleService = roleService;
@@ -53,6 +68,7 @@ public class TestDataInitializer {
         this.newsDtoService = newsDtoService;
         this.reviewService = reviewService;
     }
+
 
     @EventListener(ApplicationReadyEvent.class)
     @Order(2)
@@ -66,9 +82,9 @@ public class TestDataInitializer {
                             LocalDate.now().toEpochDay())));
             movie.setTime(ThreadLocalRandom.current().nextInt(100, 181));
             movie.setDescription("описание фильма описание фильма описание фильма описание фильма описание фильма описание фильма описание фильма\n" +
-                            "описание фильма описание фильма описание фильма описание фильма описание фильма описание фильма описание фильма\n" +
-                            "описание фильма описание фильма описание фильма описание фильма описание фильма описание фильма описание фильма\n" +
-                            "описание фильма описание фильма описание фильма описание фильма описание фильма описание фильма описание фильма");
+                    "описание фильма описание фильма описание фильма описание фильма описание фильма описание фильма описание фильма\n" +
+                    "описание фильма описание фильма описание фильма описание фильма описание фильма описание фильма описание фильма\n" +
+                    "описание фильма описание фильма описание фильма описание фильма описание фильма описание фильма описание фильма");
 
             List<MPAA> mpaaList = Arrays.asList(MPAA.values());
             movie.setMpaa(mpaaList.get(new SecureRandom().nextInt(mpaaList.size())));
@@ -168,7 +184,7 @@ public class TestDataInitializer {
     @Async
     public void FolderMovieInit() {
         List<User> userList = userService.getAll();
-        for (User user: userList) {
+        for (User user : userList) {
             addFolder(user, Category.VIEWED_MOVIES);
             addFolder(user, Category.FAVORITE_MOVIES);
             addFolder(user, Category.WAITING_MOVIES);
@@ -187,7 +203,7 @@ public class TestDataInitializer {
         List<Movie> movieList = movieDtoService.getAll();
         int countMovies = movieList.size();
         Set<Movie> movieSet = new HashSet<>();
-        for (int i = 5; i <= countAddMovies ; i++) {
+        for (int i = 5; i <= countAddMovies; i++) {
             Movie movie = movieList.get(random.nextInt(countMovies));
             movieSet.add(movie);
         }
@@ -257,3 +273,4 @@ public class TestDataInitializer {
         });
     }
 }
+
