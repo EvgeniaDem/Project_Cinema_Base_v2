@@ -25,7 +25,6 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.atomic.AtomicLong;
 
 import static com.kata.cinema.base.models.enums.TypeCharacter.*;
 
@@ -50,14 +49,7 @@ public class TestDataInitializer {
     private final NewsDtoService newsDtoService;
     private final ReviewService reviewService;
 
-    public TestDataInitializer(MovieDtoService movieDtoService, GenreDtoService genreDtoService, CollectionDtoService collectionDtoService,
-<<<<<<<<< Temporary merge branch 1
-                               PersonsDtoService personsDtoService, ProfessionService professionService,
-                               MoviePersonService moviePersonService, PersonMarriageService personMarriageService, UserService userService,
-                               FolderMoviesService folderMoviesService, RoleService roleService) {
-=========
-                               UserService userService, FolderMoviesService folderMoviesService, RoleService roleService, ScoreService scoreService, NewsDtoService newsDtoService, ReviewService reviewService) {
->>>>>>>>> Temporary merge branch 2
+    public TestDataInitializer(MovieDtoService movieDtoService, GenreDtoService genreDtoService, CollectionDtoService collectionDtoService, PersonsDtoService personsDtoService, ProfessionService professionService, MoviePersonService moviePersonService, PersonMarriageService personMarriageService, UserService userService, FolderMoviesService folderMoviesService, RoleService roleService, ScoreService scoreService, NewsDtoService newsDtoService, ReviewService reviewService) {
         this.movieDtoService = movieDtoService;
         this.genreDtoService = genreDtoService;
         this.collectionDtoService = collectionDtoService;
@@ -72,7 +64,6 @@ public class TestDataInitializer {
         this.newsDtoService = newsDtoService;
         this.reviewService = reviewService;
     }
-
 
     @EventListener(ApplicationReadyEvent.class)
     @Order(2)
@@ -132,8 +123,8 @@ public class TestDataInitializer {
     }
 
     @EventListener(ApplicationReadyEvent.class)
-<<<<<<<<< Temporary merge branch 1
-    @Order(4)
+    @Order(1)
+    @Async
     public void personInit() {
         for (int i = 1; i <= 50; i++) {
             Person person = new Person();
@@ -157,7 +148,8 @@ public class TestDataInitializer {
     }
 
     @EventListener(ApplicationReadyEvent.class)
-    @Order(5)
+    @Order(1)
+    @Async
     public void professionInit() {
         String[] professions = {"Режиссер", "Сценарист", "Продюсер", "Оператор", "Композитор", "Художник", "Монтажер", "Костюмер", "Гримёр", "Актер"};
         for (int i = 0; i < 10; i++) {
@@ -168,7 +160,8 @@ public class TestDataInitializer {
     }
 
     @EventListener(ApplicationReadyEvent.class)
-    @Order(6)
+    @Order(3)
+    @Async
     public void moviePersonInit() {
         List<Movie> movieList = new ArrayList<>(movieDtoService.getAll());
         for (Movie movie : movieList) {
@@ -204,7 +197,8 @@ public class TestDataInitializer {
     }
 
     @EventListener(ApplicationReadyEvent.class)
-    @Order(7)
+    @Order(2)
+    @Async
     public void personMarriageInit() {
         for (int i = 1; i <= 50; i = i + 2) {
             PersonMarriage personMarriage = new PersonMarriage();
@@ -218,11 +212,8 @@ public class TestDataInitializer {
     }
 
     @EventListener(ApplicationReadyEvent.class)
-    @Order(4)
-=========
     @Order(1)
     @Async
->>>>>>>>> Temporary merge branch 2
     public void roleInit() {
         Role roleAdmin = new Role();
         roleAdmin.setName(Roles.ADMIN);
