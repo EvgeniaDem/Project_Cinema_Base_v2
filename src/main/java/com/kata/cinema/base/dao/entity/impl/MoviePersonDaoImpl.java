@@ -53,7 +53,7 @@ public class MoviePersonDaoImpl extends AbstractDaoImpl<Long, MoviePerson> imple
     public Map<Long, List<String>> getMovieDirectorMap() {
         Map<Long, List<String>> map = new HashMap<>();
         entityManager.createQuery("select m.id, concat(p.firstName, ' ', p.lastName) from MoviePerson mp " +
-                        "join mp.movie m join mp.professions pr join mp.person p where pr.name = 'режиссер'")
+                        "join mp.movie m join mp.professions pr join mp.person p where pr.name = 'director'")
                 .unwrap(org.hibernate.query.Query.class)
                 .setResultTransformer(getResultTransformer(map))
                 .getResultList();

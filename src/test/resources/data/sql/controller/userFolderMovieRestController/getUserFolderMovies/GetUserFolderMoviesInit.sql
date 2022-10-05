@@ -15,7 +15,7 @@ delete from public.professions;
 
 -- users init
 INSERT INTO public.users (id, avatar_url, birthday, email, first_name, last_name, login, password)
-VALUES (1, null, '2022-08-14', 'user1@mail.ru', 'user1', 'userovich1', 'login1', '$2a$12$OTo8SK1tSvjesAle6fsjlOTAjYOUpoKlokSilZdIjyw59imKe2Yie'); -- password == 101
+VALUES (1, null, '2022-08-14', 'user1@mail.ru', 'user1', 'userovich1', 'login1', '$2a$12$LxXLdibZ7FKwP/ukWEJ3Me/uMmymL6V1igL9utV2tGL8CBw/ENfcC'); -- password == 101
 INSERT INTO public.users (id, avatar_url, birthday, email, first_name, last_name, login, password)
 VALUES (2, null, '2022-08-15', 'user2@mail.ru', 'user2', 'userovich2', 'login2', '$2a$12$eJQNiWAf01OGGrzY4dYMludZGSZG06myrpsjH0P3SzH7IRbO624h6'); -- password == 102
 INSERT INTO public.users (id, avatar_url, birthday, email, first_name, last_name, login, password)
@@ -23,7 +23,7 @@ VALUES (3, null, '2022-08-11', 'user3@mail.ru', 'user3', 'userovich3', 'login3',
 
 -- roles init
 INSERT INTO public.roles(id, name)
-VALUES (1, 'ADMIN');
+VALUES (1, 'USER');
 
 -- user_role init
 INSERT INTO public.user_role(user_id, role_id)
@@ -95,13 +95,13 @@ VALUES (11, 'Документальное');
 
 -- professions init
 INSERT INTO public.professions (id, name)
-VALUES (1, 'режиссер');
+VALUES (1, 'director');
 INSERT INTO public.professions (id, name)
-VALUES (2, 'редактор');
+VALUES (2, 'editor');
 INSERT INTO public.professions (id, name)
-VALUES (3, 'писатель');
+VALUES (3, 'writer');
 INSERT INTO public.professions (id, name)
-VALUES (4, 'актер');
+VALUES (4, 'actor');
 
 --persons init
 INSERT INTO public.persons (id, birthday, first_name, height, last_name, place_birthday, original_last_name, original_name, photo_url)
