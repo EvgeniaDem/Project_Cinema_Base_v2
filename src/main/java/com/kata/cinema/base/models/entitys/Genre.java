@@ -7,19 +7,9 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -32,9 +22,9 @@ public class Genre {
     @Id
     @SequenceGenerator(name = "gen_genres")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen_genres")
-    @Column(name = "id", nullable = false)
     private Long id;
 
+    @NotNull
     @Column(name = "name")
     private String name;
 
