@@ -37,7 +37,7 @@ public class CommentsResponseDtoPaginationDaoImpl extends AbstractDaoImpl<Long, 
                                 tuple[2] == null ? null : ((BigInteger) tuple[2]).longValue(),
                                 tuple[3] == null ? null : (Integer) tuple[3],
                                 ((Timestamp) tuple[4]).toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
-                                tuple[5] == null ? null : ((BigInteger) tuple[5]).intValue(),
+                                tuple[5] == null ? 0 : ((BigInteger) tuple[5]).intValue(),
                                 ucd);
                     }
 
