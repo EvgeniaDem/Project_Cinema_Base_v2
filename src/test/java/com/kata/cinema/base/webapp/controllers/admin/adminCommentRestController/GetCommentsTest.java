@@ -81,7 +81,7 @@ public class GetCommentsTest extends AbstractTest {
                 .andExpect(jsonPath("$.entities.[2].user.id").value(1L))
                 .andExpect(jsonPath("$.entities.[2].user.login").value("login1"))
                 .andExpect(jsonPath("$.entities.[2].user.avatarUrl").value("url1"))
-                .andExpect(jsonPath("$.entities.[3].id").value(3L))
+                .andExpect(jsonPath("$.entities.[3].id").value(4L))
                 .andExpect(jsonPath("$.entities.[3].message").value("test4"))
                 .andExpect(jsonPath("$.entities.[3].parentId").value(101L))
                 .andExpect(jsonPath("$.entities.[3].level").value(101))
