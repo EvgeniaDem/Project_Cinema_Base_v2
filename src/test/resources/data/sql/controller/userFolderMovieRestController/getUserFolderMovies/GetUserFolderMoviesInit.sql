@@ -95,13 +95,13 @@ VALUES (11, 'Документальное');
 
 -- professions init
 INSERT INTO public.professions (id, name)
-VALUES (1, 'director');
+VALUES (1, 'режиссер');
 INSERT INTO public.professions (id, name)
-VALUES (2, 'editor');
+VALUES (2, 'редактор');
 INSERT INTO public.professions (id, name)
-VALUES (3, 'writer');
+VALUES (3, 'писатель');
 INSERT INTO public.professions (id, name)
-VALUES (4, 'actor');
+VALUES (4, 'актер');
 
 --persons init
 INSERT INTO public.persons (id, birthday, first_name, height, last_name, place_birthday, original_last_name, original_name, photo_url)
