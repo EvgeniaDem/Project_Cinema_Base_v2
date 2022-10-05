@@ -16,5 +16,5 @@ VALUES (1, 1);
 INSERT INTO news (id, rubric, date, title, html_body, user_id)
 VALUES (1, 'NEWS', '2022-10-03', 'title1', 'html_body1', 1);
 
-INSERT INTO comments (id, date, news_id, user_id, level, message, parent_id, is_moderate)
-VALUES (1, '2022-10-03 18:18:02.000000', 1, 1, 101, 'test1', 101, false);
+INSERT INTO comments (id, date, news_id, user_id, level, message, parent_id)
+VALUES (1, '2022-10-03 18:18:02.000000', 1, 1, 101, 'test1', 101);

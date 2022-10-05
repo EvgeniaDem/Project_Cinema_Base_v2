@@ -17,22 +17,20 @@ VALUES (1, 1);
 INSERT INTO news (id, rubric, date, title, html_body, user_id)
 VALUES (1, 'NEWS', '2022-10-03', 'title1', 'html_body1', 1);
 
-INSERT INTO comments (id, date, news_id, user_id, level, message, parent_id, is_moderate)
-VALUES (1, '2022-10-03 18:01:02.000000', 1, 1, 101, 'test1', 101, false);
-INSERT INTO comments (id, date, news_id, user_id, level, message, parent_id, is_moderate)
-VALUES (2, '2021-10-03 18:02:02.000000', 1, 1, 101, 'test2', 101, false);
-INSERT INTO comments (id, date, news_id, user_id, level, message, parent_id, is_moderate)
-VALUES (3, '2020-10-03 18:03:02.000000', 1, 1, 101, 'test3', 101, false);
-INSERT INTO comments (id, date, news_id, user_id, level, message, parent_id, is_moderate)
-VALUES (4, '2019-10-03 18:04:02.000000', 1, 1, 101, 'test4', 101, false);
-INSERT INTO comments (id, date, news_id, user_id, level, message, parent_id, is_moderate)
-VALUES (5, '2018-10-03 18:05:02.000000', 1, 1, 101, 'test5', 101, false);
-INSERT INTO comments (id, date, news_id, user_id, level, message, parent_id, is_moderate)
-VALUES (6, '2017-10-03 18:06:02.000000', 1, 1, 101, 'test6', 101, false);
-INSERT INTO comments (id, date, news_id, user_id, level, message, parent_id, is_moderate)
-VALUES (7, '2016-10-03 18:07:02.000000', 1, 1, 101, 'test7', 101, false);
-INSERT INTO comments (id, date, news_id, user_id, level, message, parent_id, is_moderate)
-VALUES (8, '2015-10-03 18:07:02.000000', 1, 1, 101, 'test8', 101, true);
+INSERT INTO comments (id, date, news_id, user_id, level, message, parent_id)
+VALUES (1, '2022-10-03 18:01:02.000000', 1, 1, 101, 'test1', 101);
+INSERT INTO comments (id, date, news_id, user_id, level, message, parent_id)
+VALUES (2, '2021-10-03 18:02:02.000000', 1, 1, 101, 'test2', 101);
+INSERT INTO comments (id, date, news_id, user_id, level, message, parent_id)
+VALUES (3, '2020-10-03 18:03:02.000000', 1, 1, 101, 'test3', 101);
+INSERT INTO comments (id, date, news_id, user_id, level, message, parent_id)
+VALUES (4, '2019-10-03 18:04:02.000000', 1, 1, 101, 'test4', 101);
+INSERT INTO comments (id, date, news_id, user_id, level, message, parent_id)
+VALUES (5, '2018-10-03 18:05:02.000000', 1, 1, 101, 'test5', 101);
+INSERT INTO comments (id, date, news_id, user_id, level, message, parent_id)
+VALUES (6, '2017-10-03 18:06:02.000000', 1, 1, 101, 'test6', 101);
+INSERT INTO comments (id, date, news_id, user_id, level, message, parent_id)
+VALUES (7, '2016-10-03 18:07:02.000000', 1, 1, 101, 'test7', 101);
 
 INSERT INTO rating_comment (id, rating, comment_id, user_id)
 VALUES (1, 1, 1, 1);

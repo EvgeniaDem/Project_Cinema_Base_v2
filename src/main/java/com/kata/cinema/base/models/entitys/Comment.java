@@ -29,7 +29,6 @@ public class Comment {
     @NotNull
     private LocalDateTime date;
 
-    @NotNull
     @Column(name = "is_moderate")
     private Boolean isModerate = false;
 
