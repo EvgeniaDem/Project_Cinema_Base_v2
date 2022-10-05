@@ -19,7 +19,7 @@ public class DeleteCommentsTest extends AbstractTest {
     private static String accessToken;
 
     @Test
-    public void deleteProductionStudio() throws Exception {
+    public void deleteComments() throws Exception {
         accessToken = obtainNewAccessToken("admin@mail.ru", "admin", mockMvc);
         mockMvc.perform(delete("/api/admin/comments/{id}", 1L)
                         .header("Authorization", "Bearer " + accessToken))
@@ -31,7 +31,7 @@ public class DeleteCommentsTest extends AbstractTest {
     }
 
     @Test
-    public void deleteProductionStudioWithWrongId() throws Exception {
+    public void deleteCommentsWithWrongId() throws Exception {
         accessToken = obtainNewAccessToken("admin@mail.ru", "admin", mockMvc);
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/admin/comments/{id}", 666L)
                         .header("Authorization", "Bearer " + accessToken))
