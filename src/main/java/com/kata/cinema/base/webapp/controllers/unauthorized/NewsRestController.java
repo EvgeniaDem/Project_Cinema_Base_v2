@@ -1,23 +1,27 @@
 package com.kata.cinema.base.webapp.controllers.unauthorized;
 
 import com.kata.cinema.base.exceptions.NotFoundByIdException;
+import com.kata.cinema.base.models.dto.PageDto;
 import com.kata.cinema.base.models.dto.response.CommentsResponseDto;
 import com.kata.cinema.base.models.dto.response.NewsBodyResponseDto;
+import com.kata.cinema.base.models.dto.response.NewsResponseDto;
 import com.kata.cinema.base.models.dto.response.NewsTitleResponseDto;
+import com.kata.cinema.base.models.enums.Rubric;
 import com.kata.cinema.base.service.dto.CommentDtoService;
 import com.kata.cinema.base.service.dto.NewsDtoService;
+import com.kata.cinema.base.service.dto.NewsResponseDtoPaginationService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/news")
@@ -25,10 +29,14 @@ import java.util.List;
 public class NewsRestController {
     private final CommentDtoService commentDtoService;
     private final NewsDtoService newsDtoService;
+    private final NewsResponseDtoPaginationService newsResponseDtoPaginationService;
 
-    public NewsRestController(CommentDtoService commentDtoService, NewsDtoService newsDtoService) {
+    public NewsRestController(CommentDtoService commentDtoService,
+                              NewsDtoService newsDtoService,
+                              @Qualifier("forNewsController") NewsResponseDtoPaginationService newsResponseDtoPaginationService) {
         this.commentDtoService = commentDtoService;
         this.newsDtoService = newsDtoService;
+        this.newsResponseDtoPaginationService = newsResponseDtoPaginationService;
     }
 
     @GetMapping("/latest")
@@ -57,5 +65,20 @@ public class NewsRestController {
             throw new NotFoundByIdException("News with id: " + id + " does not exist, try looking for another");
         }
         return new ResponseEntity<>(newsDtoService.getByIdNewsBodyPageInfo(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/page/{pageNumber}")
+    @ApiResponses(value = {
+            @ApiResponse(code = 404, message = "Страница отсутствует или не существует указанных элементов"),
+            @ApiResponse(code = 403, message = "Недостаточно прав доступа"),
+            @ApiResponse(code = 401, message = "Проблема с аутентификацией или авторизацией"),
+            @ApiResponse(code = 200, message = "Страница успешно найдена")
+    })
+    public ResponseEntity<PageDto<NewsResponseDto>> getPageOfNews(@PathVariable Integer pageNumber,
+                                                                  @RequestParam(required = false, defaultValue = "10") Integer itemsOnPage,
+                                                                  @RequestParam(required = false, defaultValue = "NEWS") Rubric rubric) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("rubric", rubric);
+        return ResponseEntity.ok(newsResponseDtoPaginationService.getPageDtoWithParameters(pageNumber, itemsOnPage, params));
     }
 }

@@ -23,4 +23,6 @@ public class NewsResponseDto {
 
     private String title;
     private String description;
+    private String previewUrl;
+    private Integer countComment;
 }
