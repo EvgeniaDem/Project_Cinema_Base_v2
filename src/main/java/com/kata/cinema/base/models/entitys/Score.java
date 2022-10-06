@@ -3,16 +3,7 @@ package com.kata.cinema.base.models.entitys;
 import lombok.*;
 import org.hibernate.Hibernate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -20,7 +11,7 @@ import java.util.Objects;
 @Setter
 @ToString
 @RequiredArgsConstructor
-@Table(name = "score")
+@Table(name = "score", uniqueConstraints = @UniqueConstraint(columnNames = {"movie_id", "user_id"}))
 public class Score {
     @Id
     @SequenceGenerator(name = "gen_score")
