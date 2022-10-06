@@ -15,8 +15,18 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class CommentsRequestDto {
     @NotBlank
-    private String text;
+    private String message;
+
+    private Long parentId;
+
+    private Integer level;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy HH:mm")
     private LocalDateTime localDateTime;
+
+    public CommentsRequestDto(String message, Long parentId, Integer level) {
+        this.message = message;
+        this.parentId = parentId;
+        this.level = level;
+    }
 }

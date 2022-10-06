@@ -12,6 +12,7 @@ delete from collections;
 delete from users;
 delete from genres;
 delete from professions;
+delete from persons_marriage;
 delete from persons;
 
 
