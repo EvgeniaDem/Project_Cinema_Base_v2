@@ -3,7 +3,7 @@ package com.kata.cinema.base.webapp.controllers.user.userNewsRestController;
 import com.kata.cinema.base.AbstractTest;
 import com.kata.cinema.base.models.dto.request.CommentsRequestDto;
 import org.junit.Assert;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.test.context.jdbc.Sql;
 
 import static com.kata.cinema.base.webapp.util.IntegrationTestingAccessTokenUtil.obtainNewAccessToken;
