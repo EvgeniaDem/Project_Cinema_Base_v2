@@ -27,6 +27,7 @@ public class ReviewRestControllerTest extends AbstractTest {
                 .andExpect(jsonPath("$.entities[0].description", Is.is("description123")))
                 .andExpect(jsonPath("$.entities[0].fullName", Is.is("test_firstname test_lastname")))
                 .andExpect(jsonPath("$.entities[0].date", Is.is("09.08.2022")));
+
     }
 
     @Test
