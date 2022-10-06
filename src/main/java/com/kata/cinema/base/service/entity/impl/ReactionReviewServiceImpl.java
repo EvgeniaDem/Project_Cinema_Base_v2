@@ -25,7 +25,7 @@ public class ReactionReviewServiceImpl extends AbstractServiceImpl<Long, Review>
     public void getRatingForReview(Long id, TypeRating typeRating) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<ReactionReview> reactionReviewList = reactionReviewDao.getReactionReview(id);
-        for (int i = 1; i < reactionReviewList.size(); i++) {
+        for (int i = 0; i < reactionReviewList.size(); i++) {
             ReactionReview reactionReview = reactionReviewList.get(i);
             if (reactionReviewList.get(i).getId() != user.getId()) {
                 reactionReview.setRating(typeRating);

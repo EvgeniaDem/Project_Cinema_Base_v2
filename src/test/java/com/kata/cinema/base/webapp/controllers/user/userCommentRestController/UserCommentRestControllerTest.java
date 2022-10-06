@@ -19,7 +19,7 @@ public class UserCommentRestControllerTest extends AbstractTest {
     @Test
     public void addReaction() throws Exception {
         accessToken = obtainNewAccessToken("user@mail.ru", "user", mockMvc);
-        mockMvc.perform(patch("/api/user/comment/{id}?typeRating={reaction}", 200L, TypeRating.like)
+        mockMvc.perform(patch("/api/user/comment/{id}?typeRating={reaction}", 200L, TypeRating.LIKE)
                         .contentType("application/json")
                         .header("Authorization", "Bearer " + accessToken)
                 ).andDo(print())
@@ -29,7 +29,7 @@ public class UserCommentRestControllerTest extends AbstractTest {
     @Test
     public void updateReaction() throws Exception {
         accessToken = obtainNewAccessToken("user@mail.ru", "user", mockMvc);
-        mockMvc.perform(patch("/api/user/comment/{id}?typeRating={reaction}", 300L, TypeRating.like)
+        mockMvc.perform(patch("/api/user/comment/{id}?typeRating={reaction}", 300L, TypeRating.LIKE)
                         .contentType("application/json")
                         .header("Authorization", "Bearer " + accessToken)
                 ).andDo(print())
