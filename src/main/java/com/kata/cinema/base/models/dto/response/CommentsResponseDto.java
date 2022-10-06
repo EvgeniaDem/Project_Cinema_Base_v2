@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -23,14 +23,14 @@ public class CommentsResponseDto {
 
     private Integer level;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
-    private LocalDate date;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy HH:mm")
+    private LocalDateTime date;
 
     private Integer rating;
 
     private UserCommentDto user;
 
-    public CommentsResponseDto(Long id, String message, Long parentId, Integer level, LocalDate date, Integer rating,
+    public CommentsResponseDto(Long id, String message, Long parentId, Integer level, LocalDateTime date, Integer rating,
                                Long idUser, String login, String avatarUrl) {
         this.id = id;
         this.message = message;

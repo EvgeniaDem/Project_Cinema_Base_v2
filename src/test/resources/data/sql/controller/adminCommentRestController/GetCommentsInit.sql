@@ -22,13 +22,13 @@ VALUES (1, '2022-10-03 18:01:02.000000', 1, 1, 101, 'test1', 101, false);
 INSERT INTO comments (id, date, news_id, user_id, level, message, parent_id, is_moderate)
 VALUES (2, '2021-10-03 18:02:02.000000', 1, 1, 101, 'test2', 101, false);
 INSERT INTO comments (id, date, news_id, user_id, level, message, parent_id, is_moderate)
-VALUES (3, '2020-10-03 18:03:02.000000', 1, 1, 101, 'test3', 101, false);
+VALUES (3, '2020-10-03 18:03:02.000000', 1, 1, null, 'test3', null, false);
 INSERT INTO comments (id, date, news_id, user_id, level, message, parent_id, is_moderate)
 VALUES (4, '2019-10-03 18:04:02.000000', 1, 1, 101, 'test4', 101, false);
 INSERT INTO comments (id, date, news_id, user_id, level, message, parent_id, is_moderate)
 VALUES (5, '2018-10-03 18:05:02.000000', 1, 1, 101, 'test5', 101, false);
 INSERT INTO comments (id, date, news_id, user_id, level, message, parent_id, is_moderate)
-VALUES (6, '2017-10-03 18:06:02.000000', 1, 1, 101, 'test6', 101, false);
+VALUES (6, '2017-10-03 18:06:02.000000', 1, 1, null, 'test6', null, false);
 INSERT INTO comments (id, date, news_id, user_id, level, message, parent_id, is_moderate)
 VALUES (7, '2016-10-03 18:07:02.000000', 1, 1, 101, 'test7', 101, false);
 INSERT INTO comments (id, date, news_id, user_id, level, message, parent_id, is_moderate)

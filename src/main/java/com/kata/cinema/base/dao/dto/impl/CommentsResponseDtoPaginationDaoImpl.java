@@ -5,13 +5,13 @@ import com.kata.cinema.base.dao.entity.impl.AbstractDaoImpl;
 import com.kata.cinema.base.models.dto.UserCommentDto;
 import com.kata.cinema.base.models.dto.response.CommentsResponseDto;
 import com.kata.cinema.base.models.entitys.Comment;
+import liquibase.pro.packaged.L;
 import org.hibernate.query.Query;
 import org.hibernate.transform.ResultTransformer;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigInteger;
-import java.sql.Timestamp;
-import java.time.ZoneId;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -19,26 +19,31 @@ import java.util.Map;
 public class CommentsResponseDtoPaginationDaoImpl extends AbstractDaoImpl<Long, Comment> implements CommentsResponseDtoPaginationDao {
 
     @Override
-    @SuppressWarnings(value = "unchecked")
+    @SuppressWarnings("unchecked")
     public List<CommentsResponseDto> getItemsDto(Integer currentPage, Integer itemsOnPage, Map<String, Object> parameters) {
-        return entityManager.createNativeQuery("select " +
-                        "com.id , com.message, com.parent_id, com.level, com.date, sum(rc.rating), com.user_id " +
-                        "from comments com left outer join rating_comment rc on com.id=rc.comment_id " +
-                        "where com.is_moderate=false group by com.id order by com.id")
+        return entityManager.createQuery("select " +
+                        "c.id, c.message, c.parentId, c.level, c.date, " +
+                        "(select cast(sum(rc.rating) as integer) " +
+                        "from Comment sc left join RatingComment rc on sc.id = rc.comment.id where sc.id = c.id), " +
+                        "u.id, u.login, u.avatarUrl " +
+                        "from Comment c left join c.user u where c.isModerate = false order by c.id")
                 .unwrap(Query.class)
                 .setResultTransformer(new ResultTransformer() {
                     @Override
                     public Object transformTuple(Object[] tuple, String[] aliases) {
-                        UserCommentDto ucd = new UserCommentDto();
-                        ucd.setId(((BigInteger) tuple[6]).longValue());
                         return new CommentsResponseDto(
-                                ((BigInteger) tuple[0]).longValue(),
+                                (Long) tuple[0],
                                 (String) tuple[1],
-                                tuple[2] == null ? null : ((BigInteger) tuple[2]).longValue(),
+                                tuple[2] == null ? null : (Long) tuple[2],
                                 tuple[3] == null ? null : (Integer) tuple[3],
-                                ((Timestamp) tuple[4]).toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
-                                tuple[5] == null ? 0 : ((BigInteger) tuple[5]).intValue(),
-                                ucd);
+                                (LocalDateTime) tuple[4],
+                                tuple[5] == null ? null : (Integer) tuple[5],
+                                new UserCommentDto(
+                                        (Long) tuple[6],
+                                        (String) tuple[7],
+                                        tuple[8] == null ? null : (String) tuple[8]
+                                ));
+
                     }
 
                     @Override

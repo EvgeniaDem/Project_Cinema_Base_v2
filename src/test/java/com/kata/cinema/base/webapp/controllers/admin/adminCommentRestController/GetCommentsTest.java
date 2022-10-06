@@ -6,6 +6,7 @@ import org.springframework.test.context.jdbc.Sql;
 
 import static com.kata.cinema.base.webapp.util.IntegrationTestingAccessTokenUtil.obtainNewAccessToken;
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.nullValue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -27,8 +28,8 @@ public class GetCommentsTest extends AbstractTest {
                 .andExpect(jsonPath("$.entities", hasSize(2)))
                 .andExpect(jsonPath("$.entities.[0].id").value(6L))
                 .andExpect(jsonPath("$.entities.[0].message").value("test6"))
-                .andExpect(jsonPath("$.entities.[0].parentId").value(101L))
-                .andExpect(jsonPath("$.entities.[0].level").value(101))
+                .andExpect(jsonPath("$.entities.[0].parentId").value(nullValue()))
+                .andExpect(jsonPath("$.entities.[0].level").value(nullValue()))
                 .andExpect(jsonPath("$.entities.[0].date").value("03.10.2017"))
                 .andExpect(jsonPath("$.entities.[0].rating").value(-3))
                 .andExpect(jsonPath("$.entities.[0].user.id").value(1L))
@@ -39,7 +40,7 @@ public class GetCommentsTest extends AbstractTest {
                 .andExpect(jsonPath("$.entities.[1].parentId").value(101L))
                 .andExpect(jsonPath("$.entities.[1].level").value(101))
                 .andExpect(jsonPath("$.entities.[1].date").value("03.10.2016"))
-                .andExpect(jsonPath("$.entities.[1].rating").value(0))
+                .andExpect(jsonPath("$.entities.[1].rating").value(nullValue()))
                 .andExpect(jsonPath("$.entities.[1].user.id").value(1L))
                 .andExpect(jsonPath("$.entities.[1].user.login").value("login1"))
                 .andExpect(jsonPath("$.entities.[1].user.avatarUrl").value("url1"));
@@ -74,8 +75,8 @@ public class GetCommentsTest extends AbstractTest {
                 .andExpect(jsonPath("$.entities.[1].user.avatarUrl").value("url1"))
                 .andExpect(jsonPath("$.entities.[2].id").value(3L))
                 .andExpect(jsonPath("$.entities.[2].message").value("test3"))
-                .andExpect(jsonPath("$.entities.[2].parentId").value(101L))
-                .andExpect(jsonPath("$.entities.[2].level").value(101))
+                .andExpect(jsonPath("$.entities.[2].parentId").value(nullValue()))
+                .andExpect(jsonPath("$.entities.[2].level").value(nullValue()))
                 .andExpect(jsonPath("$.entities.[2].date").value("03.10.2020"))
                 .andExpect(jsonPath("$.entities.[2].rating").value(0))
                 .andExpect(jsonPath("$.entities.[2].user.id").value(1L))
