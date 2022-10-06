@@ -1,6 +1,9 @@
 package com.kata.cinema.base.models.entitys;
 
+import com.kata.cinema.base.models.enums.TypeRating;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
@@ -18,8 +21,7 @@ public class RatingComment {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen_rating_comment")
     private Long id;
 
-    @Range(min = -1, max = 1)
-    private Integer rating;
+    private TypeRating rating;
 
     @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
@@ -28,6 +30,7 @@ public class RatingComment {
 
     @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "comment_id")
     private Comment comment;
 
