@@ -16,9 +16,9 @@ public class ReviewMovieResponseDtoDaoImpl extends AbstractDaoImpl<Long, Review>
     @Override
     public ReviewMovieResponseDto getReviewMovieResponseDto(Long id) {
         return entityManager.createQuery("select new com.kata.cinema.base.models.dto.response.ReviewMovieResponseDto(cast(count(r.typeReview) as int), " +
-                        "(select cast(count(r.typeReview) as int) from Review r where r.movie.id = :id and cast(r.typeReview as text) like 'POSITIVE'), " +
-                        "(select cast(count(r.typeReview) as int) from Review r where r.movie.id = :id and cast(r.typeReview as text) like 'NEGATIVE'), " +
-                        "(select cast(count(r.typeReview) as int) from Review r where r.movie.id = :id and cast(r.typeReview as text) like ' NEUTRAL')) " +
+                        "(select cast(count(r.typeReview) as int) from Review r where r.movie.id = :id and r.typeReview = 'POSITIVE'), " +
+                        "(select cast(count(r.typeReview) as int) from Review r where r.movie.id = :id and r.typeReview = 'NEGATIVE'), " +
+                        "(select cast(count(r.typeReview) as int) from Review r where r.movie.id = :id and r.typeReview = 'NEUTRAL')) " +
                         "from Review r where r.movie.id = :id ", ReviewMovieResponseDto.class)
                 .setParameter("id", id)
                 .getSingleResult();

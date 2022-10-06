@@ -18,22 +18,22 @@ public class ReactionReview {
     @Id
     @SequenceGenerator(name = "gen_reaction_review")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen_reaction_review")
-    Long id;
+    private Long id;
 
     @Column
     @NotNull
     @Enumerated(EnumType.STRING)
-    TypeRating rating;
+    private TypeRating rating;
 
     @EqualsAndHashCode.Exclude
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "review_id")
-    Review review;
+    private Review review;
 
     @EqualsAndHashCode.Exclude
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    User user;
+    private User user;
 
     public ReactionReview(Long id) {
         this.id = id;
