@@ -17,6 +17,6 @@ VALUES (100, 'NEWS', '2022-08-03', 'db test title 01', 'nytipobody', 100);
 INSERT INTO comments(id, date, message, news_id, user_id, level, parent_id)
 VALUES (100, '2022-08-20 03:07:04.000000', 'test comment 01', 100, 100, 1, 2);
 
-insert into comments(id, date, text, news_id, user_id)
+insert into comments(id, date, message, news_id, user_id)
 values (100, '2022-08-20 03:07:04.000000', 'test comment 01', 100, 100);
 

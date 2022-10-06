@@ -7,8 +7,8 @@ delete from collections;
 delete from users;
 
 
-INSERT into users(id, avatar_url, birthday, email, first_name, last_name, password)
-values (100, 'test', '2022-08-04', 'test@mail.ru', 'test_firstname', 'test_lastname', '$2y$10$9eccPudsnqsR3/XOgzugreDmY5svycvzgxSrSXZHge/oTe.jlAjeC'  );
+INSERT into users(id, avatar_url, birthday, email, first_name, last_name, login, password)
+values (100, 'test', '2022-08-04', 'test@mail.ru', 'test_firstname', 'test_lastname', 'login1', '$2y$10$9eccPudsnqsR3/XOgzugreDmY5svycvzgxSrSXZHge/oTe.jlAjeC'  );
 INSERT into folders_movies(id, category, description, name, privacy, user_id)
 values (100, 'FAVORITE_MOVIES', 'movie test', 'test', 'PUBLIC', 100);
 insert into movies(id, countries, date_release, description, mpaa, name, rars, time, original_name)
