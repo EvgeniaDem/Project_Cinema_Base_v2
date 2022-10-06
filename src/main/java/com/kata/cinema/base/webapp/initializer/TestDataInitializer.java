@@ -7,6 +7,7 @@ import com.kata.cinema.base.models.enums.*;
 import com.kata.cinema.base.service.dto.CollectionDtoService;
 import com.kata.cinema.base.service.dto.GenreDtoService;
 import com.kata.cinema.base.service.dto.MovieDtoService;
+import com.kata.cinema.base.service.dto.NewsDtoService;
 import com.kata.cinema.base.service.entity.*;
 import com.kata.cinema.base.service.dto.PersonsDtoService;
 import com.kata.cinema.base.service.entity.MoviePersonService;
@@ -16,6 +17,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.context.event.*;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.annotation.Order;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.security.SecureRandom;
@@ -43,11 +45,11 @@ public class TestDataInitializer {
     private final UserService userService;
     private final FolderMoviesService folderMoviesService;
     private final RoleService roleService;
+    private final ScoreService scoreService;
+    private final NewsDtoService newsDtoService;
+    private final ReviewService reviewService;
 
-    public TestDataInitializer(MovieDtoService movieDtoService, GenreDtoService genreDtoService, CollectionDtoService collectionDtoService,
-                               PersonsDtoService personsDtoService, ProfessionService professionService,
-                               MoviePersonService moviePersonService, PersonMarriageService personMarriageService, UserService userService,
-                               FolderMoviesService folderMoviesService, RoleService roleService) {
+    public TestDataInitializer(MovieDtoService movieDtoService, GenreDtoService genreDtoService, CollectionDtoService collectionDtoService, PersonsDtoService personsDtoService, ProfessionService professionService, MoviePersonService moviePersonService, PersonMarriageService personMarriageService, UserService userService, FolderMoviesService folderMoviesService, RoleService roleService, ScoreService scoreService, NewsDtoService newsDtoService, ReviewService reviewService) {
         this.movieDtoService = movieDtoService;
         this.genreDtoService = genreDtoService;
         this.collectionDtoService = collectionDtoService;
@@ -58,11 +60,14 @@ public class TestDataInitializer {
         this.userService = userService;
         this.folderMoviesService = folderMoviesService;
         this.roleService = roleService;
+        this.scoreService = scoreService;
+        this.newsDtoService = newsDtoService;
+        this.reviewService = reviewService;
     }
-
 
     @EventListener(ApplicationReadyEvent.class)
     @Order(2)
+    @Async
     public void movieInit() {
         for (int i = 1; i <= 100; i++) {
             Movie movie = new Movie();
@@ -93,6 +98,7 @@ public class TestDataInitializer {
 
     @EventListener(ApplicationReadyEvent.class)
     @Order(1)
+    @Async
     public void genreInit() {
         for (int i = 1; i <= 10; i++) {
             genreDtoService.create(new Genre("Жанр" + i));
@@ -101,6 +107,7 @@ public class TestDataInitializer {
 
     @EventListener(ApplicationReadyEvent.class)
     @Order(3)
+    @Async
     public void collectionInit() {
         for (int i = 1; i <= 20; i++) {
             boolean enable = !Arrays.asList(2, 6, 10, 14, 18).contains(i);
@@ -116,7 +123,8 @@ public class TestDataInitializer {
     }
 
     @EventListener(ApplicationReadyEvent.class)
-    @Order(4)
+    @Order(1)
+    @Async
     public void personInit() {
         for (int i = 1; i <= 50; i++) {
             Person person = new Person();
@@ -140,7 +148,8 @@ public class TestDataInitializer {
     }
 
     @EventListener(ApplicationReadyEvent.class)
-    @Order(5)
+    @Order(1)
+    @Async
     public void professionInit() {
         String[] professions = {"Режиссер", "Сценарист", "Продюсер", "Оператор", "Композитор", "Художник", "Монтажер", "Костюмер", "Гримёр", "Актер"};
         for (int i = 0; i < 10; i++) {
@@ -151,7 +160,8 @@ public class TestDataInitializer {
     }
 
     @EventListener(ApplicationReadyEvent.class)
-    @Order(6)
+    @Order(3)
+    @Async
     public void moviePersonInit() {
         List<Movie> movieList = new ArrayList<>(movieDtoService.getAll());
         for (Movie movie : movieList) {
@@ -187,7 +197,8 @@ public class TestDataInitializer {
     }
 
     @EventListener(ApplicationReadyEvent.class)
-    @Order(7)
+    @Order(2)
+    @Async
     public void personMarriageInit() {
         for (int i = 1; i <= 50; i = i + 2) {
             PersonMarriage personMarriage = new PersonMarriage();
@@ -201,7 +212,8 @@ public class TestDataInitializer {
     }
 
     @EventListener(ApplicationReadyEvent.class)
-    @Order(4)
+    @Order(1)
+    @Async
     public void roleInit() {
         Role roleAdmin = new Role();
         roleAdmin.setName(Roles.ADMIN);
@@ -217,7 +229,8 @@ public class TestDataInitializer {
     }
 
     @EventListener(ApplicationReadyEvent.class)
-    @Order(5)
+    @Order(2)
+    @Async
     public void userInit() {
         Role roleAdmin = roleService.getByName(Roles.ADMIN);
         Role roleUser = roleService.getByName(Roles.USER);
@@ -251,7 +264,8 @@ public class TestDataInitializer {
     }
 
     @EventListener(ApplicationReadyEvent.class)
-    @Order(6)
+    @Order(3)
+    @Async
     public void FolderMovieInit() {
         List<User> userList = userService.getAll();
         for (User user : userList) {
@@ -279,6 +293,68 @@ public class TestDataInitializer {
         }
         folderMovie.setMovies(movieSet);
         folderMoviesService.create(folderMovie);
+    }
+
+    @EventListener(ApplicationReadyEvent.class)
+    @Order(3)
+    @Async
+    public void scoreInit() {
+        List<Movie> movieEl = movieDtoService.getAll();
+        List<User> userEl = userService.getAll();
+        for (Movie movie : movieEl) {
+            Collections.shuffle(userEl);
+            Iterator<User> userIterator = userEl.iterator();
+            for (int i = 1; i <= 20; i++) {
+                Score score = new Score();
+                score.setScore(ThreadLocalRandom.current().nextLong(1, 11));
+                score.setMovie(movie);
+                score.setUser(userIterator.hasNext() ? userIterator.next() : null);
+                scoreService.create(score);
+            }
+        }
+    }
+
+    //TODO поставить в очередь после инициализации users, когда появится о них информация
+    @EventListener(ApplicationReadyEvent.class)
+    @Order(1)
+    @Async
+    public void newsInit() {
+        for (int i = 1; i <= 20; i++) {
+            News news = new News();
+            news.setDate(LocalDate.ofEpochDay(ThreadLocalRandom.current()
+                    .nextLong(LocalDate.now().toEpochDay() - 6,
+                            LocalDate.now().toEpochDay() + 1)));
+            List<Rubric> rubricList = Arrays.asList(Rubric.values());
+            news.setRubric(rubricList.get(new SecureRandom().nextInt(rubricList.size())));
+            news.setTitle("Заголовок " + i);
+            news.setHtmlBody("htmlBody " + i);
+            newsDtoService.create(news);
+        }
+    }
+
+    @EventListener(ApplicationReadyEvent.class)
+    @Order(3)
+    @Async
+    public void reviewInit() {
+        List<Movie> movies = movieDtoService.getAll();
+        List<User> users = userService.getAll();
+        movies.forEach(movie -> {
+            TypeReview[] typeReviews = TypeReview.values();
+            Collections.shuffle(users);
+            Iterator<User> userIterator = users.iterator();
+            for (int i = 1; i <= 5; i++) {
+                Review review = new Review();
+                review.setTypeReview(typeReviews[i % 3 == 0 ? 2 : (i % 3) - 1]);
+                review.setTitle("Заголовок " + i);
+                review.setDescription("описание описание описание описание описание описание описание ");
+                review.setDate(LocalDate.ofEpochDay(ThreadLocalRandom.current()
+                        .nextLong(LocalDate.now().toEpochDay() - LocalDate.now().lengthOfMonth() + 1,
+                                LocalDate.now().toEpochDay() + 1)));
+                review.setMovie(movie);
+                review.setUser(userIterator.hasNext() ? userIterator.next() : null);
+                reviewService.create(review);
+            }
+        });
     }
 }
 
