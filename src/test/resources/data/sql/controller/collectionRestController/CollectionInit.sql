@@ -24,8 +24,8 @@ values (101, 'test_countries', '2022-08-09', 'ACTION', 'PARENTAL_GUIDANCE_SUGGES
 
 
 
-insert into collections(id, enable, name, description, collection_type, preview_url)
-values (100, true, 'myCollectionTest', 'myDescription', 'MOVIES' , 'test_URL');
+insert into collections(id, collection_type, description, enable, name, preview_url)
+values (100, 'MOVIES', 'myDescription',  true, 'myCollectionTest', 'test_URL');
 
 
 insert into collections_movies( collections_id, movies_id)
@@ -79,9 +79,6 @@ values (1, null, '2022-08-14', 'user1@mail.ru', 'user1', 'userovich1', '$2a$12$/
 insert into public.score (id, score, movie_id, user_id)
 values (1, 3, 100, 1);
 insert into public.score (id, score, movie_id, user_id)
-values (2, 4, 100, 1);
-insert into public.score (id, score, movie_id, user_id)
-values (3, 5, 100, 1);
-insert into public.score (id, score, movie_id, user_id)
-values (4, 5, 100, 1);
+values (2, 4, 101, 1);
+
 
