@@ -15,9 +15,11 @@ public class ReviewMovieResponseDtoPaginationDaoImpl extends AbstractDaoImpl<Lon
 
     @Override
     public List<ReviewResponseDto> getItemsDto(Integer currentPage, Integer itemsOnPage, Map<String, Object> parameters) {
-        String sortTypeText = getSortType((ReviewSortType)parameters.get("sortType"));
+        String sortTypeText = getSortType((ReviewSortType) parameters.get("sortType"));
         return entityManager.createQuery("select distinct " +
-                        "new com.kata.cinema.base.models.dto.response.ReviewResponseDto(r.id, r.typeReview, r.title, r.description, concat(r.user.firstName, ' ', r.user.lastName), r.date) " +
+                        "new com.kata.cinema.base.models.dto.response.ReviewResponseDto(r.id, r.typeReview, r.title, r.description, concat(r.user.firstName, ' ', r.user.lastName), r.date, " +
+                        "(select cast(count(rr.rating)as  java.lang.Integer ) from ReactionReview rr where cast(rr.rating as java.lang.String) like 'LIKE'), " +
+                        "(select cast(count(rr.rating)as  java.lang.Integer ) from ReactionReview rr where cast(rr.rating as java.lang.String) like 'DISLIKE')) " +
                         "from Review r where (r.typeReview = :typeReview or :typeReview is null) and r.movie.id = :id"
                         + sortTypeText, ReviewResponseDto.class)
                 .setParameter("typeReview", parameters.get("typeReview"))
@@ -25,6 +27,7 @@ public class ReviewMovieResponseDtoPaginationDaoImpl extends AbstractDaoImpl<Lon
                 .setFirstResult((currentPage - 1) * itemsOnPage)
                 .setMaxResults(itemsOnPage)
                 .getResultList();
+
     }
 
     private String getSortType(ReviewSortType sortType) {
@@ -39,4 +42,5 @@ public class ReviewMovieResponseDtoPaginationDaoImpl extends AbstractDaoImpl<Lon
                 .setParameter("id", parameters.get("id"))
                 .getSingleResult();
     }
+
 }

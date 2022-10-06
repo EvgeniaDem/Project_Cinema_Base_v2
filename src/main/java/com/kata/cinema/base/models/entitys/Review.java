@@ -21,6 +21,7 @@ public class Review {
     private Long id;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private TypeReview typeReview;
 
     @Column(nullable = false)

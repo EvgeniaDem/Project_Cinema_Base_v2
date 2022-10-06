@@ -36,4 +36,4 @@ values (100, 100);
 INSERT INTO collections_movies(movies_id, collections_id)
 values (101, 100);
 INSERT INTO reviews(id, date, description, title, type_review, movie_id, user_id)
-VALUES (100, '2022-08-09', 'description123', 'title1', 1, 100, 100)
+VALUES (100, '2022-08-09', 'description123', 'title1', 'POSITIVE', 100, 100)
