@@ -63,6 +63,7 @@ public class AdminGenreRestController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    //TODO @Patch
     @PutMapping("/{id}")
     @ApiOperation(value = "Изменение жанра", response = GenreResponseDto.class)
     @ApiResponses(value = {
