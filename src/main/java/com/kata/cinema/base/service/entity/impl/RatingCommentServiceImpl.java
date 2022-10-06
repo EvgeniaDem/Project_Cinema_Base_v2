@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class RatingCommentServiceImpl extends AbstractServiceImpl<Long, RatingComment> implements RatingCommentService {
 
-    RatingCommentDao ratingCommentDao;
+    private RatingCommentDao ratingCommentDao;
 
     public RatingCommentServiceImpl(RatingCommentDao ratingCommentDao) {
         super(ratingCommentDao);
