@@ -8,7 +8,6 @@ import com.kata.cinema.base.models.enums.ReviewSortType;
 import com.kata.cinema.base.models.enums.TopMoviesType;
 import com.kata.cinema.base.models.enums.TypeReview;
 import com.kata.cinema.base.service.dto.*;
-import com.kata.cinema.base.service.entity.ReactionReviewService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -32,10 +31,8 @@ public class MovieRestController {
 
     private final MovieDtoService movieDtoService;
     private final TopMoviesResponseDtoPaginationService topMoviesResponseDtoPaginationService;
-    private final ReviewMovieResponseDtoPaginationService reviewsResponseDtoPaginationService;
     private final MovieViewResponseDtoService movieViewResponseDtoService;
     private final ReviewMovieResponseDtoService reviewMovieResponseDtoService;
-    private final ReactionReviewService reactionReviewService;
 
     @GetMapping("/release")
     @ApiOperation(value = "Получение списка вышедших фильмов", response = MovieRestController.class, responseContainer = "list")

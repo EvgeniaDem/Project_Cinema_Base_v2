@@ -9,7 +9,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-@Sql(value ="/data/sql/controller/movieRestController/ReviewInit.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+@Sql(value = "/data/sql/controller/movieRestController/ReviewInit.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+@Sql(value = "/data/sql/controller/movieRestController/ReviewClear.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+
 public class ReviewMovieResponseDtoTest extends AbstractTest {
 
     @Test

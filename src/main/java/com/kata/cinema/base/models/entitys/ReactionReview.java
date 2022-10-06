@@ -35,8 +35,7 @@ public class ReactionReview {
     @JoinColumn(name = "user_id")
     User user;
 
-    public ReactionReview(Long id, TypeRating rating) {
+    public ReactionReview(Long id) {
         this.id = id;
-        this.rating = rating;
     }
 }
