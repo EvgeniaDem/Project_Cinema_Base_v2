@@ -2,7 +2,9 @@ package com.kata.cinema.base.webapp.controllers.movieRestController;
 
 import com.kata.cinema.base.AbstractTest;
 import org.hamcrest.core.Is;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
 import org.springframework.test.context.jdbc.Sql;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -12,8 +14,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @Sql(value = "/data/sql/controller/movieRestController/MovieInit.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(value = "/data/sql/controller/movieRestController/MovieClear.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+@Ignore
 public class MovieNewsPageTest extends AbstractTest {
     @Test
+    @Disabled
     public void getPageWithoutParameters() throws Exception {
         mockMvc.perform(get("/api/movies/2/materials"))
                 .andDo(print())
@@ -30,6 +34,7 @@ public class MovieNewsPageTest extends AbstractTest {
     }
 
     @Test
+    @Disabled
     public void getPageWithParameters() throws Exception {
         mockMvc.perform(get("/api/movies/2/materials?count=1"))
                 .andDo(print())
