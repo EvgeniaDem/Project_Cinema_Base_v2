@@ -11,7 +11,7 @@ import java.util.List;
 public class ReactionReviewDaoImpl extends AbstractDaoImpl<Long, Review> implements ReactionReviewDao {
     @Override
     public List<ReactionReview> getReactionReview(Long id) {
-        return entityManager.createQuery("select new com.kata.cinema.base.models.entitys.ReactionReview(rr.id, rr.rating) " +
+        return entityManager.createQuery("select new com.kata.cinema.base.models.entitys.ReactionReview(rr.id) " +
                         "from ReactionReview rr where rr.review.id = :id", ReactionReview.class)
                 .setParameter("id", id)
                 .getResultList();

@@ -9,12 +9,11 @@ import com.kata.cinema.base.models.enums.TopMoviesType;
 import com.kata.cinema.base.models.enums.TypeReview;
 import com.kata.cinema.base.service.dto.*;
 import com.kata.cinema.base.service.entity.ReactionReviewService;
-import com.kata.cinema.base.service.dto.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import org.springframework.beans.factory.annotation.Qualifier;
+import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -28,14 +27,13 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/movies")
 @Api(tags = "Фильмы")
+@AllArgsConstructor
 public class MovieRestController {
 
     private final MovieDtoService movieDtoService;
     private final TopMoviesResponseDtoPaginationService topMoviesResponseDtoPaginationService;
-    private final ReviewMovieResponseDtoPaginationService reviewsResponseDtoPaginationService;
     private final MovieViewResponseDtoService movieViewResponseDtoService;
     private final ReviewMovieResponseDtoService reviewMovieResponseDtoService;
-    private final ReactionReviewService reactionReviewService;
 
     @GetMapping("/release")
     @ApiOperation(value = "Получение списка вышедших фильмов", response = MovieRestController.class, responseContainer = "list")
@@ -75,6 +73,7 @@ public class MovieRestController {
         return ResponseEntity.ok(topMoviesResponseDtoPaginationService.getPageDtoWithParameters(pageNumber, itemsOnPage, parameters));
     }
 
+
     @GetMapping("/{id}/reviews/page/{pageNumber}")
     ResponseEntity<ReviewMovieResponseDto> getReviews(@PathVariable Long id,
                                                       @PathVariable Integer pageNumber,
@@ -87,6 +86,7 @@ public class MovieRestController {
         parameters.put("sortType", reviewSortType);
         return ResponseEntity.ok(reviewMovieResponseDtoService.getReviewMovieResponseDto(id, pageNumber, itemsOnPage, parameters));
     }
+
 
     @GetMapping("/{id}")
     @ApiOperation(value = "Получение фильма")

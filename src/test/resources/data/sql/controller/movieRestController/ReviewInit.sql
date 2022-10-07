@@ -1,4 +1,5 @@
 
+
 -- users init
 INSERT INTO users (id, avatar_url, birthday, email, first_name, last_name, login, password)
 VALUES (1, null, '2022-08-14', 'user1@mail.ru', 'user1', 'userovich1', 'login1', '$2a$12$/FIhv2k1jeNx5YCr6bZLlujKpN5V8V3j7qD16WtMC9Ov/tVhyjUIW'); -- password == 101
@@ -7,16 +8,6 @@ VALUES (2, null, '2022-08-15', 'user2@mail.ru', 'user2', 'userovich2', 'login2',
 INSERT INTO users (id, avatar_url, birthday, email, first_name, last_name, login, password)
 VALUES (3, null, '2022-08-11', 'user3@mail.ru', 'user3', 'userovich3', 'login3', '$2a$12$kxj107giVr0cwRRy6csu8OAgML4fiofnZ/YIR.C7P.kAHe2Cr2kru'); -- password == 103
 
-INSERT INTO roles(id, name)
-VALUES (1, 'USER');
-
--- user_role init
-INSERT INTO user_role(user_id, role_id)
-VALUES (1, 1);
-INSERT INTO user_role(user_id, role_id)
-VALUES (2, 1);
-INSERT INTO user_role(user_id, role_id)
-VALUES (3, 1);
 
 --Movies init
 INSERT INTO movies (id, countries, date_release, description, mpaa, name, original_name, rars, time)
@@ -42,8 +33,8 @@ values (3,'NEUTRAL','title3','description3', '2022-01-03', 3, 3);
 
 --ReactionReview init
 insert into reaction_review(id, rating, review_id, user_id)
-values (1, 'LIKE', 1, 1);
+values (1, 'LIKE', 1, 2);
 insert into reaction_review(id, rating, review_id, user_id)
 values (2, 'DISLIKE', 1, 2);
 insert into reaction_review(id, rating, review_id, user_id)
-values (3, 'LIKE', 1, 3);
+values (3, 'LIKE', 1, 2);
