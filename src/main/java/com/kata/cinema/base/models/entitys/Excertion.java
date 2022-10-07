@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -22,6 +23,7 @@ public class Excertion {
 
     @Lob
     @NotNull
+    @Type(type = "org.hibernate.type.StringType")
     private String description;
 
     @ManyToOne(targetEntity = Movie.class, fetch = FetchType.LAZY)

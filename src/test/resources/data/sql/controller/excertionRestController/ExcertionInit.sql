@@ -21,6 +21,6 @@ INSERT INTO public.persons (id, birthday, first_name, height, last_name, place_b
 VALUES (1, '2022-06-21' , 'test1Name', 166, 'test1LastName', 'test1', 'test1OrigLastName', 'test1origName', 'test1PhotoUrl');
 
 INSERT INTO public.excertion (id, description, movie_id, person_id)
-VALUES (1, 16887, 1, null);
+VALUES (1, 'Test1', 1, null);
 INSERT INTO public.excertion (id, description, movie_id, person_id)
-VALUES (2, 16888, null, 1);
+VALUES (2, 'Test2', null, 1);

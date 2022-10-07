@@ -33,42 +33,42 @@ INSERT INTO public.persons (id, birthday, first_name, height, last_name, place_b
 VALUES (4, '2022-06-24' , 'test4Name', 166, 'test4LastName', 'test4', 'test4OrigLastName', 'test4origName', 'test4PhotoUrl');
 
 INSERT INTO public.excertion (id, description, movie_id, person_id)
-VALUES (203, '16887', 1, null);
+VALUES (203, 'Test1', 1, null);
 INSERT INTO public.excertion (id, description, movie_id, person_id)
-VALUES (204, '16888', null, 1);
+VALUES (204, 'Test2', null, 1);
 INSERT INTO public.excertion (id, description, movie_id, person_id)
-VALUES (205, '16889', null, 2);
+VALUES (205, 'Test4', null, 2);
 INSERT INTO public.excertion (id, description, movie_id, person_id)
-VALUES (206, '16890', null, 3);
+VALUES (206, 'Test6', null, 3);
 INSERT INTO public.excertion (id, description, movie_id, person_id)
-VALUES (207, '16891', null, 4);
+VALUES (207, 'Test8', null, 4);
 INSERT INTO public.excertion (id, description, movie_id, person_id)
-VALUES (208, '16892', null, 1);
+VALUES (208, 'Test10', null, 1);
 INSERT INTO public.excertion (id, description, movie_id, person_id)
-VALUES (209, '16893', null, 1);
+VALUES (209, 'Test12', null, 1);
 INSERT INTO public.excertion (id, description, movie_id, person_id)
-VALUES (210, '16894', null, 1);
+VALUES (210, 'Test14', null, 1);
 INSERT INTO public.excertion (id, description, movie_id, person_id)
-VALUES (211, '16895', null, 1);
+VALUES (211, 'Test16', null, 1);
 INSERT INTO public.excertion (id, description, movie_id, person_id)
-VALUES (212, '16896', null, 1);
+VALUES (212, 'Test18', null, 1);
 INSERT INTO public.excertion (id, description, movie_id, person_id)
-VALUES (213, '16897', null, 1);
+VALUES (213, 'Test20', null, 1);
 INSERT INTO public.excertion (id, description, movie_id, person_id)
-VALUES (214, '16898', 2, null);
+VALUES (214, 'Test3', 2, null);
 INSERT INTO public.excertion (id, description, movie_id, person_id)
-VALUES (215, '16899', 3, null);
+VALUES (215, 'Test5', 3, null);
 INSERT INTO public.excertion (id, description, movie_id, person_id)
-VALUES (216, '16900', 4, null);
+VALUES (216, 'Test7', 4, null);
 INSERT INTO public.excertion (id, description, movie_id, person_id)
-VALUES (217, '16901', 1, null);
+VALUES (217, 'Test9', 1, null);
 INSERT INTO public.excertion (id, description, movie_id, person_id)
-VALUES (218, '16902', 1, null);
+VALUES (218, 'Test11', 1, null);
 INSERT INTO public.excertion (id, description, movie_id, person_id)
-VALUES (219, '16903', 1, null);
+VALUES (219, 'Test13', 1, null);
 INSERT INTO public.excertion (id, description, movie_id, person_id)
-VALUES (220, '16904', 1, null);
+VALUES (220, 'Test15', 1, null);
 INSERT INTO public.excertion (id, description, movie_id, person_id)
-VALUES (221, '16905', 1, null);
+VALUES (221, 'Test17', 1, null);
 INSERT INTO public.excertion (id, description, movie_id, person_id)
-VALUES (222, '16906', 1, null);
+VALUES (222, 'Test19', 1, null);

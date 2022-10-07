@@ -27,14 +27,14 @@ public class GetExcertionsForPersonTest extends AbstractTest {
                 .andExpect(jsonPath("$.entities", hasSize(5)))
                 .andExpect(jsonPath("$.entities.[0].id").value(204))
                 .andExpect(jsonPath("$.entities.[0].description").value("Test2"))
-                .andExpect(jsonPath("$.entities.[0].id").value(208))
-                .andExpect(jsonPath("$.entities.[0].description").value("Test10"))
-                .andExpect(jsonPath("$.entities.[0].id").value(209))
-                .andExpect(jsonPath("$.entities.[0].description").value("Test12"))
-                .andExpect(jsonPath("$.entities.[0].id").value(210))
-                .andExpect(jsonPath("$.entities.[0].description").value("Test14"))
-                .andExpect(jsonPath("$.entities.[0].id").value(211))
-                .andExpect(jsonPath("$.entities.[0].description").value("Test16"));
+                .andExpect(jsonPath("$.entities.[1].id").value(208))
+                .andExpect(jsonPath("$.entities.[1].description").value("Test10"))
+                .andExpect(jsonPath("$.entities.[2].id").value(209))
+                .andExpect(jsonPath("$.entities.[2].description").value("Test12"))
+                .andExpect(jsonPath("$.entities.[3].id").value(210))
+                .andExpect(jsonPath("$.entities.[3].description").value("Test14"))
+                .andExpect(jsonPath("$.entities.[4].id").value(211))
+                .andExpect(jsonPath("$.entities.[4].description").value("Test16"));
     }
 
     @Test
@@ -47,8 +47,8 @@ public class GetExcertionsForPersonTest extends AbstractTest {
                 .andExpect(jsonPath("$.entities", hasSize(2)))
                 .andExpect(jsonPath("$.entities.[0].id").value(212))
                 .andExpect(jsonPath("$.entities.[0].description").value("Test18"))
-                .andExpect(jsonPath("$.entities.[0].id").value(213))
-                .andExpect(jsonPath("$.entities.[0].description").value("Test20"));
+                .andExpect(jsonPath("$.entities.[1].id").value(213))
+                .andExpect(jsonPath("$.entities.[1].description").value("Test20"));
     }
 
     @Test
