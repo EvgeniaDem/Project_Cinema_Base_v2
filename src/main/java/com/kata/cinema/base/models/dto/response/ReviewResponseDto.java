@@ -1,5 +1,6 @@
 package com.kata.cinema.base.models.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.kata.cinema.base.models.enums.TypeReview;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,6 +15,7 @@ public class ReviewResponseDto {
     private String title;
     private String description;
     private String fullName;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
     private LocalDate date;
 
     public ReviewResponseDto(Long id, TypeReview typeReview, String title, String description, String fullName, LocalDate date) {
