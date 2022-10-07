@@ -1,3 +1,4 @@
+delete from score;
 delete from rating_comment;
 delete from comments;
 delete from news;

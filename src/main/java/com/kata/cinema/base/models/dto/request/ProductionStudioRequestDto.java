@@ -15,6 +15,6 @@ import java.time.LocalDate;
 public class ProductionStudioRequestDto {
     private String name;
     private String description;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
     private LocalDate dateFoundation;
 }

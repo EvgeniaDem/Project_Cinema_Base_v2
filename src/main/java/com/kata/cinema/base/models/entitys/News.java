@@ -38,6 +38,8 @@ public class News {
     @Type(type = "org.hibernate.type.TextType")
     private String htmlBody;
 
+    private String previewUrl;
+
     @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
