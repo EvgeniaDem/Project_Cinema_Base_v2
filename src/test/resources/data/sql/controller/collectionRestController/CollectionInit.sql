@@ -74,8 +74,8 @@ insert into public.movie_person (movie_id, person_id, profession_id, name_role, 
 values (100, 3, 100, 'role3', 'MAIN_CHARACTER');
 
 
-insert into public.users (id, avatar_url, birthday, email, first_name, last_name, password)
-values (1, null, '2022-08-14', 'user1@mail.ru', 'user1', 'userovich1', '$2a$12$/FIhv2k1jeNx5YCr6bZLlujKpN5V8V3j7qD16WtMC9Ov/tVhyjUIW'); -- password == 101
+insert into public.users (id, avatar_url, birthday, email, first_name, last_name, login, password)
+values (1, null, '2022-08-14', 'user1@mail.ru', 'user1', 'userovich1', 'login1', '$2a$12$/FIhv2k1jeNx5YCr6bZLlujKpN5V8V3j7qD16WtMC9Ov/tVhyjUIW'); -- password == 101
 
 insert into public.score (id, score, movie_id, user_id)
 values (1, 3, 100, 1);

@@ -2,34 +2,26 @@ package com.kata.cinema.base.models.entitys;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "comments")
 public class Comment {
     @Id
     @SequenceGenerator(name = "gen_comment")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen_comment")
-    @Column(name = "id", nullable = false)
     private Long id;
 
+    @NotNull
     private String message;
 
+    @Column(name = "parent_id")
     private Long parentId;
 
     private Integer level;
@@ -37,12 +29,17 @@ public class Comment {
     @NotNull
     private LocalDateTime date;
 
+    @Column(name = "is_moderate")
+    private Boolean isModerate = false;
+
     @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "news_id")
     private News news;
 
     @Override
