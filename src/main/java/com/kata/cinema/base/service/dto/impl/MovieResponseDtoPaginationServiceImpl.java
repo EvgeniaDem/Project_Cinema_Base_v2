@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class MovieResponseDtoPaginationServiceImpl extends PaginationDtoServiceImpl<MovieResponseDto> implements MovieResponseDtoPaginationService {
@@ -32,7 +33,7 @@ public class MovieResponseDtoPaginationServiceImpl extends PaginationDtoServiceI
         Map<Long, List<String>> directorMap = moviePersonDao.getMovieDirectorMap();
         Map<Long, List<String>> rolesMap = moviePersonDao.getAllMainCharacterOfMoviesMap();
         for (MovieResponseDto dto : pageDto.getEntities()) {
-            dto.setGenres(genresMap.get(dto.getId()).toString().replaceAll("[\\[\\]]", ""));
+            dto.setGenres(genresMap.get(dto.getId()).stream().sorted(String::compareTo).collect(Collectors.toList()).toString().replaceAll("[\\[\\]]", ""));
             dto.setDirector(directorMap.get(dto.getId()).toString().replaceAll("[\\[\\]]", ""));
             dto.setRoles(rolesMap.get(dto.getId()).toString().replaceAll("[\\[\\]]", ""));
         }

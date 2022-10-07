@@ -32,7 +32,7 @@ public class GetUserFolderMoviesTest extends AbstractTest {
                 .andExpect(jsonPath("$.entities.[0].time").value(101))
                 .andExpect(jsonPath("$.entities.[0].dateRelease").value("08.05.1938"))
                 .andExpect(jsonPath("$.entities.[0].countries").value("Slovakia"))
-                .andExpect(jsonPath("$.entities.[0].genres").value("Ужасы, Драма, Фантастика"))
+                .andExpect(jsonPath("$.entities.[0].genres").value("Драма, Ужасы, Фантастика"))
                 .andExpect(jsonPath("$.entities.[0].director").value("test1Name test1LastName"))
                 .andExpect(jsonPath("$.entities.[0].roles").value("role1, role3"))
                 .andExpect(jsonPath("$.entities.[4].id").value(5L))
@@ -41,7 +41,7 @@ public class GetUserFolderMoviesTest extends AbstractTest {
                 .andExpect(jsonPath("$.entities.[4].time").value(105))
                 .andExpect(jsonPath("$.entities.[4].dateRelease").value("20.01.2000"))
                 .andExpect(jsonPath("$.entities.[4].countries").value("Guatemala"))
-                .andExpect(jsonPath("$.entities.[4].genres").value("Комедия, Мелодрама, Детектив"))
+                .andExpect(jsonPath("$.entities.[4].genres").value("Детектив, Комедия, Мелодрама"))
                 .andExpect(jsonPath("$.entities.[4].director").value("test4Name test4LastName"))
                 .andExpect(jsonPath("$.entities.[4].roles").value("role14, role15"))
                 .andExpect(jsonPath("$.entities.[9].id").value(10L))
@@ -50,7 +50,7 @@ public class GetUserFolderMoviesTest extends AbstractTest {
                 .andExpect(jsonPath("$.entities.[9].time").value(110))
                 .andExpect(jsonPath("$.entities.[9].dateRelease").value("24.12.2012"))
                 .andExpect(jsonPath("$.entities.[9].countries").value("Niue"))
-                .andExpect(jsonPath("$.entities.[9].genres").value("Комедия, Приключения, Документальное"))
+                .andExpect(jsonPath("$.entities.[9].genres").value("Документальное, Комедия, Приключения"))
                 .andExpect(jsonPath("$.entities.[9].director").value("test3Name test3LastName"))
                 .andExpect(jsonPath("$.entities.[9].roles").value("role28, role29"));
     }
@@ -69,7 +69,7 @@ public class GetUserFolderMoviesTest extends AbstractTest {
                 .andExpect(jsonPath("$.entities.[0].time").value(111))
                 .andExpect(jsonPath("$.entities.[0].dateRelease").value("28.01.1922"))
                 .andExpect(jsonPath("$.entities.[0].countries").value("Kyrgyzstan"))
-                .andExpect(jsonPath("$.entities.[0].genres").value("Мелодрама, Фэнтези, Комедия"))
+                .andExpect(jsonPath("$.entities.[0].genres").value("Комедия, Мелодрама, Фэнтези"))
                 .andExpect(jsonPath("$.entities.[0].director").value("test1Name test1LastName"))
                 .andExpect(jsonPath("$.entities.[0].roles").value("role31, role32"));
     }
@@ -88,7 +88,7 @@ public class GetUserFolderMoviesTest extends AbstractTest {
                 .andExpect(jsonPath("$.entities.[0].time").value(101))
                 .andExpect(jsonPath("$.entities.[0].dateRelease").value("08.05.1938"))
                 .andExpect(jsonPath("$.entities.[0].countries").value("Slovakia"))
-                .andExpect(jsonPath("$.entities.[0].genres").value("Ужасы, Драма, Фантастика"))
+                .andExpect(jsonPath("$.entities.[0].genres").value("Драма, Ужасы, Фантастика"))
                 .andExpect(jsonPath("$.entities.[0].director").value("test1Name test1LastName"))
                 .andExpect(jsonPath("$.entities.[0].roles").value("role1, role3"))
                 .andExpect(jsonPath("$.entities.[1].id").value(3L))
@@ -106,7 +106,7 @@ public class GetUserFolderMoviesTest extends AbstractTest {
                 .andExpect(jsonPath("$.entities.[4].time").value(108))
                 .andExpect(jsonPath("$.entities.[4].dateRelease").value("30.06.1916"))
                 .andExpect(jsonPath("$.entities.[4].countries").value("Guadeloupe"))
-                .andExpect(jsonPath("$.entities.[4].genres").value("Комедия, Мелодрама, Боевик"))
+                .andExpect(jsonPath("$.entities.[4].genres").value("Боевик, Комедия, Мелодрама"))
                 .andExpect(jsonPath("$.entities.[4].director").value("test4Name test4LastName"))
                 .andExpect(jsonPath("$.entities.[4].roles").value("role24"));
     }
@@ -125,7 +125,7 @@ public class GetUserFolderMoviesTest extends AbstractTest {
                 .andExpect(jsonPath("$.entities.[2].time").value(106))
                 .andExpect(jsonPath("$.entities.[2].dateRelease").value("28.02.1926"))
                 .andExpect(jsonPath("$.entities.[2].countries").value("Pakistan"))
-                .andExpect(jsonPath("$.entities.[2].genres").value("Приключения, Документальное, Боевик"))
+                .andExpect(jsonPath("$.entities.[2].genres").value("Боевик, Документальное, Приключения"))
                 .andExpect(jsonPath("$.entities.[2].director").value("test1Name test1LastName"))
                 .andExpect(jsonPath("$.entities.[2].roles").value("role16, role18"))
                 .andExpect(jsonPath("$.entities.[3].id").value(8L))
@@ -134,7 +134,7 @@ public class GetUserFolderMoviesTest extends AbstractTest {
                 .andExpect(jsonPath("$.entities.[3].time").value(108))
                 .andExpect(jsonPath("$.entities.[3].dateRelease").value("30.06.1916"))
                 .andExpect(jsonPath("$.entities.[3].countries").value("Guadeloupe"))
-                .andExpect(jsonPath("$.entities.[3].genres").value("Комедия, Мелодрама, Боевик"))
+                .andExpect(jsonPath("$.entities.[3].genres").value("Боевик, Комедия, Мелодрама"))
                 .andExpect(jsonPath("$.entities.[3].director").value("test4Name test4LastName"))
                 .andExpect(jsonPath("$.entities.[3].roles").value("role24"))
                 .andExpect(jsonPath("$.entities.[4].id").value(9L))
@@ -143,7 +143,7 @@ public class GetUserFolderMoviesTest extends AbstractTest {
                 .andExpect(jsonPath("$.entities.[4].time").value(109))
                 .andExpect(jsonPath("$.entities.[4].dateRelease").value("02.08.1985"))
                 .andExpect(jsonPath("$.entities.[4].countries").value("Honduras"))
-                .andExpect(jsonPath("$.entities.[4].genres").value("Фэнтези, Фантастика, Триллер"))
+                .andExpect(jsonPath("$.entities.[4].genres").value("Триллер, Фантастика, Фэнтези"))
                 .andExpect(jsonPath("$.entities.[4].director").value("test5Name test5LastName"))
                 .andExpect(jsonPath("$.entities.[4].roles").value("role25"));
     }
@@ -162,7 +162,7 @@ public class GetUserFolderMoviesTest extends AbstractTest {
                 .andExpect(jsonPath("$.entities.[0].time").value(102))
                 .andExpect(jsonPath("$.entities.[0].dateRelease").value("26.09.1935"))
                 .andExpect(jsonPath("$.entities.[0].countries").value("Albania"))
-                .andExpect(jsonPath("$.entities.[0].genres").value("Комедия, Мелодрама, Детектив"))
+                .andExpect(jsonPath("$.entities.[0].genres").value("Детектив, Комедия, Мелодрама"))
                 .andExpect(jsonPath("$.entities.[0].director").value("test4Name test4LastName"))
                 .andExpect(jsonPath("$.entities.[0].roles").value("role4, role6"))
                 .andExpect(jsonPath("$.entities.[3].id").value(3L))
@@ -180,7 +180,7 @@ public class GetUserFolderMoviesTest extends AbstractTest {
                 .andExpect(jsonPath("$.entities.[5].time").value(105))
                 .andExpect(jsonPath("$.entities.[5].dateRelease").value("20.01.2000"))
                 .andExpect(jsonPath("$.entities.[5].countries").value("Guatemala"))
-                .andExpect(jsonPath("$.entities.[5].genres").value("Комедия, Мелодрама, Детектив"))
+                .andExpect(jsonPath("$.entities.[5].genres").value("Детектив, Комедия, Мелодрама"))
                 .andExpect(jsonPath("$.entities.[5].director").value("test4Name test4LastName"))
                 .andExpect(jsonPath("$.entities.[5].roles").value("role14, role15"));
     }
@@ -199,7 +199,7 @@ public class GetUserFolderMoviesTest extends AbstractTest {
                 .andExpect(jsonPath("$.entities.[0].time").value(107))
                 .andExpect(jsonPath("$.entities.[0].dateRelease").value("30.07.2000"))
                 .andExpect(jsonPath("$.entities.[0].countries").value("French Guiana"))
-                .andExpect(jsonPath("$.entities.[0].genres").value("Приключения, Фантастика, Детектив"))
+                .andExpect(jsonPath("$.entities.[0].genres").value("Детектив, Приключения, Фантастика"))
                 .andExpect(jsonPath("$.entities.[0].director").value("test5Name test5LastName"))
                 .andExpect(jsonPath("$.entities.[0].roles").value("role20, role21"))
                 .andExpect(jsonPath("$.entities.[1].id").value(9L))
@@ -208,7 +208,7 @@ public class GetUserFolderMoviesTest extends AbstractTest {
                 .andExpect(jsonPath("$.entities.[1].time").value(109))
                 .andExpect(jsonPath("$.entities.[1].dateRelease").value("02.08.1985"))
                 .andExpect(jsonPath("$.entities.[1].countries").value("Honduras"))
-                .andExpect(jsonPath("$.entities.[1].genres").value("Фэнтези, Фантастика, Триллер"))
+                .andExpect(jsonPath("$.entities.[1].genres").value("Триллер, Фантастика, Фэнтези"))
                 .andExpect(jsonPath("$.entities.[1].director").value("test5Name test5LastName"))
                 .andExpect(jsonPath("$.entities.[1].roles").value("role25"))
                 .andExpect(jsonPath("$.entities.[2].id").value(1L))
@@ -217,7 +217,7 @@ public class GetUserFolderMoviesTest extends AbstractTest {
                 .andExpect(jsonPath("$.entities.[2].time").value(101))
                 .andExpect(jsonPath("$.entities.[2].dateRelease").value("08.05.1938"))
                 .andExpect(jsonPath("$.entities.[2].countries").value("Slovakia"))
-                .andExpect(jsonPath("$.entities.[2].genres").value("Ужасы, Драма, Фантастика"))
+                .andExpect(jsonPath("$.entities.[2].genres").value("Драма, Ужасы, Фантастика"))
                 .andExpect(jsonPath("$.entities.[2].director").value("test1Name test1LastName"))
                 .andExpect(jsonPath("$.entities.[2].roles").value("role1, role3"));
     }
@@ -245,7 +245,7 @@ public class GetUserFolderMoviesTest extends AbstractTest {
                 .andExpect(jsonPath("$.entities.[1].time").value(111))
                 .andExpect(jsonPath("$.entities.[1].dateRelease").value("28.01.1922"))
                 .andExpect(jsonPath("$.entities.[1].countries").value("Kyrgyzstan"))
-                .andExpect(jsonPath("$.entities.[1].genres").value("Мелодрама, Фэнтези, Комедия"))
+                .andExpect(jsonPath("$.entities.[1].genres").value("Комедия, Мелодрама, Фэнтези"))
                 .andExpect(jsonPath("$.entities.[1].director").value("test1Name test1LastName"))
                 .andExpect(jsonPath("$.entities.[1].roles").value("role31, role32"))
                 .andExpect(jsonPath("$.entities.[2].id").value(8L))
@@ -254,7 +254,7 @@ public class GetUserFolderMoviesTest extends AbstractTest {
                 .andExpect(jsonPath("$.entities.[2].time").value(108))
                 .andExpect(jsonPath("$.entities.[2].dateRelease").value("30.06.1916"))
                 .andExpect(jsonPath("$.entities.[2].countries").value("Guadeloupe"))
-                .andExpect(jsonPath("$.entities.[2].genres").value("Комедия, Мелодрама, Боевик"))
+                .andExpect(jsonPath("$.entities.[2].genres").value("Боевик, Комедия, Мелодрама"))
                 .andExpect(jsonPath("$.entities.[2].director").value("test4Name test4LastName"))
                 .andExpect(jsonPath("$.entities.[2].roles").value("role24"));
     }

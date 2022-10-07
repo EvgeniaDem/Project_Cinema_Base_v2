@@ -1,3 +1,12 @@
+delete from public.news;
+delete from news;
+delete from folders_movies_to_movies;
+delete from folders_movies;
+
+delete from user_role;
+delete from roles;
+delete from users;
+
 INSERT INTO users(id, avatar_url, birthday, email, first_name, last_name, login, password)
 VALUES (300, 'url', '2022-08-14', 'publicist@mail.ru', 'Имя1', 'Фамилия1', 'login_1', '$2a$12$d0JwWidrGyG6UyRVTJ8OOeCdy6vdvrMgjxhlLFjI.0dVFB85.Gw0y');
 

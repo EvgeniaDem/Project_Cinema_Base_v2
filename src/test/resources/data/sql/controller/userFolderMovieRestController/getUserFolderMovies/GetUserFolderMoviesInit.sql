@@ -1,9 +1,11 @@
 delete from public.movie_person;
 delete from public.folders_movies_to_movies;
 delete from public.movie_genre;
+delete from public.persons_marriage;
 delete from public.persons;
 delete from public.score;
 delete from public.user_role;
+delete from public.collections_movies;
 delete from public.movies;
 delete from public.genres;
 delete from public.roles;
@@ -13,7 +15,7 @@ delete from public.professions;
 
 -- users init
 INSERT INTO public.users (id, avatar_url, birthday, email, first_name, last_name, login, password)
-VALUES (1, null, '2022-08-14', 'user1@mail.ru', 'user1', 'userovich1', 'login1', '$2a$12$/FIhv2k1jeNx5YCr6bZLlujKpN5V8V3j7qD16WtMC9Ov/tVhyjUIW'); -- password == 101
+VALUES (1, null, '2022-08-14', 'user1@mail.ru', 'user1', 'userovich1', 'login1', '$2a$12$LxXLdibZ7FKwP/ukWEJ3Me/uMmymL6V1igL9utV2tGL8CBw/ENfcC'); -- password == 101
 INSERT INTO public.users (id, avatar_url, birthday, email, first_name, last_name, login, password)
 VALUES (2, null, '2022-08-15', 'user2@mail.ru', 'user2', 'userovich2', 'login2', '$2a$12$eJQNiWAf01OGGrzY4dYMludZGSZG06myrpsjH0P3SzH7IRbO624h6'); -- password == 102
 INSERT INTO public.users (id, avatar_url, birthday, email, first_name, last_name, login, password)

@@ -9,11 +9,12 @@ import com.kata.cinema.base.models.enums.TopMoviesType;
 import com.kata.cinema.base.models.enums.TypeReview;
 import com.kata.cinema.base.service.dto.*;
 import com.kata.cinema.base.service.entity.ReactionReviewService;
+import com.kata.cinema.base.service.dto.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -27,7 +28,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/movies")
 @Api(tags = "Фильмы")
-@AllArgsConstructor
 public class MovieRestController {
 
     private final MovieDtoService movieDtoService;
@@ -75,7 +75,6 @@ public class MovieRestController {
         return ResponseEntity.ok(topMoviesResponseDtoPaginationService.getPageDtoWithParameters(pageNumber, itemsOnPage, parameters));
     }
 
-
     @GetMapping("/{id}/reviews/page/{pageNumber}")
     ResponseEntity<ReviewMovieResponseDto> getReviews(@PathVariable Long id,
                                                       @PathVariable Integer pageNumber,
@@ -89,7 +88,6 @@ public class MovieRestController {
         return ResponseEntity.ok(reviewMovieResponseDtoService.getReviewMovieResponseDto(id, pageNumber, itemsOnPage, parameters));
     }
 
-
     @GetMapping("/{id}")
     @ApiOperation(value = "Получение фильма")
     @ApiResponses(value = {
@@ -100,5 +98,20 @@ public class MovieRestController {
     public ResponseEntity<MovieViewResponseDto> getMovieViewResponseDto(@PathVariable Long id, @AuthenticationPrincipal User user) {
         if (!movieDtoService.isExistById(id)) throw new NotFoundByIdException("Не существует такое кино");
         return ResponseEntity.ok(movieViewResponseDtoService.getMovieViewResponseDtoById(id, user));
+    }
+
+    @GetMapping("/{id}/materials")
+    @ApiResponses(value = {
+            @ApiResponse(code = 404, message = "Страница отсутствует или не существует указанных элементов"),
+            @ApiResponse(code = 403, message = "Недостаточно прав доступа"),
+            @ApiResponse(code = 401, message = "Проблема с аутентификацией или авторизацией"),
+            @ApiResponse(code = 200, message = "Страница успешно найдена")
+    })
+    public ResponseEntity<PageDto<NewsResponseDto>> getNewsContainMovie(@PathVariable Long id,
+                                                                        @RequestParam(required = false, defaultValue = "10") Integer count) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
+        params.put("count", count);
+        return ResponseEntity.ok(newsResponseDtoPaginationService.getPageDtoWithParameters(null, null, params));
     }
 }
