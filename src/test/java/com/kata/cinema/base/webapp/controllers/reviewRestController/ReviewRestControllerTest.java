@@ -1,13 +1,16 @@
 package com.kata.cinema.base.webapp.controllers.reviewRestController;
 
+import org.hamcrest.core.Is;
 import org.junit.Test;
 import org.springframework.test.context.jdbc.Sql;
 import com.kata.cinema.base.AbstractTest;
 
 import static com.kata.cinema.base.webapp.util.IntegrationTestingAccessTokenUtil.obtainNewAccessToken;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @Sql(value = "/data/sql/controller/reviewRestController/ReviewInit.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(value = "/data/sql/controller/reviewRestController/ReviewClear.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
