@@ -13,4 +13,6 @@
     <include file="testdata/db.changelog-test_data.xml" relativeToChangelogFile="true"/>
     <include file="db/changelog/2022/09/21-01-changelog.sql"/>
     <include file="db/changelog/2022/10/04-01-changelog.sql"/>
+    <include file="db/changelog/2022/11/11-01-changelog.sql"/>
+    <include file="db/changelog/2022/11/11-02-changelog.sql"/>
 </databaseChangeLog>

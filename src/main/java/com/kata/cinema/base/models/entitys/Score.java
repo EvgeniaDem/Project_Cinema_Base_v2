@@ -4,6 +4,7 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -20,7 +21,13 @@ public class Score {
     private Long id;
 
     @Column(name = "score")
-    private Long score;
+    private Integer score;
+
+    /**
+     * дата выставления оценки
+     */
+    @Column(name = "date")
+    private LocalDate date;
 
     @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
