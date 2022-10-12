@@ -1,6 +1,8 @@
 package com.kata.cinema.base.models.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
@@ -12,7 +14,7 @@ import java.time.LocalDate;
 public class ScoreMovieResponseDto {
     Long id;
     Integer score;
-    //LocalDate date;
+    LocalDate date;
     //Integer time;
     Long movieId;
     Long userId;
@@ -22,8 +24,10 @@ public class ScoreMovieResponseDto {
     //Double avgScore;
     //Long countScore;
 
-    public ScoreMovieResponseDto(Long movieId, Long userId) {
+/*    public ScoreMovieResponseDto(Long id, Integer score, Long movieId, Long userId) {
+        this.id = id;
+        this.score = score;
         this.movieId = movieId;
         this.userId = userId;
-    }
+    }*/
 }

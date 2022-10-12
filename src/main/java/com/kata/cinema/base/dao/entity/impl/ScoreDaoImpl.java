@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Repository
 public class ScoreDaoImpl extends AbstractDaoImpl<Long, Score> implements ScoreDao {
@@ -16,13 +17,12 @@ public class ScoreDaoImpl extends AbstractDaoImpl<Long, Score> implements ScoreD
 
     @Override
     public ScoreMovieResponseDto getScoreByMovieAndUser(Long movieId, Long userId) {
-        return entityManager.createQuery("select new com.kata.cinema.base.models.dto.ScoreMovieResponseDto(" +
-                        "s.id, s.score,)" +
-
-                        "from Score s where s.movie =: movieId and s.user =: userId", ScoreMovieResponseDto.class)
-                //.setParameter("id", movieId)
-                .setParameter("movie", movieId)
-                .setParameter("user", userId)
-                .getSingleResult();
+        List<ScoreMovieResponseDto> resultList = entityManager.createQuery("select new com.kata.cinema.base.models.dto.ScoreMovieResponseDto(" +
+                        "s.id, s.score, s.date, s.movie.id, s.user.id)" +
+                        "from Score s where s.movie.id = :movieId and s.user.id = :userId", ScoreMovieResponseDto.class)
+                .setParameter("movieId", movieId)
+                .setParameter("userId", userId)
+                .getResultList();
+        return resultList.isEmpty() ? null : resultList.get(0);
     }
 }
