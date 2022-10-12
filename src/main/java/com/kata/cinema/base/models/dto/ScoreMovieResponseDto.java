@@ -12,22 +12,15 @@ import java.time.LocalDate;
 //@RequiredArgsConstructor
 @AllArgsConstructor
 public class ScoreMovieResponseDto {
-    Long id;
-    Integer score;
-    LocalDate date;
-    //Integer time;
-    Long movieId;
-    Long userId;
-    //String name;
-    //String originalName;
-    //LocalDate dateRelease;
-    //Double avgScore;
-    //Long countScore;
-
-/*    public ScoreMovieResponseDto(Long id, Integer score, Long movieId, Long userId) {
-        this.id = id;
-        this.score = score;
-        this.movieId = movieId;
-        this.userId = userId;
-    }*/
+    private Long id;
+    private Integer score;
+    private LocalDate date;
+    //private Integer time;
+    private Long movieId;
+    private Long userId;
+    //private String name;
+    //private String originalName;
+    //private LocalDate dateRelease;
+    //private Double avgScore;
+    //private Long countScore;
 }

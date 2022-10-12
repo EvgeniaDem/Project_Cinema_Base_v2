@@ -2,6 +2,7 @@ package com.kata.cinema.base.webapp.controllers.user;
 
 import com.kata.cinema.base.dao.entity.ScoreDao;
 import com.kata.cinema.base.models.MovieScoreRequest;
+import com.kata.cinema.base.models.MovieScoreResponse;
 import com.kata.cinema.base.models.entitys.User;
 import com.kata.cinema.base.service.entity.ScoreService;
 import io.swagger.annotations.ApiOperation;
@@ -30,10 +31,10 @@ public class MovieRatingController {
             @ApiResponse(code = 402, message = "Вы уже оценивали фильм"),
             @ApiResponse(code = 403, message = "Оценка находится за пределами допустимого диапазона")
     })
-    public ResponseEntity<Void> addRating(@RequestBody MovieScoreRequest movieScoreRequest, @AuthenticationPrincipal User user) {
+    public ResponseEntity<MovieScoreResponse> addRating(@RequestBody MovieScoreRequest movieScoreRequest, @AuthenticationPrincipal User user) {
         log.info("Получен фильм: {}, user: {}", movieScoreRequest, user);
-        scoreService.createRating(movieScoreRequest, user);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        MovieScoreResponse response = scoreService.createRating(movieScoreRequest, user);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 
