@@ -1,7 +1,5 @@
 package com.kata.cinema.base.dao.entity;
 
-import org.springframework.stereotype.Repository;
-
 import java.util.List;
 import java.util.Optional;
 

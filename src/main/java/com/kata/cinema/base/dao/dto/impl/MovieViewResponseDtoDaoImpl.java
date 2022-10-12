@@ -5,14 +5,11 @@ import com.kata.cinema.base.models.dto.response.CastResponseDto;
 import com.kata.cinema.base.models.dto.response.MoviePersonResponseDto;
 import com.kata.cinema.base.models.dto.response.MovieViewResponseDto;
 import com.kata.cinema.base.models.entitys.User;
-
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Tuple;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
